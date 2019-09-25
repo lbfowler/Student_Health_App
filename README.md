@@ -38,3 +38,16 @@ Note: Delete old app in the emulator if it is installed already
 ```
 react-native run-android
 ```
+
+# Project Structure
+```
+- android
+- ios
+- screens
+    - screen 1
+        - App.js
+        - App.style.js
+    - screen 2
+        ...
+        
+```
