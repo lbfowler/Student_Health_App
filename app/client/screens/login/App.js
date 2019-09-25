@@ -1,6 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Login Page
  *
  * @format
  * @flow
@@ -22,49 +21,32 @@ import {
 } from 'react-native';
 
 import styles from './App.style'
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import UserAPI from '../../api/user.api'
 
 export default class MainPage extends Component {
     constructor(props) {
         super(props);
- 
+        this.state = {};
     }
-    login(username, password, callback) {
-        if (username == null || password == null) return;
-        console.log(username);
-        console.log(password);
-        fetch('http://sandcatgo.com:8888/login', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body:  JSON.stringify({
-                username: username,
-                password: password,
-            }),
-        })
-        .then((res) => res.json()) 
-        .then((data) => {
-            callback(data);
-        });
-    }
-    showReuslt(data)
-    {
-        Alert.alert(
-            'Server Response',
-            JSON.stringify(data),
-            [
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );
+    async login(){
+        const result = await UserAPI.loginAsync(this.state.username, this.state.password);
+        console.log(result);
+        if (result.success) {
+            Alert.alert(
+                'Server Response',
+                result.message,
+                [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                {cancelable: false},
+            );
+        }
+        else {
+            Alert.alert(
+                'Faild To Login',
+                result.message,
+                [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                {cancelable: false},
+            );
+        }
     }
     render() {
         return (
@@ -74,7 +56,7 @@ export default class MainPage extends Component {
                 <TextInput style={styles.textBox} placeholder="Password" secureTextEntry={true} onChangeText={(text) => this.setState({ password: text })} />
                 <TouchableOpacity
                     style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.login(this.state.username, this.state.password, this.showReuslt)}>
+                    onPress={() => this.login()}>
                     <Text style={styles.loginButtonText}>Sign In</Text>
                 </TouchableOpacity>
             </View>
