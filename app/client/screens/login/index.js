@@ -38,6 +38,7 @@ export class LoginScreen extends Component {
                 [{text: 'OK', onPress: () => console.log('OK Pressed')},],
                 {cancelable: false},
             );
+            this.props.navigation.navigate('Sample');
         }
         else {
             Alert.alert(
