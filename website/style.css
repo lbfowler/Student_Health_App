@@ -1,0 +1,97 @@
+html{
+    height: 100%;
+    width: 100%;
+}
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.flow-container{
+    display: flex;
+    flex-direction: column;
+}
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    left: 0;
+    padding: 100px;
+    background-image: linear-gradient(176deg, #22313F 70%, #F4F4F4 calc(70% + 1px));
+
+}
+.main-content img{
+    background-image: url(devices.svg);
+    width: 40%;
+    padding-bottom: 40%;
+    /* height: 40%; */
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 100px;
+    filter: drop-shadow(1px 1px 5px rgba(51, 51, 51, 0.548));
+}
+.introduction{
+    /* margin-left: 100px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    margin-right: 100px;
+}
+.introduction h1{
+    font-size: 50px;
+    font-weight: 400;
+    margin: 0;
+    color: white;
+}
+.introduction p{
+    width: 100%;
+    font-size: 30px;
+    color: whitesmoke;
+    margin-bottom: 100px;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.button.large{
+    width: 150px;
+    height: 50px;
+    font-size: 30px;
+}
+.button.ex-large{
+    width: 250px;
+    height: 80px;
+    font-size: 40px;
+}
+
+.button.hollow{
+    background-color: transparent !important;
+    border: 1px solid;
+}
+.button.blue{
+    background-color: #2196f3;
+    /* border-left: 1px solid #70bfee;
+    border-top: 1px solid #70bfee; */
+    border-right: 1px solid #327190;
+    border-bottom: 2px solid #327190;
+    color: white;
+}
+.button.gray{
+    background-color: gray;
+    border-color: gray;
+    color: white;
+}
+.flex-row{
+    flex-direction: row;
+}
+.flex-column{
+    flex-direction: column;
+}
