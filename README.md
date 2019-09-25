@@ -10,6 +10,7 @@ The following applications are required to build the app.
 Follow the [Getting Started](https://facebook.github.io/react-native/docs/getting-started) to install those dependencies, it is important to make sure each step done correctly.
 
 Assuming you have Git installed on your computer, clone the repository
+
 In terminal
 ```
 git clone https://github.com/fdbostwick/SHWBApp.git
@@ -32,6 +33,7 @@ Open Android Studio, Select `Tools-AVD Manager`, create your vitual device and m
 Then right click on the device, select `Cold Boot Now`, wait for home screen show up
 
 In terminal, go back to `client` folder `cd ..\..`
+
 Note: Delete old app in the emulator if it is installed already
 ```
 react-native run-android
