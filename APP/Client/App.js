@@ -33,7 +33,7 @@ import {
 export default class MainPage extends Component {
     constructor(props) {
         super(props);
-
+ 
     }
     login(username, password, callback) {
         if (username == null || password == null) return;
