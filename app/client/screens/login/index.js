@@ -20,10 +20,10 @@ import {
     StatusBar,
 } from 'react-native';
 
-import styles from './App.style'
+import styles from './index.style'
 import UserAPI from '../../api/user.api'
 
-export default class MainPage extends Component {
+export class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -64,6 +64,4 @@ export default class MainPage extends Component {
     }
     
 };
-
-
-
+export default LoginScreen;
