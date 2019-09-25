@@ -60,6 +60,11 @@ export class LoginScreen extends Component {
                     onPress={() => this.login()}>
                     <Text style={styles.loginButtonText}>Sign In</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.loginButton]}
+                    onPress={() => this.props.navigation.navigate('Profile')}>
+                    <Text style={styles.loginButtonText}>Profile Page</Text>
+                </TouchableOpacity>
             </View>
         );
     }
