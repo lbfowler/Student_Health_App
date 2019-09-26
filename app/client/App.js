@@ -11,10 +11,12 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/login/index'
 import SampleScreen from './screens/sample/index'
 import ProfileScreen from './screens/profile/index'
+import JournalScreen from './screens/journal/index'
 const AppNavigator = createStackNavigator ({
   Login: {screen: LoginScreen},
   Sample: {screen: SampleScreen},
-  Profile: {screen: ProfileScreen}
+  Profile: {screen: ProfileScreen},
+  Journal: {screen: JournalScreen},
 },
 {
     headerMode: 'none',

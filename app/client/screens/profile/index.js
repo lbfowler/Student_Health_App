@@ -22,19 +22,27 @@ import {
 
 import styles from './index.style'
 
-export class SampleScreen extends Component {
+export class ProfileScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            date: '',
+        };
     }
+    
     
     render() {
         return (
             <View style={styles.mainContainer}>
-                <Text style={styles.loginButtonText}>This is  the Profile Page</Text>
+                <Text style={styles.loginButtonText}>{this.state.date}</Text>
+            <TouchableOpacity
+                style={[styles.buttonContainer, styles.bottomButton]}
+                onPress={() => this.props.navigation.navigate('Journal')}>
+                <Text style={styles.loginButtonText}>Profile Page</Text>
+            </TouchableOpacity>
             </View>
         );
     }
     
 };
-export default SampleScreen;
+export default ProfileScreen;

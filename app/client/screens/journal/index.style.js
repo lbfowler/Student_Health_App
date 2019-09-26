@@ -7,12 +7,6 @@ export default StyleSheet.create({
         flexDirection: 'column',
         padding: 20,
     },
-    buttonConatainer: {
-
-    },
-    bottomButton: {
-
-    },
     
   });
   
