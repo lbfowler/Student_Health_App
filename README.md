@@ -53,7 +53,8 @@ react-native run-android
         ...
 - App.js                    // App entry point
 ```
-
+# Achitecture
+![Alt text](/res/Architecture.png?raw=true)
 # Create New Screen
 Suppose we want to create a screen called `Home`
 
