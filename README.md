@@ -55,11 +55,11 @@ react-native run-android
 ```
 
 # Create New Screen
-Suppose we want to create a screen called 'Home'
+Suppose we want to create a screen called `Home`
 
-Go to `screens` folder, create a new folder 'home'
+Go to `screens` folder, create a new folder `home`
 
-Copy and paste the files from `sample` folder to 'home'
+Copy and paste the files from `sample` folder to `home'`
 
 Change the name of class inside `index.js`
 ```javascript
