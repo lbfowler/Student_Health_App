@@ -40,7 +40,7 @@ react-native run-android
 ```
 
 # Project Structure
-```
+```javascript
 - android
 - ios
 - api
@@ -62,38 +62,33 @@ Go to `screens` folder, create a new folder 'home'
 Copy and paste the files from `sample` folder to 'home'
 
 Change the name of class inside `index.js`
-```
-<pre>
-export class <s>SampleScreen</s> HomeScreen extends Component{
+```javascript
+export class HomeScreen extends Component{
     ...
     ...
 };
-export default <s>SampleScreen</s> HomeScreen;
-</pre>
+export default HomeScreen;
 ```
 
 Then open App.js file, add a new import and a navigator entry
-```
-<pre>
+```javascript
 import LoginScreen from './screens/login/index'
 import SampleScreen from './screens/sample/index'
 import ProfileScreen from './screens/profile/index'
-<b>import HomeScreen from './screens/home/index'</b>
+import HomeScreen from './screens/home/index'
 
 const AppNavigator = createStackNavigator ({
   Login: {screen: LoginScreen},
   Sample: {screen: SampleScreen},
   Profile: {screen: ProfileScreen},
-  <b>Home: {screen: HomeScreen}</b>
+  Home: {screen: HomeScreen}
 },
-</pre>
 ```
 
 Now we need to add a button in login screen for us to access home page
 
 Create a new TouchableOpacity which is button in `login\index.js`
-```
-<pre>
+```javascript
 <View style={styles.mainContainer}>
     ...
     <TouchableOpacity
@@ -101,13 +96,12 @@ Create a new TouchableOpacity which is button in `login\index.js`
         onPress={() => this.props.navigation.navigate('Profile')}>
         <Text style={styles.loginButtonText}>Profile Page</Text>
     </TouchableOpacity>
-    <b><TouchableOpacity
+    <TouchableOpacity
         style={[styles.buttonContainer, styles.loginButton]}
         onPress={() => this.props.navigation.navigate('Home')}>
         <Text style={styles.loginButtonText}>Home Page</Text>
-    </TouchableOpacity></b>
+    </TouchableOpacity>
 </View>
-</pre>
 ```
 
 You may need to recompile the project
