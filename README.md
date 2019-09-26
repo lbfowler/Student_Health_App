@@ -63,11 +63,11 @@ Copy and paste the files from `sample` folder to 'home'
 
 Change the name of class inside `index.js`
 ```
-export class ~~SampleScreen~~ HomeScreen extends Component{
+export class <s>SampleScreen</s> HomeScreen extends Component{
     ...
     ...
 };
-export default ~~SampleScreen~~ HomeScreen;
+export default <s>SampleScreen</s> HomeScreen;
 ```
 
 Then open App.js file, add a new import and a navigator entry
@@ -75,13 +75,13 @@ Then open App.js file, add a new import and a navigator entry
 import LoginScreen from './screens/login/index'
 import SampleScreen from './screens/sample/index'
 import ProfileScreen from './screens/profile/index'
-**import HomeScreen from './screens/home/index'**
+<b>import HomeScreen from './screens/home/index'</b>
 
 const AppNavigator = createStackNavigator ({
   Login: {screen: LoginScreen},
   Sample: {screen: SampleScreen},
   Profile: {screen: ProfileScreen},
-  **Home: {screen: HomeScreen}**
+  <b>Home: {screen: HomeScreen}</b>
 },
 ```
 
@@ -96,11 +96,11 @@ Create a new TouchableOpacity which is button in `login\index.js`
         onPress={() => this.props.navigation.navigate('Profile')}>
         <Text style={styles.loginButtonText}>Profile Page</Text>
     </TouchableOpacity>
-    **<TouchableOpacity
+    <b><TouchableOpacity
         style={[styles.buttonContainer, styles.loginButton]}
         onPress={() => this.props.navigation.navigate('Home')}>
         <Text style={styles.loginButtonText}>Home Page</Text>
-    </TouchableOpacity>**
+    </TouchableOpacity></b>
 </View>
 ```
 
