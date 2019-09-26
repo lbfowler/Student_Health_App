@@ -40,7 +40,7 @@ react-native run-android
 ```
 
 # Project Structure
-```javascript
+```
 - android
 - ios
 - api
@@ -59,7 +59,7 @@ Suppose we want to create a screen called `Home`
 
 Go to `screens` folder, create a new folder `home`
 
-Copy and paste the files from `sample` folder to `home'`
+Copy and paste the files from `sample` folder to `home`
 
 Change the name of class inside `index.js`
 ```javascript
@@ -110,3 +110,6 @@ react-native run-android
 ```
 
 A new screen is created!
+
+# Troubleshooting 
+ 
