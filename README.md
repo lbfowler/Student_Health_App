@@ -63,15 +63,18 @@ Copy and paste the files from `sample` folder to 'home'
 
 Change the name of class inside `index.js`
 ```
+<pre>
 export class <s>SampleScreen</s> HomeScreen extends Component{
     ...
     ...
 };
 export default <s>SampleScreen</s> HomeScreen;
+</pre>
 ```
 
 Then open App.js file, add a new import and a navigator entry
 ```
+<pre>
 import LoginScreen from './screens/login/index'
 import SampleScreen from './screens/sample/index'
 import ProfileScreen from './screens/profile/index'
@@ -83,12 +86,14 @@ const AppNavigator = createStackNavigator ({
   Profile: {screen: ProfileScreen},
   <b>Home: {screen: HomeScreen}</b>
 },
+</pre>
 ```
 
 Now we need to add a button in login screen for us to access home page
 
 Create a new TouchableOpacity which is button in `login\index.js`
 ```
+<pre>
 <View style={styles.mainContainer}>
     ...
     <TouchableOpacity
@@ -102,6 +107,7 @@ Create a new TouchableOpacity which is button in `login\index.js`
         <Text style={styles.loginButtonText}>Home Page</Text>
     </TouchableOpacity></b>
 </View>
+</pre>
 ```
 
 You may need to recompile the project
