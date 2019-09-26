@@ -1,6 +1,6 @@
 # SHWBApp
 Student health and well being app UA - 
-This app is for students at the University of Alabama to help them answer questions about their heealth and wellbeing, monitor their progression and connect them to resources that the university offers.
+This app is for students at the University of Alabama to provide survey questions about their health and wellbeing, monitor their own progression, and connect them to resources that the university offers. The data collected through this app will give the University a better understanding of their student body, so they can provide a more complete experience.   
 # Build
 The following applications are required to build the app.
 - React Native CLI
