@@ -31,7 +31,7 @@ export class SampleScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <Text style={styles.loginButtonText}>This is the Profile Page</Text>
+                <Text style={styles.loginButtonText}>This is  the Profile Page</Text>
             </View>
         );
     }
