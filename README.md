@@ -43,11 +43,70 @@ react-native run-android
 ```
 - android
 - ios
+- api
+    - *.api.js              // Collection of functions call to the server
 - screens
     - screen 1
-        - App.js
-        - App.style.js
+        - index.js          // Screen rendering file, contains internal functions
+        - index.style.js    // Screen styling file
     - screen 2
         ...
-        
+- App.js                    // App entry point
 ```
+
+# Create New Screen
+Suppose we want to create a screen called 'Home'
+
+Go to `screens` folder, create a new folder 'home'
+
+Copy and paste the files from `sample` folder to 'home'
+
+Change the name of class inside `index.js`
+```
+export class ~~SampleScreen~~ HomeScreen extends Component{
+    ...
+    ...
+};
+export default ~~SampleScreen~~ HomeScreen;
+```
+
+Then open App.js file, add a new import and a navigator entry
+```
+import LoginScreen from './screens/login/index'
+import SampleScreen from './screens/sample/index'
+import ProfileScreen from './screens/profile/index'
+**import HomeScreen from './screens/home/index'**
+
+const AppNavigator = createStackNavigator ({
+  Login: {screen: LoginScreen},
+  Sample: {screen: SampleScreen},
+  Profile: {screen: ProfileScreen},
+  **Home: {screen: HomeScreen}**
+},
+```
+
+Now we need to add a button in login screen for us to access home page
+
+Create a new TouchableOpacity which is button in `login\index.js`
+```
+<View style={styles.mainContainer}>
+    ...
+    <TouchableOpacity
+        style={[styles.buttonContainer, styles.loginButton]}
+        onPress={() => this.props.navigation.navigate('Profile')}>
+        <Text style={styles.loginButtonText}>Profile Page</Text>
+    </TouchableOpacity>
+    **<TouchableOpacity
+        style={[styles.buttonContainer, styles.loginButton]}
+        onPress={() => this.props.navigation.navigate('Home')}>
+        <Text style={styles.loginButtonText}>Home Page</Text>
+    </TouchableOpacity>**
+</View>
+```
+
+You may need to recompile the project
+```
+react-native run-android
+```
+
+A new screen is created!
