@@ -25,7 +25,9 @@ import styles from './index.style'
 export class JournalScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            date: ' ',
+        };
     }
     componentDidMount(){
         var month = new Date().getMonth() + 1;

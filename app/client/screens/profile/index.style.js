@@ -7,12 +7,17 @@ export default StyleSheet.create({
         flexDirection: 'column',
         padding: 20,
     },
-    buttonConatainer: {
+    bottomContainer: {
 
     },
-    bottomButton: {
+    buttonContainer: {
 
     },
-    
+    button: {
+
+    },
+    buttonText: {
+
+    },    
   });
   
