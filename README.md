@@ -56,10 +56,15 @@ react-native run-android
 # Achitecture
 ![Alt text](/res/Architecture.png?raw=true)
 # Debugging
-In Emulator
+## In Emulator
 
 <kbd>CTRL</kbd>+<kbd>M</kbd>: Open menu
+
 <kbd>R</kbd>+<kbd>R</kbd>: Reload
+
+>To debug the JavaScript code in Chrome, select "Debug JS Remotely" from the Developer Menu. This will open a new tab at http://localhost:8081/debugger-ui.
+
+>Select Tools → Developer Tools from the Chrome Menu to open the Developer Tools. You may also access the DevTools >using keyboard shortcuts (⌘⌥I on macOS, Ctrl Shift I on Windows). You may also want to enable Pause On Caught >Exceptions for a better debugging experience.
 
 # Create New Screen
 Suppose we want to create a screen called `Home`
