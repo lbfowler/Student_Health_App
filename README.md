@@ -55,6 +55,12 @@ react-native run-android
 ```
 # Achitecture
 ![Alt text](/res/Architecture.png?raw=true)
+# Debugging
+In Emulator
+
+<kbd>CTRL</kbd>+<kbd>M</kbd>: Open menu
+<kbd>R</kbd>+<kbd>R</kbd>: Reload
+
 # Create New Screen
 Suppose we want to create a screen called `Home`
 

@@ -9,8 +9,7 @@ const UserAPI = {
         const response = await fetch('http://sandcatgo.com:8888/login', {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
+                Accept: 'application/json', 'Content-Type': 'application/json',
             },
             body:  JSON.stringify({
                 username: username,
