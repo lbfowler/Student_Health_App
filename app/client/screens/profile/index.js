@@ -18,11 +18,12 @@ import {
     TouchableOpacity,
     TextInput,
     StatusBar,
+    Header,
 } from 'react-native';
 
 import styles from './index.style'
 
-export class SampleScreen extends Component {
+export class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -30,11 +31,25 @@ export class SampleScreen extends Component {
     
     render() {
         return (
-            <View style={styles.mainContainer}>
-                <Text style={styles.loginButtonText}>This is  the Profile Page</Text>
+            <View style={styles.bottomContainer}>    
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.button]}
+                    onPress={() => this.props.navigation.navigate('Journal')}>
+                    <Text style={styles.buttonText}>Journal</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.button]}
+                    onPress={() => this.props.navigation.navigate('TrendChart')}>
+                    <Text style={styles.buttonText}>Trend Chart</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.button]}
+                    onPress={() => this.props.navigation.navigate('Badges')}>
+                    <Text style={styles.buttonText}>Badges</Text>
+                </TouchableOpacity>    
             </View>
         );
     }
     
 };
-export default SampleScreen;
+export default ProfileScreen;
