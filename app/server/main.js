@@ -4,9 +4,10 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-const userProfileDB = new nedb({ filename: "./userProfile.db", autoload: true });
-const userDataDB = new nedb({ filename: "./userData.db", autoload: true });
-const qualtricDB = new nedb({ filename: "./qualtric.db", autoload: true });
+var currentDir = __dirname;
+const userProfileDB = new nedb({ filename: currentDir + "/userProfile.db", autoload: true });
+const userDataDB = new nedb({ filename: currentDir + "/userData.db", autoload: true });
+const qualtricDB = new nedb({ filename: currentDir + "/qualtric.db", autoload: true });
 
 var app = express();
 const port = 8888;
