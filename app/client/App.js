@@ -12,11 +12,13 @@ import LoginScreen from './screens/login/index'
 import SampleScreen from './screens/sample/index'
 import ProfileScreen from './screens/profile/index'
 import JournalScreen from './screens/journal/index'
+import AcademicScreen from './screens/academic/index'
 const AppNavigator = createStackNavigator ({
   Login: {screen: LoginScreen},
   Sample: {screen: SampleScreen},
   Profile: {screen: ProfileScreen},
   Journal: {screen: JournalScreen},
+  Academic: {screen: AcademicScreen},
 },
 {
     headerMode: 'none',
