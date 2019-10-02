@@ -35,12 +35,34 @@ export class ProfileScreen extends Component {
             physical: '3.1 Physical',
             social: '3.8 Social',
             spiritual: '1.9 Spiritual',
+            menu: '',
         };
     }
     
     render() {
         return (
             <View style={styles.mainContainer}>
+                <View style={styles.header}>
+                    <Text style={styles.portrait}>
+                        Photo
+                    </Text>
+                    <Image 
+                        style={styles.logo}
+                        source={require('./UA-StackedNameplate_PMS201.png')}
+                    />
+                    <Picker    
+                        style={styles.picker}
+                        selectedValue={this.state.menu}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({menu: itemValue})
+                    }>
+                        <Picker.Item label="Home" value="home"/>
+                        <Picker.Item label="Profile" value="profile"/>
+                        <Picker.Item label="Resources" value="resource"/>
+                        <Picker.Item label="Survey" value="survey"/>
+                        <Picker.Item label="Campus Map" value="map"/>
+                    </Picker>    
+                </View>
                 <Text style={styles.name}>User Name Here</Text>
                 <View style={styles.lineStyle} />
                 <TouchableOpacity
@@ -77,8 +99,7 @@ export class ProfileScreen extends Component {
                     style={[styles.buttonCont,styles.blueButton]}
                     onPress={() => this.props.navigation.navigate('Academic')}>
                     <Text style={styles.buttonText}>{this.state.spiritual}</Text>    
-                </TouchableOpacity>          
-            <View style={styles.bottomContainer}>    
+                </TouchableOpacity>              
                 <TouchableOpacity
                     style={[styles.buttonContainer,styles.button]}
                     onPress={() => this.props.navigation.navigate('Journal')}>
@@ -94,7 +115,6 @@ export class ProfileScreen extends Component {
                     onPress={() => this.props.navigation.navigate('Badges')}>
                     <Text style={styles.buttonText}>Badges</Text>
                 </TouchableOpacity>    
-            </View>
             </View>
         );
     }
