@@ -41,16 +41,18 @@ export class HomeScreen extends Component {
                             {/* <Text style={styles.loginButtonText}>Profile</Text> */}
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.uaContainer}>
+                <Image style={styles.ualogo} source={require('./buttons/ualogo.png')} />
+                    </View>
                     <View style={styles.ddContainer}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
                             <Image style={styles.hamburger} source={require('./buttons/hamburger.png')} />
                         </TouchableOpacity>
                     </View>
                 </View>
-                <Image style={styles.ualogo} source={require('./buttons/ualogo.png')} />
                 {/* viewBox="0 0 297.46 297.92" */}
                 <View style={styles.svgWrapper}>
-                <Svg height= '400' width = "400"  viewBox="0 0 297.46 297.92">
+                <Svg height= '100%' width = '100%'  viewBox="0 0 297.46 297.92">
                 {/* spiritual */}
                     <TouchableOpacityG onPress={e => {this.props.navigation.navigate('Login')}}>
                     <Path d="M113.71,63.34l-35-35.54a9.72,9.72,0,0,0-12.43-1.19C55.6,34,34.94,50,23.77,70.43A4.74,4.74,0,0,0,24.55,76L61.7,113.78a93.49,93.49,0,0,1,52-50.44" fill="#8fd2c7" fillOpacity = '1' onPress={() => alert('Spiritual')} touchableGetHighlightDelayMS/>
@@ -110,7 +112,7 @@ export class HomeScreen extends Component {
                 </View>
                 <View style={styles.bottomButtonContainer}>
                     <TouchableOpacity
-                        style={[styles.buttonContainerTop, styles.loginButton]}
+                        style={[styles.buttonContainer, styles.loginButton]}
                         onPress={() => this.props.navigation.navigate('Journal')}>
                         <Text style={styles.loginButtonText}>Journal</Text>
                     </TouchableOpacity>
