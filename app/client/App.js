@@ -13,17 +13,19 @@ import SampleScreen from './screens/sample/index'
 import ProfileScreen from './screens/profile/index'
 import JournalScreen from './screens/journal/index'
 import AcademicScreen from './screens/academic/index'
+import HomeScreen from './screens/home/index'
 const AppNavigator = createStackNavigator ({
   Login: {screen: LoginScreen},
   Sample: {screen: SampleScreen},
   Profile: {screen: ProfileScreen},
   Journal: {screen: JournalScreen},
   Academic: {screen: AcademicScreen},
+  Home: {screen: HomeScreen},
 },
 {
     headerMode: 'none',
     navigationOptions: {
-        headerVisible: false,
+        headerVisible: true,
     }
 });
 

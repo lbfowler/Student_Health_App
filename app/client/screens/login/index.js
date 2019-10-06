@@ -65,6 +65,11 @@ export class LoginScreen extends Component {
                     onPress={() => this.props.navigation.navigate('Profile')}>
                     <Text style={styles.loginButtonText}>Profile Page</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.loginButton]}
+                    onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text style={styles.loginButtonText}>Home</Text>
+                </TouchableOpacity>
             </View>
         );
     }
