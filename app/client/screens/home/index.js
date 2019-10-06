@@ -41,13 +41,13 @@ export class HomeScreen extends Component {
                             {/* <Text style={styles.loginButtonText}>Profile</Text> */}
                         </TouchableOpacity>
                     </View>
-                <Image style={styles.ualogo} source={require('./buttons/ualogo.png')} />
                     <View style={styles.ddContainer}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
                             <Image style={styles.hamburger} source={require('./buttons/hamburger.png')} />
                         </TouchableOpacity>
                     </View>
                 </View>
+                <Image style={styles.ualogo} source={require('./buttons/ualogo.png')} />
                 {/* viewBox="0 0 297.46 297.92" */}
                 <View style={styles.svgWrapper}>
                 <Svg height= '400' width = "400"  viewBox="0 0 297.46 297.92">
@@ -108,21 +108,23 @@ export class HomeScreen extends Component {
                     <Path d="M202.7,200.4a.84.84,0,0,0-.84-.84h-1.2v2.84h.52v-1.16h.39l.54,1.16h.59l-.56-1.2A.85.85,0,0,0,202.7,200.4Zm-.84.31h-.68v-.62h.68a.31.31,0,1,1,0,.62Z" fill="#989898"/>
                 </Svg>
                 </View>
-                <TouchableOpacity
-                    style={[styles.buttonContainerTop, styles.loginButton]}
-                    onPress={() => this.props.navigation.navigate('Journal')}>
-                    <Text style={styles.loginButtonText}>Journal</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.props.navigation.navigate('Profile')}>
-                    <Text style={styles.loginButtonText}>Trend Chart</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.props.navigation.navigate('Profile')}>
-                    <Text style={styles.loginButtonText}>Badges</Text>
-                </TouchableOpacity>
+                <View style={styles.bottomButtonContainer}>
+                    <TouchableOpacity
+                        style={[styles.buttonContainerTop, styles.loginButton]}
+                        onPress={() => this.props.navigation.navigate('Journal')}>
+                        <Text style={styles.loginButtonText}>Journal</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonContainer, styles.loginButton]}
+                        onPress={() => this.props.navigation.navigate('Profile')}>
+                        <Text style={styles.loginButtonText}>Trend Chart</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonContainer, styles.loginButton]}
+                        onPress={() => this.props.navigation.navigate('Profile')}>
+                        <Text style={styles.loginButtonText}>Badges</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }

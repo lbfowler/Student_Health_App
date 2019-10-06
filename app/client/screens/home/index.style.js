@@ -5,9 +5,8 @@ export default StyleSheet.create({
         backgroundColor: 'rgb(233,233,233)',
         height: '100%',
         flexDirection: 'column',
-        flex: 16/16,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         padding: 0,
         marginTop: 0,
     },
@@ -45,10 +44,11 @@ export default StyleSheet.create({
     },
     topBar: {
         flexDirection: 'row',
+        alignSelf: 'center',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         width: "95%",
-        marginTop: 0,
+        marginTop: 10,
         marginBottom: 10,
     },
     pbContainer: {
@@ -83,6 +83,12 @@ export default StyleSheet.create({
         height: 400,
         justifyContent: 'center',
         alignItems: 'flex-start',
+    },
+    bottomButtonContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: "100%",
+        marginBottom: 30,
     }
   });
   
