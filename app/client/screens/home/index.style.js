@@ -16,7 +16,7 @@ export default StyleSheet.create({
         width: '50%',
         height: 40,
         borderRadius: 20,
-        marginTop: 10,
+        marginTop: 13,
       },
     loginButton: {
         backgroundColor: 'rgb(163, 0, 0)',
@@ -34,7 +34,7 @@ export default StyleSheet.create({
         width: "94%",
         marginTop: "1%",
         marginBottom: "1%",
-        flex: 2.5/20,
+        flex: 3/20,
     },
     pbContainer: {
         alignItems: 'flex-start',
@@ -62,27 +62,26 @@ export default StyleSheet.create({
         transform: [
             {scale: .75}
         ],
-        marginTop: "13%",
+        marginTop: "1%",
     },
     ualogo: {
         justifyContent: 'center',
-        transform: [
-            {scale: .35}
-        ],
+        width: 300,
+        height: 80,
     },
     svgWrapper: {
         width: "95%",
         height: "100%",
         justifyContent: 'center',
         alignItems: 'flex-start',
-        flex: 13/20,
+        flex: 12.5/20,
     },
     bottomButtonContainer: {
         flexDirection: 'column',
         justifyContent: 'center',
-        width: "100%",
+        width: 400,
         marginBottom: "2%",
-        marginTop: "1%",
+        marginTop: "5%",
         flex: 5.5/20,
     }
   });
