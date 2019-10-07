@@ -151,7 +151,7 @@ export class HomeScreen extends Component {
                             fill={this.state.colorGray}/>
                     </Svg>
                 </View>
-                <View style={styles.bottomButtonContainer}>
+                {/* <View style={styles.bottomButtonContainer}> */}
                     <TouchableOpacity
                         style={[styles.buttonContainer, styles.loginButton]}
                         onPress={() => this.props.navigation.navigate('Journal')}>
@@ -167,7 +167,7 @@ export class HomeScreen extends Component {
                         onPress={() => this.props.navigation.navigate('Profile')}>
                         <Text style={styles.loginButtonText}>Badges</Text>
                     </TouchableOpacity>
-                </View>
+                {/* </View> */}
             </View>
         );
     }
