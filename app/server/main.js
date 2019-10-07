@@ -18,7 +18,9 @@ app.post('/login', function (req, res) {
     var password = req.body.password;
     console.log(username, password);
     res.end(JSON.stringify({
-        status: 'OK',
+        success: true,
+        errorCode: null,
+        message: 'Login Success',
     }));
 })
 

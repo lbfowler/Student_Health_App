@@ -28,26 +28,38 @@ export class LoginScreen extends Component {
         super(props);
         this.state = {};
     }
-    async login(){
-        const result = await UserAPI.loginAsync(this.state.username, this.state.password);
-        console.log(result);
-        if (result.success) {
-            Alert.alert(
-                'Server Response',
-                result.message,
-                [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-                {cancelable: false},
-            );
-            this.props.navigation.navigate('Sample');
-        }
-        else {
-            Alert.alert(
-                'Faild To Login',
-                result.message,
-                [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-                {cancelable: false},
-            );
-        }
+    loginAsync(){
+        UserAPI.loginAsync(this.state.username, this.state.password)
+            .then((result) => {
+                if (result.success) this.props.navigation.navigate('Sample');
+            })
+            .catch((error) => Alert.alert('Faild To Login', error.message));
+        // console.log(result);
+        
+        // else 
+        //     //             [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+            //             {cancelable: false},
+            //         );
+            // .then((result) => {
+            //     if (result.success) {
+            //         Alert.alert(
+            //             'Server Response',
+            //             result.message,
+            //             [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+            //             {cancelable: false},
+            //         );
+            //         this.props.navigation.navigate('Sample');
+            //     }
+            //     else{
+            //         Alert.alert(
+            //             'Faild To Login',
+            //             result.message,
+            //             [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+            //             {cancelable: false},
+            //         );
+            //     }
+            // });
+        
     }
     render() {
         return (
@@ -57,7 +69,7 @@ export class LoginScreen extends Component {
                 <TextInput style={styles.textBox} placeholder="Password" secureTextEntry={true} onChangeText={(text) => this.setState({ password: text })} />
                 <TouchableOpacity
                     style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.login()}>
+                    onPress={() => this.loginAsync()}>
                     <Text style={styles.loginButtonText}>Sign In</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
