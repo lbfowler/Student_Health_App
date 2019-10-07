@@ -14,12 +14,12 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '50%',
-        height: 40,
-        borderRadius: 20,
+        height: '25%',
+        borderRadius: 8,
         marginTop: 13,
-      },
+    },
     loginButton: {
-        backgroundColor: 'rgb(163, 0, 0)',
+        backgroundColor: '#9E1B32',
     },
     loginButtonText: {
         color: 'white',
@@ -45,30 +45,14 @@ export default StyleSheet.create({
         resizeMode: 'contain',
         marginRight: "3%",
     },
-    profBtn: {
-        justifyContent: 'center',
-        width: .8*60,
-        height: .8*60,
-    },
-    ddContainer: {
-        alignItems: 'flex-end',
-        flex: 1.5/8,
-    },
     hamburger: {
         alignItems: 'flex-end',
         flex: 1.5/8,
         width: undefined,
-        height: "50%",
+        height: "48%",
         justifyContent: 'center',
         resizeMode: 'contain',
         marginLeft: "3%",
-    },
-    uaContainer: {
-        alignItems: 'center',
-        flex: 5/8,
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginTop: "1%",
     },
     ualogo: {
         width: undefined,
@@ -77,11 +61,12 @@ export default StyleSheet.create({
         resizeMode: 'contain',
     },
     svgWrapper: {
-        width: "95%",
+        width: "90%",
         height: "100%",
         justifyContent: 'center',
         alignItems: 'flex-start',
         flex: 12.5/20,
+        resizeMode: 'contain',
     },
     bottomButtonContainer: {
         flexDirection: 'column',
@@ -90,6 +75,5 @@ export default StyleSheet.create({
         marginBottom: "2%",
         marginTop: "5%",
         flex: 5.5/20,
-    }
-  });
-  
+    },
+});
