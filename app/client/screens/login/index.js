@@ -32,6 +32,7 @@ export class LoginScreen extends Component {
         UserAPI.loginAsync(this.state.username, this.state.password)
             .then((result) => {
                 if (result.success) this.props.navigation.navigate('Sample');
+                else Alert.alert('Faild To Login', result.message);
             })
             .catch((error) => Alert.alert('Faild To Login', error.message));
         // console.log(result);

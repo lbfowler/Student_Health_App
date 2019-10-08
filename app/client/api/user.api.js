@@ -47,11 +47,6 @@ const UserAPI = {
             .then((response) => resolve(response))
             .catch((error) => reject(error));
         });
-        
-        return createPostRequest('/login', JSON.stringify({
-            username: username,
-            password: password,
-        }));
     },
 }
 export default UserAPI;
