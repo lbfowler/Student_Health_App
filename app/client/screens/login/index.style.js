@@ -28,7 +28,7 @@ export default StyleSheet.create({
         alignSelf: 'center',
         height: 100,
         width: 100,
-        marginTop: '45%',
+        marginTop: '20%',
         marginBottom: '10%',
     },  
     textBox:{

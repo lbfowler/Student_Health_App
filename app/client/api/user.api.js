@@ -11,7 +11,7 @@ function basicPacket(success, errorCode, message) {
 }
 function validateServerPacket(response, resolve, reject) {
         console.log(response);
-        if (response.success == undefined || response.message == undefined)
+        if (response == undefined || response.success == undefined || response.message == undefined)
             reject(basicPacket(false, 4, 'Invalid server packet'));
         else resolve(response);
 }
@@ -26,8 +26,12 @@ function createPostRequest(url, body, timeout = DefaultPostRequestTimeout) {
             'Content-Type': 'application/json',
         };
         fetch(fullUrl, {method: 'POST', headers: headers, body: body})
-            .then((response) => response.json().catch(basicPacket(false, 3, 'Failed to parse server packet')))
-            .then((responseJson) => validateServerPacket(responseJson, resolve, reject))
+            .then((response) => {
+                if (response.status != 200) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
+                response.json()
+                .then((responseJson) => validateServerPacket(responseJson, resolve, reject))
+                .catch(basicPacket(false, 3, 'Failed to parse server packet'));
+            })
             .catch((error) => {
                 console.log(error);
                 reject(basicPacket(false, 2, 'Network request failed'))
@@ -48,5 +52,22 @@ const UserAPI = {
             .catch((error) => reject(error));
         });
     },
+    registerAsync(username, password, name, email){
+        return new Promise (function (resolve, reject) {
+            if (!username || !password) {
+                reject(basicPacket(false, 6, 'Username and password cannot be empty'));
+            }
+            if (!name) name = "";
+            if (!email) email = "";
+            createPostRequest('/register', JSON.stringify({
+                username: username,
+                password: password,
+                name: name,
+                email: email,
+            }))
+            .then((response) => resolve(response))
+            .catch((error) => reject(error));
+        });
+    }
 }
 export default UserAPI;

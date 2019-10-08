@@ -22,4 +22,5 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 app.use(express.json());
 const userRouter = require("./user-route");
 app.post('/login', userRouter);
+app.post('/register', userRouter);
 

@@ -35,32 +35,14 @@ export class LoginScreen extends Component {
                 else Alert.alert('Faild To Login', result.message);
             })
             .catch((error) => Alert.alert('Faild To Login', error.message));
-        // console.log(result);
-        
-        // else 
-        //     //             [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-            //             {cancelable: false},
-            //         );
-            // .then((result) => {
-            //     if (result.success) {
-            //         Alert.alert(
-            //             'Server Response',
-            //             result.message,
-            //             [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-            //             {cancelable: false},
-            //         );
-            //         this.props.navigation.navigate('Sample');
-            //     }
-            //     else{
-            //         Alert.alert(
-            //             'Faild To Login',
-            //             result.message,
-            //             [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-            //             {cancelable: false},
-            //         );
-            //     }
-            // });
-        
+    }
+    registerAsync(){
+        UserAPI.registerAsync(this.state.username, this.state.password, this.state.name, this.state.email)
+            .then((result) => {
+                if (result.success) this.props.navigation.navigate('Sample');
+                else Alert.alert('Faild to register', result.message);
+            })
+            .catch((error) => Alert.alert('Faild to register', error.message));
     }
     render() {
         return (
@@ -72,6 +54,11 @@ export class LoginScreen extends Component {
                     style={[styles.buttonContainer, styles.loginButton]}
                     onPress={() => this.loginAsync()}>
                     <Text style={styles.loginButtonText}>Sign In</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.loginButton]}
+                    onPress={() => this.registerAsync()}>
+                    <Text style={styles.loginButtonText}>Register</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.buttonContainer, styles.loginButton]}

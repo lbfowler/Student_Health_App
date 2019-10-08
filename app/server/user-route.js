@@ -48,13 +48,15 @@ router.post('/login', function (req, res) {
             // create an access token for the user, uuidv1 is time based
             // expireDate by default is 30 days, the date will be refreshed every time it's accessed
             // I will leave deviceId empty for a while as we dont need it right away 
-            var token = {accessToken: uuidv1(), expireDate: new Date(date.getDate() + 30), deviceId: null}
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 30);
+            var token = {accessToken: uuidv1(), expireDate: expireDate, deviceId: null};
             userData.accessTokens.push(token);
             userDataDB.update({ username: userData.username }, userData, {}, function (error, numReplaced) {
                 if (error)  return sendInternalServerErrorPacket(res);
                 var successPacket = basicPacket(true, null, "Login success");
                 successPacket.accessToken = token.accessToken;
-                res.end(successPacket);
+                res.end(JSON.stringify(successPacket));
             });
         });
     });
@@ -72,21 +74,23 @@ router.post('/register', function (req, res) {
     userProfileDB.findOne({username: username}, function (error, userProfile) {
         if (error) return sendInternalServerErrorPacket(res);
         // if username found
-        if (userProfile == null) return res.end(JSON.stringify(basicPacket(false, 4, "Username already exists")));
+        if (userProfile != null) return res.end(JSON.stringify(basicPacket(false, 4, "Username already exists")));
         // if everything works
         // add the new user to database
         var newUserProfile = {username: username, hashedPassword: hashedPassword, email: email, name: name};
         userProfileDB.insert(newUserProfile, function (error, userProfile) {
             if (error)  return sendInternalServerErrorPacket(res);
             var newUserData = {username: userProfile.username, accessTokens: []};
-            var token = {accessToken: uuidv1(), expireDate: new Date(date.getDate() + 30), deviceId: null}
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 30);
+            var token = {accessToken: uuidv1(), expireDate: expireDate, deviceId: null};
             newUserData.accessTokens.push(token);
             // TODO check before insert
             userDataDB.insert(newUserData, function (error) {
                 if (error)  return sendInternalServerErrorPacket(res);
                 var successPacket = basicPacket(true, null, "Register success");
                 successPacket.accessToken = token.accessToken;
-                res.end(successPacket);
+                res.end(JSON.stringify(successPacket));
             })
         })
     });
@@ -123,7 +127,10 @@ function getUsernameByAccessToken(accessToken, callback) {
             });
         }
         else{
-            token.expireDate = new Date(date.getDate() + 30);
+            var newExpireDate = new Date();
+            newExpireDate.setDate(newExpireDate.getDate() + 30);
+            token.expireDate = newExpireDate;
+            
             userDataDB.update({username: user.username}, {$set: {accessTokens: user.accessTokens}}, {}, function (error) {
                 if (error) return callback(error, null);
                 return callback(null, user.username);
