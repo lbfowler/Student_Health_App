@@ -6,7 +6,30 @@ const path = require("path");
 
 var currentDir = __dirname;
 
-const qualtricDB = new nedb({ filename: currentDir + "/qualtric.db", autoload: true });
+// user data db stores questionaire answers
+// user access tokens
+// and other variables
+global.userDataDB = new nedb({ filename: currentDir + "/userData.db", autoload: true });
+// userDataDB [{username: null, accessTokens: []}, answers: []}]
+// accessTokens [{accessToken: null, expireDate: Date, deviceId: null},]
+// answers [{questionId: null, choiceId: null}]
+
+global.qualtricsDB = new nedb({ filename: currentDir + "/qualtrics.db", autoload: true });
+// qualtricsDB [{questionId: null, questionText: null, questionTag: null, choices: []}]
+// choices [{'choiceId': choiceText}]
+
+// User profile db stores "static" information
+// like credentials, name, gender which aren't changed frequently
+// the reason I seperate it with userDataDB is because
+// I want to keep it small so we can backup it easily
+
+// userProfileDB structure
+// I dont store the real password for security reason
+// one raw for one user, need to be changed in the furture
+// userProfileDB {{username: null, hashedPassword: null, email: null, name: null}, }
+// one user can have mutiple access tokens
+
+global.userProfileDB = new nedb({ filename: currentDir + "/userProfile.db", autoload: true });
 
 // Start the web server
 // Add HTTPS support later, ask for domain as well
@@ -21,6 +44,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 // There should be a better way to do this
 app.use(express.json());
 const userRouter = require("./user-route");
-app.post('/login', userRouter);
-app.post('/register', userRouter);
-
+const qualtricsRouter = require("./qualtrics-route");
+app.post('/login', userRouter.router);
+app.post('/register', userRouter.router);
+app.get('/api/getAllQuestions', qualtricsRouter);
