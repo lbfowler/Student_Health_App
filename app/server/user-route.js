@@ -12,6 +12,7 @@ var currentDir = __dirname;
 
 
 router.post('/login', function (req, res) {
+    //if (!username || !password) res.end(JSON.stringify(basicPacket(false, 1, "Username or password cannot be empty")));
     var username = req.body.username.trim();
     var password = req.body.password;
     if (!validateUsername(username)) res.end(JSON.stringify(basicPacket(false, 2, "Invalid username")));
@@ -79,6 +80,20 @@ router.post('/register', function (req, res) {
         })
     });
 })
+router.get('/api/getUserInfo', function (req, res) {
+    var accessToken = req.headers["x-access-token"];
+    exports.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
+        if (errorPacket) return res.end(JSON.stringify(errorPacket));
+        global.userProfileDB.findOne({username: username}, function (error, user) {
+            if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
+            var successPacket = basicPacket(true, null, "Succefully get user info");
+            successPacket.username = user.username;
+            successPacket.name = user.name;
+            successPacket.email = user.email;
+            res.end(JSON.stringify(successPacket));
+        });
+    })
+});
 // username should between 5 to 32 characters long
 // username may only contain alphanumeric characters
 // username must start with a letter? May or may not emmm
