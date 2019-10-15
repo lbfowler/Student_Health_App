@@ -26,8 +26,9 @@ export class JournalScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: ' ',
+            date: '',
         };
+    
     }
     componentDidMount(){
         var month = new Date().getMonth() + 1;
