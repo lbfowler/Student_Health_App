@@ -47,4 +47,5 @@ const userRouter = require("./user-route");
 const qualtricsRouter = require("./qualtrics-route");
 app.post('/login', userRouter.router);
 app.post('/register', userRouter.router);
+app.get('/api/getUserInfo', userRouter.router);
 app.get('/api/getAllQuestions', qualtricsRouter);

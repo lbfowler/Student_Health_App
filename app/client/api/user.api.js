@@ -39,8 +39,15 @@ const UserAPI = {
             })
             .catch((error) => reject(error));
         });
-    }
-    , getAccessToken() {
+    },
+    getUserInfoAsync(){
+        return new Promise (function (resolve, reject) {
+            Request.createGetRequest('/api/getUserInfo')
+            .then((response) => resolve(response))
+            .catch((error) => reject(error));
+        });
+    },
+    getAccessToken() {
         return new Promise(function (resolve, reject) {
             AsyncStorage.getItem('AppAccessToken')
                 .then((token) =>{

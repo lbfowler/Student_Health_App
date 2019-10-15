@@ -32,20 +32,21 @@ export class LoginScreen extends Component {
 
     }
     componentDidMount(){
-        
-        UserAPI.getAccessToken()
-            .then((accessToken) => {
-                QualtricsAPI.getAllQuestionsAsync()
-                .then((questions) => console.log(questions));
-                if (accessToken) {
-                    UserAPI.setAccessToken("");
-                    this.props.navigation.navigate('Sample');
-                }
-                else {
-                    this.setState({ ready: true });
-                }
-            })
-            .catch((error) => console.log(error));
+        this.setState({ ready: true });
+        // UserAPI.getAccessToken()
+        //     .then((accessToken) => {
+        //         // QualtricsAPI.getAllQuestionsAsync()
+        //         // .then((questions) => console.log(questions));
+        //         // if (accessToken) {
+        //         //     UserAPI.setAccessToken("");
+        //         //     this.props.navigation.navigate('Sample');
+        //         // }
+        //         // else {
+        //         //     this.setState({ ready: true });
+        //         // }
+                
+        //     })
+        //     .catch((error) => console.log(error));
     }
     loginAsync() {
         UserAPI.loginAsync(this.state.username, this.state.password)
