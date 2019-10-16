@@ -22,6 +22,7 @@ import {
     Picker,
 } from 'react-native';
 
+import UserAPI from '../../api/user.api'
 import Svg, {Path, Defs, Filter, feGaussianBlur, feBlend, feOffset} from 'react-native-svg'
 import styles from './index.style'
 
@@ -39,9 +40,19 @@ export class ProfileScreen extends Component {
             username: 'User Name Here', 
             colorGray: "#989898",
             colorBtn: "#000000",
+            username: '',
         };
     }
 
+    componentDidMount(){
+        try{
+            UserAPI.getUserInfoAsync()
+                .then((user) => this.setState({username: JSON.stringify(user.name)}));        
+        }catch(error){
+            this.setState({username: 'Error loading user name'})
+        }
+
+    }
     render() {
         return (
             <View style={styles.mainContainer}>
@@ -60,7 +71,7 @@ export class ProfileScreen extends Component {
                                 transform="translate(-196.11 -335.66)" fill={this.state.colorGray}/>
                         </Svg>
                     </View>
-                    <TouchableOpacity style={styles.hamburger} onPress={() => this.props.navigation.navigate('Menu')}>
+                    <TouchableOpacity style={styles.hamburger} onPress={() => this.props.navigation.navigate('Drawer')}>
                         <Svg width='100%' height= '100%' viewBox="0 0 92.83 89.33"> 
                             <Path d="M89.83,0H3A3,3,0,0,0,0,3V16.33a3,3,0,0,0,3,3H89.83a3,3,0,0,0,3-3V3A3,3,0,0,0,89.83,0Z" 
                                 fill={this.state.colorBtn}/>

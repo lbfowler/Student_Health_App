@@ -14,6 +14,7 @@ import SampleScreen from './screens/sample/index'
 import ProfileScreen from './screens/profile/index'
 import JournalScreen from './screens/journal/index'
 import AcademicScreen from './screens/academic/index'
+import SideDrawer from './screens/sideDrawer/index'
 
 global.AppAccessToken = null;
 
@@ -23,6 +24,7 @@ const AppNavigator = createStackNavigator ({
     Profile: {screen: ProfileScreen},
     Journal: {screen: JournalScreen},
     Academic: {screen: AcademicScreen},
+    Drawer: {screen:SideDrawer},
 },
 {
     headerMode: 'none',
