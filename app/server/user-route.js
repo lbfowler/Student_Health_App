@@ -12,7 +12,7 @@ var currentDir = __dirname;
 
 
 router.post('/login', function (req, res) {
-    //if (!username || !password) res.end(JSON.stringify(basicPacket(false, 1, "Username or password cannot be empty")));
+    if (!req.body.username || !req.body.password) return res.end(JSON.stringify(basicPacket(false, 1, "Username or password cannot be empty")));
     var username = req.body.username.trim();
     var password = req.body.password;
     if (!validateUsername(username)) res.end(JSON.stringify(basicPacket(false, 2, "Invalid username")));
@@ -47,6 +47,7 @@ router.post('/login', function (req, res) {
     });
 })
 router.post('/register', function (req, res) {
+    if (!req.body.username || !req.body.password) return res.end(JSON.stringify(basicPacket(false, 1, "Username or password cannot be empty")));
     var username = req.body.username.trim();
     var password = req.body.password;
     var email = req.body.email; // TODO email validation
