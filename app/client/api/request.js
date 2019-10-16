@@ -27,8 +27,12 @@ const Request = {
                 .then((response) => {
                     if (response.status != 200) return reject(Request.basicPacket(false, 5, 'Network request failed, code: ' + response.status));
                     response.json()
-                    .then((responseJson) => validateServerPacket(responseJson, resolve, reject))
-                    .catch(Request.basicPacket(false, 3, 'Failed to parse server packet'));
+                    .then((responseJson) => {
+                        validateServerPacket(responseJson)
+                        .then((response) => resolve(response))
+                        .catch((error)=> reject(error));
+                    })
+                    .catch(()=> reject(Request.basicPacket(false, 3, 'Failed to parse server packet')));
                 })
                 .catch((error) => {
                     console.log(error);
@@ -50,8 +54,12 @@ const Request = {
                 .then((response) => {
                     if (response.status != 200) return reject(Request.basicPacket(false, 5, 'Network request failed, code: ' + response.status));
                     response.json()
-                    .then((responseJson) => validateServerPacket(responseJson, resolve, reject))
-                    .catch(Request.basicPacket(false, 3, 'Failed to parse server packet'));
+                    .then((responseJson) => {
+                        validateServerPacket(responseJson)
+                        .then((response) => resolve(response))
+                        .catch((error)=> reject(error));
+                    })
+                    .catch(()=> reject(Request.basicPacket(false, 3, 'Failed to parse server packet')));
                 })
                 .catch((error) => {
                     console.log(error);
@@ -62,8 +70,10 @@ const Request = {
 }
 export default Request;
 
-function validateServerPacket(response, resolve, reject) {
-    if (response == undefined || response.success == undefined)
-        reject(Request.basicPacket(false, 4, 'Invalid server packet'));
-    else resolve(response);
+function validateServerPacket(response) {
+    return new Promise (function (resolve, reject) {
+        if (response == undefined || response.success == undefined)
+            reject(Request.basicPacket(false, 4, 'Invalid server packet'));
+        else resolve(response);
+    });
 }

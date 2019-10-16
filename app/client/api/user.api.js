@@ -12,8 +12,13 @@ const UserAPI = {
                 password: password,
             }))
             .then((response) => {
+                if (response.accessToken == undefined) return resolve(response);
                 UserAPI.setAccessToken(response.accessToken)
-                .then(() =>resolve(response));
+                .then(() => resolve(response))
+                .catch((error) => {
+                    console.log(error);
+                    reject(error);
+                });
             })
             .catch((error) => reject(error));
         });
@@ -32,9 +37,13 @@ const UserAPI = {
                 email: email,
             }))
             .then((response) => {
+                if (response.accessToken == undefined) return resolve(response);
                 UserAPI.setAccessToken(response.accessToken)
                 .then(() => resolve(response))
-                .catch((error) => reject(error));
+                .catch((error) => {
+                    console.log(error);
+                    reject(error);
+                });
             })
             .catch((error) => reject(error));
         });
@@ -62,8 +71,9 @@ const UserAPI = {
     }
     ,  setAccessToken(accessToken) {
         return new Promise(function (resolve, reject) {
+            if (!accessToken) return reject(Request.basicPacket(false, 9, 'Token is undefined'));
             AsyncStorage.setItem('AppAccessToken', accessToken)
-                .then((token) =>{
+                .then(() =>{
                     global.AppAccessToken = accessToken;
                     resolve();
                 })

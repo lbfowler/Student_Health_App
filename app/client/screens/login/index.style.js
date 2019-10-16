@@ -5,17 +5,17 @@ export default StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '50%',
+        width: '60%',
         height: 40,
         borderRadius: 3,
-        marginTop: 10,
+        marginTop: 30,
       },
     loginButton: {
         backgroundColor: 'rgb(163, 0, 0)',
     },
     loginButtonText: {
         color: 'white',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold'
     },
     mainContainer: {
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     },  
     textBox:{
         height: 40,
-        width: '50%',
+        width: '60%',
         alignSelf: 'center',
         borderColor: 'gray',
         borderWidth: 1,
@@ -41,6 +41,7 @@ export default StyleSheet.create({
         borderRadius: 3,
         paddingLeft: 10,
         backgroundColor: 'white',
+        fontSize: 16,
     },
     scrollView: {
       backgroundColor: Colors.lighter,
