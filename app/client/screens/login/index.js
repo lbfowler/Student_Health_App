@@ -71,8 +71,15 @@ export class LoginScreen extends Component {
         return (
             <View style={styles.mainContainer}>
                 <Image style={styles.logo} source={require('./ua-square-logo-100x100.png')} />
-                <TextInput style={styles.textBox} placeholder="User Name" onChangeText={(text) => this.setState({ username: text })} />
-                <TextInput style={styles.textBox} placeholder="Password" secureTextEntry={true} onChangeText={(text) => this.setState({ password: text })} />
+                <TextInput style={styles.textBox} 
+                            placeholder="User Name" 
+                            onChangeText={(text) => this.setState({ username: text })} 
+                            onSubmitEditing={() => {this.passwordTextInput.focus();}}/>
+                <TextInput style={styles.textBox} 
+                            placeholder="Password" 
+                            secureTextEntry={true} 
+                            onChangeText={(text) => this.setState({ password: text })} 
+                            ref={(input) => {this.passwordTextInput = input;}}/>
                 <TouchableOpacity
                     style={[styles.buttonContainer, styles.loginButton]}
                     onPress={() => this.loginAsync()}>
