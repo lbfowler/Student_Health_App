@@ -83,10 +83,10 @@ export class HomeScreen extends Component {
                         {/* spiritual */}
                         <Path d="M113.71,63.34l-35-35.54a9.72,9.72,0,0,0-12.43-1.19C55.6,34,34.94,50,23.77,70.43A4.74,4.74,0,0,0,24.55,76L61.7,113.78a93.49,93.49,0,0,1,52-50.44" 
                             fill={this.state.colorDiagonal} fillOpacity = {this.state.fillOpacity1} onPressIn={()=> this.setState({fillOpacity1:.5})} 
-                            onPressOut={()=> this.setState({fillOpacity1:1})} onPress={()=> alert("Spritual")} />
+                            onPressOut={()=> this.setState({fillOpacity1:1})} onPress={()=> this.props.navigation.navigate('Survey')} />
                         <Path d="M90.49,68V66.36H87.61V57.29H85.78V68ZM80.7,65.59h2L83,68H84.8l-2-10.66H80.57L78.6,68h1.77Zm1-6.18h0L82.44,64H81Zm-9.76,5.85a2.81,2.81,0,1,0,5.61,0v-8H75.71v8.05c0,.78-.31,1.16-1,1.16s-1-.38-1-1.16V57.29H71.93ZM67.24,68h1.83V58.88h1.78V57.29H65.47v1.59h1.77ZM64.16,57.29H62.33V68h1.83Zm-7.64,6.29a8.66,8.66,0,0,0,.95,0L58.77,68h1.86l-1.55-4.83c.62-.28,1.28-1,1.28-2.69,0-2.27-1-3.14-3.1-3.14H54.69V68h1.83Zm0-4.79h.65c1,0,1.36.37,1.36,1.64s-.37,1.64-1.36,1.64h-.65Zm-3.85-1.5H50.84V68h1.83ZM45,68V63.58h.8c2.26,0,3.31-.87,3.31-3.15s-1-3.14-3.31-3.14H43.2V68Zm0-9.16h.71c1.2,0,1.57.37,1.57,1.64s-.37,1.64-1.57,1.64H45Zm-3.31.93a2.55,2.55,0,0,0-2.54-2.58c-1.8,0-2.83,1-2.83,2.66,0,3.06,3.72,3.62,3.72,5.73a.94.94,0,0,1-1.06,1c-.6,0-1-.53-1.1-1.61l-1.74.25a2.82,2.82,0,0,0,2.75,3,2.61,2.61,0,0,0,2.89-2.73c0-2.9-3.72-3.77-3.72-5.59,0-.66.32-1.05.92-1.05.41,0,.9.27,1,1.19Z" 
                             fill={this.state.colorTxt} fillOpacity = {this.state.fillOpacity1} onPressIn={()=> this.setState({fillOpacity1:.5})} 
-                            onPressOut={()=> this.setState({fillOpacity1:1})} onPress={()=> alert("Spritual")}/>
+                            onPressOut={()=> this.setState({fillOpacity1:1})} onPress={()=> this.props.navigation.navigate('Survey')}/>
                         {/* social */}
                         <Path d="M58.3,123.29,20.81,86.8a3,3,0,0,0-4.73.73c-32.23,59.13-7.28,111.92.07,125.13a2.85,2.85,0,0,0,4.47.66l38.23-36.88a90.93,90.93,0,0,1-.55-53.15" 
                             fill={this.state.colorVertical}  fillOpacity = {this.state.fillOpacity2} onPressIn={()=> this.setState({fillOpacity2:.5})} 
