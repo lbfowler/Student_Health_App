@@ -12,7 +12,7 @@ var currentDir = __dirname;
 
 
 router.post('/login', function (req, res) {
-    //if (!username || !password) res.end(JSON.stringify(basicPacket(false, 1, "Username or password cannot be empty")));
+    if (!req.body.username || !req.body.password) return res.end(JSON.stringify(basicPacket(false, 1, "Username or password cannot be empty")));
     var username = req.body.username.trim();
     var password = req.body.password;
     if (!validateUsername(username)) res.end(JSON.stringify(basicPacket(false, 2, "Invalid username")));
@@ -37,6 +37,7 @@ router.post('/login', function (req, res) {
             expireDate.setDate(expireDate.getDate() + 30);
             var token = {accessToken: uuidv1(), expireDate: expireDate, deviceId: null};
             userData.accessTokens.push(token);
+            console.log(token);
             global.userDataDB.update({ username: userData.username }, userData, {}, function (error, numReplaced) {
                 if (error)  return sendInternalServerErrorPacket(res, error);
                 var successPacket = basicPacket(true, null, "Login success");
@@ -47,6 +48,7 @@ router.post('/login', function (req, res) {
     });
 })
 router.post('/register', function (req, res) {
+    if (!req.body.username || !req.body.password) return res.end(JSON.stringify(basicPacket(false, 1, "Username or password cannot be empty")));
     var username = req.body.username.trim();
     var password = req.body.password;
     var email = req.body.email; // TODO email validation
@@ -82,6 +84,7 @@ router.post('/register', function (req, res) {
 })
 router.get('/api/getUserInfo', function (req, res) {
     var accessToken = req.headers["x-access-token"];
+    console.log(accessToken);
     exports.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
         if (errorPacket) return res.end(JSON.stringify(errorPacket));
         global.userProfileDB.findOne({username: username}, function (error, user) {

@@ -5,7 +5,7 @@ const UserAPI = {
     loginAsync(username, password){
         return new Promise (function (resolve, reject) {
             if (!username || !password) {
-                reject(Request.basicPacket(false, 6, 'Username and password cannot be empty'));
+                return reject(Request.basicPacket(false, 6, 'Username and password cannot be empty'));
             }
             Request.createPostRequest('/login', JSON.stringify({
                 username: username,
@@ -13,8 +13,7 @@ const UserAPI = {
             }))
             .then((response) => {
                 UserAPI.setAccessToken(response.accessToken)
-                .then(resolve(response))
-                .catch((error) => reject(error));
+                .then(() =>resolve(response));
             })
             .catch((error) => reject(error));
         });
@@ -22,7 +21,7 @@ const UserAPI = {
     registerAsync(username, password, name, email){
         return new Promise (function (resolve, reject) {
             if (!username || !password) {
-                reject(Request.basicPacket(false, 6, 'Username and password cannot be empty'));
+                return reject(Request.basicPacket(false, 6, 'Username and password cannot be empty'));
             }
             if (!name) name = "";
             if (!email) email = "";
@@ -34,7 +33,7 @@ const UserAPI = {
             }))
             .then((response) => {
                 UserAPI.setAccessToken(response.accessToken)
-                .then(resolve(response))
+                .then(() => resolve(response))
                 .catch((error) => reject(error));
             })
             .catch((error) => reject(error));
