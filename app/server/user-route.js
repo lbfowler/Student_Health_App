@@ -37,6 +37,7 @@ router.post('/login', function (req, res) {
             expireDate.setDate(expireDate.getDate() + 30);
             var token = {accessToken: uuidv1(), expireDate: expireDate, deviceId: null};
             userData.accessTokens.push(token);
+            console.log(token);
             global.userDataDB.update({ username: userData.username }, userData, {}, function (error, numReplaced) {
                 if (error)  return sendInternalServerErrorPacket(res, error);
                 var successPacket = basicPacket(true, null, "Login success");
@@ -83,6 +84,7 @@ router.post('/register', function (req, res) {
 })
 router.get('/api/getUserInfo', function (req, res) {
     var accessToken = req.headers["x-access-token"];
+    console.log(accessToken);
     exports.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
         if (errorPacket) return res.end(JSON.stringify(errorPacket));
         global.userProfileDB.findOne({username: username}, function (error, user) {
