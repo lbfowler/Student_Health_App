@@ -13,6 +13,10 @@ export default StyleSheet.create({
     loginButton: {
         backgroundColor: 'rgb(163, 0, 0)',
     },
+    demoButton: {
+      backgroundColor: 'rgb(255, 255, 255)',
+      opacity: 0.3,
+    },
     loginButtonText: {
         color: 'white',
         fontSize: 16,

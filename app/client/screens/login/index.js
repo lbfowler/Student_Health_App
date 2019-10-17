@@ -85,6 +85,11 @@ export class LoginScreen extends Component {
                     onPress={() => this.loginAsync()}>
                     <Text style={styles.loginButtonText}>Sign In</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.demoButton]}
+                    onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text style={styles.loginButtonText}>Sign In</Text>
+                </TouchableOpacity>
                 {/* <TouchableOpacity
                     style={[styles.buttonContainer, styles.loginButton]}
                     onPress={() => this.registerAsync()}>
