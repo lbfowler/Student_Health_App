@@ -25,7 +25,7 @@ router.post('/login', function (req, res) {
         // if username not found
         if (userProfile == null) return res.end(JSON.stringify(basicPacket(false, 1, "Incorrect username or password")));
         // if password not correct or the attribute not undefined
-        if (!userProfile.hashedPassword && user.hashedPassword != hashedPassword) return res.end(JSON.stringify(basicPacket(false, 1, "Incorrect username or password")));
+        if (userProfile.hashedPassword != hashedPassword) return res.end(JSON.stringify(basicPacket(false, 1, "Incorrect username or password")));
         // if everything works
         // search user data db for access tokens
         global.userDataDB.findOne({username: userProfile.username}, function (error, userData) {
