@@ -18,72 +18,57 @@ import {
     TouchableOpacity,
     TextInput,
     StatusBar,
+    FlatList,
 } from 'react-native';
 
+import Header from '../header/topBar'
 import styles from './index.style'
 
 export class JournalScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: '',
+            
         };
-    
     }
-    componentDidMount(){
-        var month = new Date().getMonth() + 1;
+
+    getDate(){
+        var month = new Date().getMonth();
         var year = new Date().getFullYear();
-        var day = new Date().getDay();
-        switch(month){
-            case 1:
-                month = "January";
-                break;
-            case 2:
-                month = "February";
-                break;
-            case 3:
-                month = "March";
-                break;
-            case 4:
-                month = "April";
-                break;
-            case 5:
-                month = "May";
-                break;
-            case 6:
-                month = "June";
-                break;
-            case 7:
-                month = "July";
-                break;
-            case 8:
-                month = "August";
-                break;
-            case 9:
-                month = "September";
-                break;
-            case 10:
-                month = "October";
-                break;
-            case 11:
-                month = "November";
-                break;
-            case 12:
-                month = "December";
-                break;                                            
-        }
-        this.setState({
-            date: month + ',' + day + ',' + year
-        });
+        var day = new Date().getDate();
+        var months = ["January","February","March","April","May","June","July","August","Septmeber","October","November","December"];
+        return months[month] + ', ' + day + ', ' + year;
     }
     
     render() {
         return (
             <View style={styles.mainContainer}>
-                <Text style={styles.loginButtonText}>{this.state.date}</Text>
+                <Header navigation={this.props.navigation}/>
+                <TouchableOpacity style={styles.journalBtn} onPress={()=> Alert.alert("I am a journal button")}>
+                    <Text style={styles.journalText}>Add Journal Entry</Text>
+                </TouchableOpacity>    
+                <ScrollView>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
+                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>                    
+                </ScrollView>
             </View>
         );
-    }
-    
+    }    
 };
 export default JournalScreen;

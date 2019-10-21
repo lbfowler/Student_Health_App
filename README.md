@@ -123,5 +123,14 @@ react-native run-android
 
 A new screen is created!
 
+In order to create the top bar in any screen: 
+```
+import Header from '../header/topBar'
+```
+
+Then inside your render function place this line at top:
+```
+<Header navigation={this.props.navigation}/>
+```
 # Troubleshooting 
  
