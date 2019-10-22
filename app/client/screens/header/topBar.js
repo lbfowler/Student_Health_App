@@ -5,14 +5,19 @@ import {
     TouchableOpacity,
     StyleSheet,
 } from 'react-native';
+import SideMenu from '../modals/sideMenu'
 
 export class Header extends Component{
     constructor(props){
         super(props);
         this.state = {
+            showBar: false,
             colorGray: "#989898",
             colorBtn: "#000000",    
         };
+    }
+    getMenu(){
+        this.setState({showBar: true});
     }
     render(){
         return (         
@@ -31,7 +36,8 @@ export class Header extends Component{
                                 transform="translate(-196.11 -335.66)" fill={this.state.colorGray}/>
                         </Svg>
                     </View>
-                    <TouchableOpacity style={styles.hamburger} onPress={() => this.props.navigation.navigate('Drawer')}>
+                    <TouchableOpacity style={styles.hamburger} onPress={() => this.getMenu()}>
+                        {this.state.showBar && <SideMenu navigation={this.props.navigation} />}
                         <Svg width='100%' height= '100%' viewBox="0 0 92.83 89.33"> 
                             <Path d="M89.83,0H3A3,3,0,0,0,0,3V16.33a3,3,0,0,0,3,3H89.83a3,3,0,0,0,3-3V3A3,3,0,0,0,89.83,0Z" 
                                 fill={this.state.colorBtn}/>
