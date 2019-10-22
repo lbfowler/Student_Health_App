@@ -35,6 +35,7 @@ export default StyleSheet.create({
         width: '85%',
     },
     buttonCont: {
+        borderRadius: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',

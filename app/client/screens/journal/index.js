@@ -23,6 +23,7 @@ import {
 
 import Header from '../header/topBar'
 import styles from './index.style'
+import JournalEntry from '../modals/journal';
 
 export class JournalScreen extends Component {
     constructor(props) {
@@ -44,28 +45,9 @@ export class JournalScreen extends Component {
         return (
             <View style={styles.mainContainer}>
                 <Header navigation={this.props.navigation}/>
-                <TouchableOpacity style={styles.journalBtn} onPress={()=> Alert.alert("I am a journal button")}>
-                    <Text style={styles.journalText}>Add Journal Entry</Text>
-                </TouchableOpacity>    
+                <JournalEntry/>   
                 <ScrollView>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>
-                    <Text style={styles.loginButtonText}>{this.getDate()}</Text>                    
+                                     
                 </ScrollView>
             </View>
         );
