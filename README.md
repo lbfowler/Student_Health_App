@@ -132,5 +132,15 @@ Then inside your render function place this line at top:
 ```
 <Header navigation={this.props.navigation}/>
 ```
+
+In order to create the bottom bar in any screen: 
+```
+import Footer from '../header/bottomBar'
+```
+
+Then inside your render function place this line at bottom:
+```
+<Footer navigation={this.props.navigation}/>
+```
 # Troubleshooting 
  
