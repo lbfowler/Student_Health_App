@@ -24,6 +24,7 @@ import {
 import UserAPI from '../../api/user.api'
 import styles from './index.style'
 import Header from '../header/topBar'
+import Footer from '../header/bottomBar'
 
 export class ProfileScreen extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ export class ProfileScreen extends Component {
                 <View style={styles.lineStyle} />
                 <TouchableOpacity
                     style={[styles.buttonCont,styles.blueButton]}
-                    onPress={() => this.props.navigation.navigate('Academic')}>
+                    onPress={() => this.props.navigation.navigate('Drawer')}>
                     <Text style={styles.buttonText}>{this.state.academic}</Text>    
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -90,26 +91,9 @@ export class ProfileScreen extends Component {
                     onPress={() => this.props.navigation.navigate('Academic')}>
                     <Text style={styles.buttonText}>{this.state.spiritual}</Text>    
                 </TouchableOpacity>
-                <View style={styles.bottomContainer}>       
-                    <TouchableOpacity
-                        style={[styles.button,styles.buttonContainer]}
-                        onPress={() => this.props.navigation.navigate('Journal')}>
-                        <Text style={styles.buttonBottom}>Journal</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button,styles.buttonContainer]}
-                        onPress={() => this.props.navigation.navigate('TrendChart')}>
-                        <Text style={styles.buttonBottom}>Trend Chart</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button,styles.buttonContainer]}
-                        onPress={() => this.props.navigation.navigate('Badges')}>
-                        <Text style={styles.buttonBottom}>Badges</Text>
-                    </TouchableOpacity>  
-                 </View>     
+                <Footer navigation={this.props.navigation}/>     
             </View>
         );
     }
-    
 };
 export default ProfileScreen;

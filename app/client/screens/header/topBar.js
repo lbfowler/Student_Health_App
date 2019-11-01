@@ -11,21 +11,18 @@ export class Header extends Component{
     constructor(props){
         super(props);
         this.state = {
-            showBar: false,
             colorGray: "#989898",
-            colorBtn: "#000000",    
+            colorBtn: "#000000",
         };
     }
-    getMenu(){
-        this.setState({showBar: true});
-    }
+
     render(){
         return (         
                 <View style={styles.topBar}>
                     <TouchableOpacity style={styles.pbContainer} onPress={() => this.props.navigation.navigate('Profile')}>
                         <Svg width='100%' height= '100%' viewBox="0 0 45.53 45.53"> 
                             <Path d="M22.77,0A22.77,22.77,0,1,0,45.53,22.76,22.76,22.76,0,0,0,22.77,0Zm0,6.81a7.53,7.53,0,1,1-7.53,7.53A7.53,7.53,0,0,1,22.77,6.81Zm0,32.77a16.71,16.71,0,0,1-10.88-4,3.24,3.24,0,0,1-1.13-2.44,7.61,7.61,0,0,1,7.64-7.6h8.76a7.59,7.59,0,0,1,7.62,7.6,3.17,3.17,0,0,1-1.13,2.43A16.66,16.66,0,0,1,22.76,39.58Z" 
-                                fill={this.state.colorBtn}/>
+                                fill={this.state.colorGray}/>
                         </Svg>
                     </TouchableOpacity>
                     <View style={styles.ualogo}>
@@ -36,17 +33,7 @@ export class Header extends Component{
                                 transform="translate(-196.11 -335.66)" fill={this.state.colorGray}/>
                         </Svg>
                     </View>
-                    <TouchableOpacity style={styles.hamburger} onPress={() => this.getMenu()}>
-                        {this.state.showBar && <SideMenu navigation={this.props.navigation} />}
-                        <Svg width='100%' height= '100%' viewBox="0 0 92.83 89.33"> 
-                            <Path d="M89.83,0H3A3,3,0,0,0,0,3V16.33a3,3,0,0,0,3,3H89.83a3,3,0,0,0,3-3V3A3,3,0,0,0,89.83,0Z" 
-                                fill={this.state.colorBtn}/>
-                            <Path d="M89.83,35H3a3,3,0,0,0-3,3V51.33a3,3,0,0,0,3,3H89.83a3,3,0,0,0,3-3V38A3,3,0,0,0,89.83,35Z" 
-                                fill={this.state.colorBtn}/>
-                            <Path d="M89.83,70H3a3,3,0,0,0-3,3V86.33a3,3,0,0,0,3,3H89.83a3,3,0,0,0,3-3V73A3,3,0,0,0,89.83,70Z" 
-                                fill={this.state.colorBtn}/>
-                        </Svg>
-                    </TouchableOpacity>
+                    <SideMenu style={styles.hamburger} navigation={this.props.navigation}/>
                 </View>
         );
     }
@@ -56,7 +43,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         height: '17.5%',
         width: "94%",
         marginTop: "1%",
@@ -74,16 +61,15 @@ const styles = StyleSheet.create({
     hamburger: {
         alignItems: 'flex-end',
         flex: 1/8,
-        width: undefined,
-        height: "42%",
         justifyContent: 'center',
         resizeMode: 'contain',
-        marginLeft: "3%",
     },
     ualogo: {
+        marginRight: "4%",
         width: undefined,
         height: "75%",
         flex: 5/8,
+        alignSelf: 'center',
         resizeMode: 'contain',
     },
 });
