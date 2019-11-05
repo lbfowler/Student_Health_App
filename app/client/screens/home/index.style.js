@@ -80,4 +80,11 @@ export default StyleSheet.create({
         marginTop: "5%",
         flex: 5.5/20,
     },
+    bottomBar: {
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        // justifyContent: 'space-between',
+        // flex: 2/20,
+        width: "100%",
+    }
 });

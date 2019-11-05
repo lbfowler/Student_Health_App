@@ -22,6 +22,7 @@ import {
 } from 'react-native';
 
 import styles from './index.style'
+import Footer from '../header/bottomBar'
 import Svg, {Path, Defs, Filter, feGaussianBlur, feBlend, feOffset} from 'react-native-svg'
 
 import TouchableOpacityG from './TouchableOpacityG'
@@ -152,7 +153,7 @@ export class HomeScreen extends Component {
                     </Svg>
                 </View>
                 {/* <View style={styles.bottomButtonContainer}> */}
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={[styles.buttonContainer, styles.loginButton]}
                         onPress={() => this.props.navigation.navigate('Journal')}>
                         <Text style={styles.loginButtonText}>Journal</Text>
@@ -166,8 +167,11 @@ export class HomeScreen extends Component {
                         style={[styles.buttonContainer, styles.loginButton]}
                         onPress={() => this.props.navigation.navigate('Profile')}>
                         <Text style={styles.loginButtonText}>Badges</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 {/* </View> */}
+                <View style={styles.bottomBar}>
+                    <Footer navigation={this.props.navigation}/> 
+                </View>
             </View>
         );
     }
