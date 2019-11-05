@@ -23,6 +23,7 @@ import {
 
 import styles from './index.style'
 import Footer from '../header/bottomBar'
+import Header from '../header/topBar'
 import Svg, {Path, Defs, Filter, feGaussianBlur, feBlend, feOffset} from 'react-native-svg'
 
 import TouchableOpacityG from './TouchableOpacityG'
@@ -53,7 +54,10 @@ export class HomeScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.topBar}>
+                <Header navigation={this.props.navigation}/>
+                <View stlye={styles.topBar}>
+                </View>
+                 {/* <View style={styles.topBar}>
                     <TouchableOpacity style={styles.pbContainer} onPress={() => this.props.navigation.navigate('Profile')}>
                         <Svg width='100%' height= '100%' viewBox="0 0 45.53 45.53"> 
                             <Path d="M22.77,0A22.77,22.77,0,1,0,45.53,22.76,22.76,22.76,0,0,0,22.77,0Zm0,6.81a7.53,7.53,0,1,1-7.53,7.53A7.53,7.53,0,0,1,22.77,6.81Zm0,32.77a16.71,16.71,0,0,1-10.88-4,3.24,3.24,0,0,1-1.13-2.44,7.61,7.61,0,0,1,7.64-7.6h8.76a7.59,7.59,0,0,1,7.62,7.6,3.17,3.17,0,0,1-1.13,2.43A16.66,16.66,0,0,1,22.76,39.58Z" 
@@ -78,7 +82,7 @@ export class HomeScreen extends Component {
                                 fill={this.state.colorBtn}/>
                         </Svg>
                     </TouchableOpacity>
-                </View>
+                </View> */}
                 <View style={styles.svgWrapper}>
                     <Svg height= '100%' width = '100%'  viewBox="0 0 297.46 297.92">
                         {/* spiritual */}
