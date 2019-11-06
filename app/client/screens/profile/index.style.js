@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 export default StyleSheet.create({
     mainContainer: {
-        backgroundColor: 'rgb(256,256,256)',
+        backgroundColor: 'rgb(244,244,244)',
         flexDirection: 'column',
         justifyContent: 'space-around',
     },

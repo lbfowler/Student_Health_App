@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     mainContainer: {
-        backgroundColor: 'rgb(233,233,233)',
+        backgroundColor: 'rgb(244,244,244)',
         height: '100%',
         flexDirection: 'column',
         alignItems: 'center',
