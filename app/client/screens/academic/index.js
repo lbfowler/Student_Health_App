@@ -31,14 +31,7 @@ export class SampleScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.bottomButtonContainer}>
-                    <TouchableOpacity
-                        style={[styles.buttonContainer, styles.loginButton]}
-                        onPress={() => this.props.navigation.navigate('Profile')}>
-                        <Text style={styles.loginButtonText}>Back</Text>
-                    </TouchableOpacity>
                 <Text style={styles.loginButtonText}>This is a sample page</Text>
-                </View>
             </View>
         );
     }
