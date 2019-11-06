@@ -35,18 +35,18 @@ import SurveyScreen from './screens/survey/index'
 
 global.AppAccessToken = null;
 
-const HomeNavigator = createSwitchNavigator({
+const ProfileNavigator = createSwitchNavigator({
     Profile: { screen: ProfileScreen },
     Survey: { screen: SurveyScreen },
-    Home: { screen: HomeScreen },
     Sample: { screen: SampleScreen },
     Journal: { screen: JournalScreen },
+    Academic: { screen: AcademicScreen},
 });
 
 const AppNavigator = createBottomTabNavigator(
     {
         Profile: {
-            screen: ProfileScreen,
+            screen: ProfileNavigator,
             navigationOptions: {
                 tabBarLabel: ({ tintColor }) => (
                     <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
@@ -110,8 +110,9 @@ const AppNavigator = createBottomTabNavigator(
     {
         tabBarOptions: {
             activeTintColor: 'crimson',
-            inactiveTintColor: 'gray'
-        }
+            inactiveTintColor: 'gray',
+        },
+        backBehavior: "history"
     }
 );
 
