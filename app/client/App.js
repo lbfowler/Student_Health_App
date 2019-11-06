@@ -35,12 +35,15 @@ import SurveyScreen from './screens/survey/index'
 
 global.AppAccessToken = null;
 
-const ProfileNavigator = createSwitchNavigator({
+const ProfileNavigator = createStackNavigator({
     Profile: { screen: ProfileScreen },
-    Survey: { screen: SurveyScreen },
-    Sample: { screen: SampleScreen },
-    Journal: { screen: JournalScreen },
     Academic: { screen: AcademicScreen},
+}, 
+{
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
 });
 
 const AppNavigator = createBottomTabNavigator(
