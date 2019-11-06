@@ -5,7 +5,7 @@ export default StyleSheet.create({
         height: '100%',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         padding: 0,
         marginTop: 0,
     },
@@ -71,7 +71,7 @@ export default StyleSheet.create({
         alignItems: 'flex-start',
         flex: 17.5/20,
         resizeMode: 'contain',
-        marginBottom: "10%",
+        marginBottom: "0%",
     },
     bottomButtonContainer: {
         flexDirection: 'column',

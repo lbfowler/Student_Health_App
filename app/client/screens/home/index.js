@@ -53,8 +53,8 @@ export class HomeScreen extends Component {
         return (
             <View style={styles.mainContainer}>
                 <Header navigation={this.props.navigation}/>
-                <View stlye={styles.topBar}>
-                </View>
+                {/* <View stlye={styles.topBar}>
+                </View> */}
                  {/* <View style={styles.topBar}>
                     <TouchableOpacity style={styles.pbContainer} onPress={() => this.props.navigation.navigate('Profile')}>
                         <Svg width='100%' height= '100%' viewBox="0 0 45.53 45.53"> 
