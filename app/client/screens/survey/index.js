@@ -13,6 +13,8 @@ import React, { Component } from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View, Picker} from 'react-native';
 import styles from './index.style'
 
+import Header from '../header/topBar'
+
 export class SurveyScreen extends Component {
     constructor(props) {
       super(props);
@@ -40,7 +42,7 @@ export class SurveyScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
+        {/* <View style={styles.header}>
           <Text style={styles.portrait}>
           Photo
           </Text>
@@ -60,7 +62,8 @@ export class SurveyScreen extends Component {
             <Picker.Item label="Survey" value="survey"/>
             <Picker.Item label="Campus Map" value="map"/>
           </Picker>
-        </View>
+        </View> */}
+      <Header navigation={this.props.navigation}/>
       <View style={styles.qWrap}>
       <Text style={styles.question}>How does your physical health feel today?</Text>
       </View>

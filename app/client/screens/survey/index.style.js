@@ -5,10 +5,10 @@ export default StyleSheet.create({
         backgroundColor: 'rgb(244,244,244)',
         height: '100%',
         flexDirection: 'column',
-        padding: 20,
+        padding: 0,
     },
       container: {
-        paddingTop: 30,
+        paddingTop: 0,
         alignItems: 'center'
       },
       question: {
