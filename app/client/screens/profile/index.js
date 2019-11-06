@@ -58,7 +58,7 @@ export class ProfileScreen extends Component {
                 <View style={styles.lineStyle} />
                 <TouchableOpacity
                     style={[styles.buttonCont,styles.blueButton]}
-                    onPress={() => this.props.navigation.navigate('Drawer')}>
+                    onPress={() => this.props.navigation.navigate('Academic')}>
                     <Text style={styles.buttonText}>{this.state.academic}</Text>    
                 </TouchableOpacity>
                 <TouchableOpacity
