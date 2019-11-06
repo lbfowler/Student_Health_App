@@ -56,9 +56,9 @@ export class Footer extends Component{
 const styles = StyleSheet.create({
     bottomContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: '10%',
-        marginRight: '10%',
+        justifyContent: 'space-evenly',
+        marginLeft: '0%',
+        marginRight: '0%',
     },
     buttonContainer: {
         alignItems: 'center',
