@@ -91,7 +91,7 @@ export class ProfileScreen extends Component {
                     onPress={() => this.props.navigation.navigate('Academic')}>
                     <Text style={styles.buttonText}>{this.state.spiritual}</Text>    
                 </TouchableOpacity>
-                <Footer navigation={this.props.navigation}/>     
+                {/* <Footer navigation={this.props.navigation}/>      */}
             </View>
         );
     }

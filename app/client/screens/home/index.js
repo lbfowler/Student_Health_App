@@ -26,8 +26,6 @@ import Footer from '../header/bottomBar'
 import Header from '../header/topBar'
 import Svg, {Path, Defs, Filter, feGaussianBlur, feBlend, feOffset} from 'react-native-svg'
 
-import TouchableOpacityG from './TouchableOpacityG'
-
 export class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -173,9 +171,9 @@ export class HomeScreen extends Component {
                         <Text style={styles.loginButtonText}>Badges</Text>
                     </TouchableOpacity> */}
                 {/* </View> */}
-                <View style={styles.bottomBar}>
+                {/* <View style={styles.bottomBar}>
                     <Footer navigation={this.props.navigation}/> 
-                </View>
+                </View> */}
             </View>
         );
     }
