@@ -3,14 +3,18 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    TouchableOpacity,
+    TouchableHighlight,
 } from 'react-native';
 
 
 
 import {
     createSwitchNavigator,
-    createAppContainer
+    createAppContainer,
+    DrawerItems, 
+    SafeAreaView,
 } from 'react-navigation';
 import { createBottomTabNavigator, BottomTabBar } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -22,106 +26,30 @@ import { createStore } from 'redux';
 
 // import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator, Drawer } from 'react-navigation-drawer';
 import UserAPI from './api/user.api'
+import { AppRegistry, Dimensions } from 'react-native';
+import SideMenu from './screens/side/sideMenu'
+
 
 import LoginScreen from './screens/login/index'
-import HomeScreen from './screens/home/index'
 import SampleScreen from './screens/sample/index'
+import HomeScreen from './screens/home/index'
 import ProfileScreen from './screens/profile/index'
 import JournalScreen from './screens/journal/index'
 import AcademicScreen from './screens/academic/index'
 import SideDrawer from './screens/sideDrawer/index'
 import SurveyScreen from './screens/survey/index'
+import Menu from './screens/modals/hamburgerMenu'
+
+import AppNavigator from './mainComponents/TabNavigator'
+import MainNavigator from './mainComponents/DrawerNavigator'
 
 global.AppAccessToken = null;
 
-const ProfileNavigator = createStackNavigator({
-    Profile: { screen: ProfileScreen },
-    Academic: { screen: AcademicScreen},
-}, 
-{
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
-    }
-});
-
-const AppNavigator = createBottomTabNavigator(
-    {
-        Profile: {
-            screen: ProfileNavigator,
-            navigationOptions: {
-                tabBarLabel: ({ tintColor }) => (
-                    <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
-                        {'Profile'}
-                    </Text>
-                ),
-                tabBarIcon: ({ horizontal, tintColor }) =>
-                    <Icon name="user" size={horizontal ? 20 : 25} color={tintColor} />
-            }
-        },
-        Survey: {
-            screen: SurveyScreen,
-            navigationOptions: {
-                tabBarLabel: ({ tintColor }) => (
-                    <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
-                        {'Survey'}
-                    </Text>
-                ),
-                tabBarIcon: ({ horizontal, tintColor }) =>
-                    <Icon name="file-text" size={horizontal ? 20 : 25} color={tintColor} />
-            }
-        },
-        Home: {
-            screen: HomeScreen,
-            navigationOptions: {
-                tabBarLabel: ({ tintColor }) => (
-                    <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
-                        {'Home'}
-                    </Text>
-                ),
-                tabBarIcon: ({ horizontal, tintColor }) =>
-                <Icon name="home" size={horizontal ? 20 : 25} color={tintColor} />
-            }
-        },
-        Resources: {
-            screen: ProfileScreen,
-            navigationOptions: {
-                tabBarLabel: ({ tintColor }) => (
-                    <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
-                        {'Resouces'}
-                    </Text>
-                ),
-                tabBarIcon: ({ horizontal, tintColor }) =>
-                    <Icon name="gears" size={horizontal ? 20 : 25} color={tintColor} />
-            }
-        },
-        Journal: {
-            screen: JournalScreen,
-            navigationOptions: {
-                tabBarLabel: ({ tintColor }) => (
-                    <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
-                        {'Journal'}
-                    </Text>
-                ),
-                tabBarIcon: ({ horizontal, tintColor }) =>
-                    <Icon name="pencil" size={horizontal ? 20 : 25} color={tintColor} />
-            }
-        },
-
-    },
-    {
-        tabBarOptions: {
-            activeTintColor: 'crimson',
-            inactiveTintColor: 'gray',
-        },
-        backBehavior: "history"
-    }
-);
-
 const InitialNavigator = createSwitchNavigator({
     Login: LoginScreen,
-    App: AppNavigator
+    App: MainNavigator,
 });
 
 const AppContainer = createAppContainer(InitialNavigator);
@@ -129,35 +57,12 @@ const AppContainer = createAppContainer(InitialNavigator);
 class App extends React.Component {
     render() {
         return (
-
-                <AppContainer />
-
+            <AppContainer />
         );
     }
 }
-
 export default App;
 
-// const AppNavigator = createStackNavigator({
-//     Login: { screen: LoginScreen },
-//     Profile: { screen: ProfileScreen },
-//     Survey: { screen: SurveyScreen },
-//     Home: { screen: HomeScreen },
-//     Sample: { screen: SampleScreen },
-//     Journal: { screen: JournalScreen },
-//     Academic: { screen: AcademicScreen },
-//     Drawer: { screen: SideDrawer },
-// },
-//     {
-//         headerMode: 'none',
-//         navigationOptions: {
-//             headerVisible: false,
-//         }
-//     });
-
-
-
-// export default createAppContainer(AppNavigator);
 
 
 
