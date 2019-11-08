@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 export default StyleSheet.create({
     mainContainer: {
         backgroundColor: 'rgb(244,244,244)',
@@ -16,7 +15,7 @@ export default StyleSheet.create({
     lineStyle: {
         borderWidth: 0.5,
         alignSelf: 'center',
-        borderColor:'black',
+        borderColor: 'black',
         width: '75%',
     },
     buttonContainer: {
@@ -27,14 +26,6 @@ export default StyleSheet.create({
         height: '75%',
         width: '22.5%',
     },
-    bottomContainer:{
-        flexDirection:'row',
-        justifyContent: 'space-around',
-        alignSelf: 'center',
-        alignItems: 'center',
-        height: '7.5%',
-        width: '85%',
-    },
     buttonCont: {
         borderRadius: 10,
         flexDirection: 'row',
@@ -44,9 +35,6 @@ export default StyleSheet.create({
         height: '7.5%',
         width: '75%',
         margin: '2%',
-    },
-    button: {
-        backgroundColor: 'grey',
     },
     blueButton: {
         backgroundColor: 'rgb(137,207,240)',
@@ -59,10 +47,4 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    buttonBottom: {
-        color: 'white',
-        fontSize: 12,
-        fontWeight: 'bold',
-    },    
-  });
-  
+});

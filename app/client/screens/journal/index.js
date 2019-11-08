@@ -7,21 +7,10 @@
 
 import React, { Component } from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
     ScrollView,
-    Alert,
     View,
-    Image,
-    Text,
-    Button,
-    TouchableOpacity,
-    TextInput,
-    StatusBar,
-    FlatList,
 } from 'react-native';
 
-import Header from '../header/topBar'
 import styles from './index.style'
 import JournalEntry from '../modals/journal';
 
@@ -44,10 +33,8 @@ export class JournalScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                {/* <Header navigation={this.props.navigation}/> */}
                 <JournalEntry/>   
                 <ScrollView>
-                                     
                 </ScrollView>
             </View>
         );

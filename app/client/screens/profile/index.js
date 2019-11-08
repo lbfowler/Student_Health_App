@@ -7,24 +7,13 @@
 
 import React, { Component } from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    Alert,
     View,
-    Image,
     Text,
-    Button,
     TouchableOpacity,
-    TextInput,
-    StatusBar,
-    Picker,
 } from 'react-native';
 
 import UserAPI from '../../api/user.api'
 import styles from './index.style'
-import Header from '../header/topBar'
-import Footer from '../header/bottomBar'
 
 export class ProfileScreen extends Component {
     constructor(props) {
@@ -53,7 +42,6 @@ export class ProfileScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                {/* <Header navigation={this.props.navigation}/> */}
                 <Text style={styles.name}>{this.state.username}</Text>
                 <View style={styles.lineStyle} />
                 <TouchableOpacity
@@ -91,7 +79,6 @@ export class ProfileScreen extends Component {
                     onPress={() => this.props.navigation.navigate('Academic')}>
                     <Text style={styles.buttonText}>{this.state.spiritual}</Text>    
                 </TouchableOpacity>
-                {/* <Footer navigation={this.props.navigation}/>      */}
             </View>
         );
     }

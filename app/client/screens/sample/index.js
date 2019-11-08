@@ -7,17 +7,9 @@
 
 import React, { Component } from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
     Alert,
     View,
-    Image,
     Text,
-    Button,
-    TouchableOpacity,
-    TextInput,
-    StatusBar,
 } from 'react-native';
 
 import styles from './index.style'

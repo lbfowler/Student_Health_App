@@ -7,6 +7,10 @@ export default StyleSheet.create({
         flexDirection: 'column',
         padding: 20,
     },
-    
+    loginButtonText: {
+		color: 'black',
+		fontSize: 16,
+		fontWeight: 'bold'
+	},
   });
   

@@ -6,24 +6,10 @@
  */
 
 import React, { Component } from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    Alert,
-    View,
-    Image,
-    Text,
-    Picker,
-    Button,
-    TouchableOpacity,
-    TextInput,
-    StatusBar,
-} from 'react-native';
+import { View } from 'react-native';
 
 import styles from './index.style'
-import Header from '../header/topBar'
-import Svg, {Path, Defs, Filter, feGaussianBlur, feBlend, feOffset} from 'react-native-svg'
+import Svg, { Path } from 'react-native-svg'
 
 export class HomeScreen extends Component {
     constructor(props) {
@@ -37,21 +23,15 @@ export class HomeScreen extends Component {
             fillOpacity6: 1, 
             fillOpacity7: 1,
             colorDiagonal: "#8fd2c7",
-            // colorDiagonal: "#828A8F",
             colorVertical: "#b5d334",
-            // colorVertical: "#9E1B32",
             colorGray: "#989898",
             colorBtn: "#000000",
-            // // colorTxt: "#393839",
-            // colorTxt: "#000000",
-            // colorTxtV: "#ffffff",
             colorTxtV: "#393839",
         };
     }
     render() {
         return (
             <View style={styles.mainContainer}>
-                {/* <Header navigation={this.props.navigation}/> */}
                 <View style={styles.svgWrapper}>
                     <Svg height= '100%' width = '100%'  viewBox="0 0 297.46 297.92">
                         {/* spiritual */}
@@ -128,8 +108,6 @@ export class HomeScreen extends Component {
             </View>
         );
     }
-    
-    
 };
 
 export default HomeScreen;

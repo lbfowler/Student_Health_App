@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import {Text} from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import LoginScreen from '../screens/login/index'
 import HomeScreen from '../screens/home/index'
-import SampleScreen from '../screens/sample/index'
 import ProfileScreen from '../screens/profile/index'
 import JournalScreen from '../screens/journal/index'
 import AcademicScreen from '../screens/academic/index'
 import SurveyScreen from '../screens/survey/index'
-
 import { createStackNavigator } from 'react-navigation-stack';
-
 
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: ProfileScreen },
@@ -87,7 +82,6 @@ const AppNavigator = createBottomTabNavigator(
                     <Icon name="pencil" size={horizontal ? 20 : 25} color={tintColor} />
             }
         },
-
     },
     {
         tabBarOptions: {

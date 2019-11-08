@@ -7,19 +7,9 @@
 
 import React, { Component } from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    Alert,
     View,
-    Image,
     Text,
-    Button,
-    TouchableOpacity,
-    TextInput,
-    StatusBar,
 } from 'react-native';
-
 import styles from './index.style'
 
 export class SampleScreen extends Component {
@@ -27,7 +17,6 @@ export class SampleScreen extends Component {
         super(props);
         this.state = {};
     }
-    
     render() {
         return (
             <View style={styles.mainContainer}>
@@ -35,6 +24,5 @@ export class SampleScreen extends Component {
             </View>
         );
     }
-    
 };
 export default SampleScreen;

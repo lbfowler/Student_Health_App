@@ -7,17 +7,12 @@
 
 import React, { Component } from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
     Alert,
     View,
     Image,
     Text,
-    Button,
     TouchableOpacity,
     TextInput,
-    StatusBar,
 } from 'react-native';
 
 import styles from './index.style'
@@ -90,16 +85,6 @@ export class LoginScreen extends Component {
                     onPress={() => this.props.navigation.navigate('Home')}>
                     <Text style={styles.loginButtonText}>Sign In</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity
-                    style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.registerAsync()}>
-                    <Text style={styles.loginButtonText}>Register</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.props.navigation.navigate('Profile')}>
-                    <Text style={styles.loginButtonText}>Profile Page</Text>
-                </TouchableOpacity> */}
             </View>
         );
     }

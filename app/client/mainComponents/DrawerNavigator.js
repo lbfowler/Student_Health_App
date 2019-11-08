@@ -13,21 +13,17 @@
 // implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 // implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
-import React, { Component } from "react";
-import { createDrawerNavigator, DrawerItems, DrawerNavigatorItems, DrawerActions } from 'react-navigation-drawer'
-import Icon from 'react-native-vector-icons/FontAwesome';
-import About from '../screens/survey/index'
-import Home, { HomeScreen } from '../screens/home/index'
-import Settings from '../screens/profile/index'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import HomeScreen from '../screens/home/index'
 import LoginScreen from '../screens/login/index'
 import SampleScreen from '../screens/sample/index'
-import { View, ScrollView, Text, Dimensions, Image, TouchableOpacity } from "react-native";
+import { Dimensions } from "react-native";
 import AppNavigator from './TabNavigator'
 import DrawerNavigatorComponent from './DrawerNavigatorComponent'
 
 const MainNavigator = createDrawerNavigator(
     {
-        AppNavigator: {
+        Main: {
             screen: AppNavigator
         },
         Login: {screen: LoginScreen},
@@ -35,12 +31,10 @@ const MainNavigator = createDrawerNavigator(
         Home: {screen: HomeScreen},
     },
     {
-        initialRouteName: 'AppNavigator',
-        // contentComponent: DrawerScreen,
+        initialRouteName: 'Main',
         contentComponent: DrawerNavigatorComponent,
         drawerPosition: "right",
         drawerWidth: Dimensions.get('window').width / 2.2,
-        
     }
 );
 
