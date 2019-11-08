@@ -63,7 +63,7 @@ export class SurveyScreen extends Component {
             <Picker.Item label="Campus Map" value="map"/>
           </Picker>
         </View> */}
-      <Header navigation={this.props.navigation}/>
+      {/* <Header navigation={this.props.navigation}/> */}
       <View style={styles.qWrap}>
       <Text style={styles.question}>How does your physical health feel today?</Text>
       </View>

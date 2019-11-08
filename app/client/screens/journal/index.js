@@ -44,7 +44,7 @@ export class JournalScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <Header navigation={this.props.navigation}/>
+                {/* <Header navigation={this.props.navigation}/> */}
                 <JournalEntry/>   
                 <ScrollView>
                                      

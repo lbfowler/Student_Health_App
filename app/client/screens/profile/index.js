@@ -53,7 +53,7 @@ export class ProfileScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <Header navigation={this.props.navigation}/>
+                {/* <Header navigation={this.props.navigation}/> */}
                 <Text style={styles.name}>{this.state.username}</Text>
                 <View style={styles.lineStyle} />
                 <TouchableOpacity

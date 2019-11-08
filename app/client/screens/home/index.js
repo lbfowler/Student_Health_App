@@ -51,7 +51,7 @@ export class HomeScreen extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <Header navigation={this.props.navigation}/>
+                {/* <Header navigation={this.props.navigation}/> */}
                 <View style={styles.svgWrapper}>
                     <Svg height= '100%' width = '100%'  viewBox="0 0 297.46 297.92">
                         {/* spiritual */}

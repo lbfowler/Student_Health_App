@@ -5,6 +5,7 @@ export default StyleSheet.create({
         backgroundColor: 'rgb(244,244,244)',
         flexDirection: 'column',
         justifyContent: 'space-around',
+        height: "100%",
     },
     name: {
         color: 'black',
