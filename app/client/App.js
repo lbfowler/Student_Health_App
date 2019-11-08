@@ -31,6 +31,7 @@ import UserAPI from './api/user.api'
 import { AppRegistry, Dimensions } from 'react-native';
 import SideMenu from './screens/side/sideMenu'
 
+import TopBar from './screens/header/topBar'
 
 import LoginScreen from './screens/login/index'
 import SampleScreen from './screens/sample/index'
