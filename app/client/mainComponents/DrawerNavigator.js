@@ -17,6 +17,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer'
 import HomeScreen from '../screens/home/index'
 import LoginScreen from '../screens/login/index'
 import SampleScreen from '../screens/sample/index'
+import SettingsScreen from '../screens/settings/index'
 import { Dimensions } from "react-native";
 import AppNavigator from './TabNavigator'
 import DrawerNavigatorComponent from './DrawerNavigatorComponent'
@@ -29,12 +30,14 @@ const MainNavigator = createDrawerNavigator(
         Login: {screen: LoginScreen},
         Sample: {screen: SampleScreen},
         Home: {screen: HomeScreen},
+        Settings: {screen: SettingsScreen},
     },
     {
         initialRouteName: 'Main',
         contentComponent: DrawerNavigatorComponent,
         drawerPosition: "right",
         drawerWidth: Dimensions.get('window').width / 2.2,
+        drawerType: 'slide',
     }
 );
 

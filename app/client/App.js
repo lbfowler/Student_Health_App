@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { createContext } from 'react';
 import {
     View,
     TouchableOpacity,
@@ -13,6 +13,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/login/index'
 import MainNavigator from './mainComponents/DrawerNavigator'
 import Svg, { Path } from 'react-native-svg';
+import { UserProvider } from './ContextComponent';
+
 global.AppAccessToken = null;
 
 const StackNav = createStackNavigator({
@@ -45,17 +47,22 @@ const StackNav = createStackNavigator({
                     </View>
                 </View>
             ),
-            headerStyle: { borderBottomColor: 'white', height: 85 },
+            headerStyle: { borderBottomColor: 'black', height: 85 },
             headerRight: (
                 <TouchableOpacity
-                    style={{ width: 50, height: 50, alignSelf: "center", marginTop: "20%", }}
+                    style={{ width: 50, height: 50, alignSelf: 'center'}}
                     onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
                 >
-                    <Icon name="bars" size={45} color="#989898" />
+                    <Icon name="bars" size={45} color="#989898" style={{alignSelf: 'center'}}/>
                 </TouchableOpacity>
             ),
             headerRightContainerStyle: {
-                marginRight: 7
+                marginRight: "2%",
+                // borderColor: 'black',
+                // borderWidth: 3,
+                alignSelf: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
             }
         })
     }
@@ -75,7 +82,9 @@ const AppContainer = createAppContainer(InitialNavigator);
 class App extends React.Component {
     render() {
         return (
-            <AppContainer />
+            <UserProvider>
+                <AppContainer />
+            </UserProvider>
         );
     }
 }
