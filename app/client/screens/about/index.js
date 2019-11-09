@@ -11,9 +11,9 @@ import {
     Text,
     StyleSheet,
     SafeAreaView,
-    FlatList,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+
 const data = [
     {
         title: 'About',
@@ -97,7 +97,7 @@ export default SampleScreen;
 
 const styles = StyleSheet.create({
     modelContainer: {
-        marginLeft: "10%",
+        marginLeft: "7%",
         marginRight: "25%",
         width: '70%',
         height: '100%',
@@ -110,11 +110,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     modelTitle: {
-        fontSize: 19,
+        fontSize: 17.5,
         color: 'black',
         fontWeight: "400",
         marginBottom: "1%",
-        borderBottomColor: 'crimson',
+        borderBottomColor: 'gray',
         borderBottomWidth: 1.5,
         width: "90%",
         alignSelf: 'flex-start',
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginBottom: "3%",
         marginRight: "10%",
-        marginLeft: "6%",
+        marginLeft: "7%",
     },
     mainContainer: {
         width: '100%',
