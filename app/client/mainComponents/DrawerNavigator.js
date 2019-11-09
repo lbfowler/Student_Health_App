@@ -18,6 +18,7 @@ import HomeScreen from '../screens/home/index'
 import LoginScreen from '../screens/login/index'
 import SampleScreen from '../screens/sample/index'
 import SettingsScreen from '../screens/settings/index'
+import AboutScreen from '../screens/about/index'
 import { Dimensions } from "react-native";
 import AppNavigator from './TabNavigator'
 import DrawerNavigatorComponent from './DrawerNavigatorComponent'
@@ -31,6 +32,7 @@ const MainNavigator = createDrawerNavigator(
         Sample: {screen: SampleScreen},
         Home: {screen: HomeScreen},
         Settings: {screen: SettingsScreen},
+        About: {screen: AboutScreen},
     },
     {
         initialRouteName: 'Main',

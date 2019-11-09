@@ -1,5 +1,5 @@
 //This is an example code for Navigation Drawer with Custom Side bar//
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableHighlight } from 'react-native-gesture-handler';
@@ -7,6 +7,7 @@ import { DrawerActions } from 'react-navigation-drawer';
 import UserAvatar from 'react-native-user-avatar'
 import AsyncStorage from '@react-native-community/async-storage';
 import { UserConsumer } from '../ContextComponent';
+import { UserContext }  from '../ContextComponent';
 
 
 export default class CustomSidebarMenu extends Component {
@@ -50,6 +51,12 @@ export default class CustomSidebarMenu extends Component {
                 navOptionName: 'Settings',
                 screenToNavigate: 'Settings',
                 key: 4
+            },
+            {
+                navOptionThumb: 'quote-right',
+                navOptionName: 'About',
+                screenToNavigate: 'About',
+                key: 5
             },
         ];
     }

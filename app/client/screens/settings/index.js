@@ -38,15 +38,10 @@ export class SettingsScreen extends Component {
             }
             const setData = async () => {
                 try {
-                    let dataUri = 'data:';
-                    dataUri += response.type;
-                    dataUri += ';base64'
-                    dataUri += response.data;
                     await AsyncStorage.setItem('@ProfilePicture', response.uri);
                     console.log("Stored image persistently as @ProfilePicture")
                 } catch (error) {
-                    alert(JSON.stringify(error));
-                    alert(error.message);
+                    console.log(error);
                 }
             }
             setData();

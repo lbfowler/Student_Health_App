@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text} from 'react-native';
+import { Text } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeScreen from '../screens/home/index'
@@ -9,15 +9,17 @@ import AcademicScreen from '../screens/academic/index'
 import SurveyScreen from '../screens/survey/index'
 import { createStackNavigator } from 'react-navigation-stack';
 
+
+
 const ProfileNavigator = createStackNavigator({
     Profile: { screen: ProfileScreen },
-    Academic: { screen: AcademicScreen},
-}, 
-{
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
-    }
+    Academic: { screen: AcademicScreen },
+},
+    {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        },
 });
 
 const AppNavigator = createBottomTabNavigator(
@@ -55,7 +57,7 @@ const AppNavigator = createBottomTabNavigator(
                     </Text>
                 ),
                 tabBarIcon: ({ horizontal, tintColor }) =>
-                <Icon name="home" size={horizontal ? 20 : 25} color={tintColor} />
+                    <Icon name="home" size={horizontal ? 20 : 25} color={tintColor} />
             }
         },
         Resources: {
@@ -87,8 +89,11 @@ const AppNavigator = createBottomTabNavigator(
         tabBarOptions: {
             activeTintColor: 'crimson',
             inactiveTintColor: 'gray',
+            // style: {
+            //     height: 60
+            // },
         },
-        backBehavior: "history"
+        backBehavior: "history",
     }
 );
 
