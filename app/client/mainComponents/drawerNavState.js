@@ -5,10 +5,10 @@ class StateDNV extends React.Component {
     static router = DNV.router;
     constructor() {
         super();
-        this.state = { some: 1}
+        this.state = { uri: 0}
     }
     handleMessage(data) {
-        this.setState({some: data});
+        this.setState({ uri: data});
     }
     render() {
         let {navigation} = this.props;

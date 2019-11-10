@@ -76,10 +76,7 @@ export default class CustomSidebarMenu extends Component {
         return (
             <View style={styles.sideMenuContainer}>
                 <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
-                    src={
-                        this.props.screenProps.status.some && this.props.screenProps.status.some != 1 ?
-                            this.props.screenProps.status.some : 0
-                    }
+                    src={this.props.screenProps.status.uri}
                 />
                 <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
                 {/*Divider between Top Image and Sidebar Option*/}

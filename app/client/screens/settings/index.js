@@ -29,6 +29,7 @@ let f2 = function (func) {
             const setData = async () => {
                 try {
                     await AsyncStorage.setItem('@ProfilePicture', response.uri);
+
                 } catch (error) {
                     console.log(error);
                 }
@@ -38,7 +39,7 @@ let f2 = function (func) {
     })
 }
 let f3 = function (func) {
-    func.updateParentState(1);
+    func.updateParentState(0);
     let rem = async () => {
         try {
             await AsyncStorage.removeItem('@ProfilePicture')
@@ -75,7 +76,6 @@ export class SettingsScreen extends Component {
     }
     updateParentState(data) {
         this.props.screenProps.postMessage(data);
-        this.props.screenProps.status = data;
     }
     render() {
         return (
