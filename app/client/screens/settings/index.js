@@ -17,16 +17,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ImagePicker from 'react-native-image-picker';
-import { UserConsumer } from '../../ContextComponent';
 
-let f1 = function () {
-    alert("Pressed4")
+let f1 = function (transThis) {
+    transThis.updateParentState('temp message');
 }
 let f2 = function (func) {
     const options = { noData: true, };
     ImagePicker.launchImageLibrary({ options }, response => {
         if (response.uri) {
-            func(response.uri);
+            func.updateParentState(response.uri);
             const setData = async () => {
                 try {
                     await AsyncStorage.setItem('@ProfilePicture', response.uri);
@@ -39,7 +38,7 @@ let f2 = function (func) {
     })
 }
 let f3 = function (func) {
-    func(1);
+    func.updateParentState(1);
     let rem = async () => {
         try {
             await AsyncStorage.removeItem('@ProfilePicture')
@@ -74,33 +73,32 @@ export class SettingsScreen extends Component {
             },
         ];
     }
-
+    updateParentState(data) {
+        this.props.screenProps.postMessage(data);
+        this.props.screenProps.status = data;
+    }
     render() {
         return (
-            <UserConsumer>
-                {({ updateProfUri }) =>
-                    <View style={styles.mainContainer}>
-                        <View style={{ width: '100%' }}>
-                            {this.DATA.map((item) => (
-                                <TouchableHighlight
-                                    onPress={() => { item.onpress(updateProfUri) }}
-                                    style={styles.item}
-                                    underlayColor="rgba(160,160,160,20)"
-                                    key={item.title}
-                                >
-                                    <View style={styles.item}>
-                                        <View style={{ marginRight: "1%", marginLeft: 3, width: "9%",  }}>
-                                            <Icon name={item.icon} size={25} color="#808080" style={{textAlign: 'center'}}/>
-                                        </View>
-                                        <Text style={styles.title}>{item.title}</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            ))}
-                        </View>
+            <View style={styles.mainContainer}>
+                <View style={{ width: '100%' }}>
+                    {this.DATA.map((item) => (
+                        <TouchableHighlight
+                            onPress={() => { item.onpress(this) }}
+                            style={styles.item}
+                            underlayColor="rgba(160,160,160,20)"
+                            key={item.title}
+                        >
+                            <View style={styles.item}>
+                                <View style={{ marginRight: "1%", marginLeft: 3, width: "9%", }}>
+                                    <Icon name={item.icon} size={25} color="#808080" style={{ textAlign: 'center' }} />
+                                </View>
+                                <Text style={styles.title}>{item.title}</Text>
+                            </View>
+                        </TouchableHighlight>
+                    ))}
+                </View>
 
-                    </View>
-                }
-            </UserConsumer>
+            </View>
         );
     }
 };

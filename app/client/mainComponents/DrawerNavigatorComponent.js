@@ -6,26 +6,24 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { DrawerActions } from 'react-navigation-drawer';
 import UserAvatar from 'react-native-user-avatar'
 import AsyncStorage from '@react-native-community/async-storage';
-import { UserConsumer } from '../ContextComponent';
-import { UserContext }  from '../ContextComponent';
 import UserAPI from '../api/user.api'
 
 export default class CustomSidebarMenu extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { photo: null, username: 'Bjarne Stroustrup' };
         init = () => {
-            try{
+            try {
                 UserAPI.getUserInfoAsync()
                     .then((user) => {
                         if (user) {
-                            this.setState({username: user.name})
+                            this.setState({ username: user.name })
                         } else {
-                            this.setState({username: 'John Doe'});
+                            this.setState({ username: 'John Doe' });
                         }
-                });        
-            }catch(error){
-                this.setState({username: 'John Doe'})
+                    });
+            } catch (error) {
+                this.setState({ username: 'John Doe' })
             }
         }
         init();
@@ -33,7 +31,7 @@ export default class CustomSidebarMenu extends Component {
             try {
                 const value = await AsyncStorage.getItem('@ProfilePicture');
                 if (value !== null) {
-                    this.setState({ photo: value })
+                    this.props.screenProps.postMessage(value);
                 }
             } catch (error) {
                 console.log(error);
@@ -73,70 +71,69 @@ export default class CustomSidebarMenu extends Component {
             },
         ];
     }
-    
+
     render() {
         return (
-            <UserConsumer>
-                {({ profUri }) =>
-                    <View style={styles.sideMenuContainer}>
-                        <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
-                            src={profUri && profUri != 1 ? profUri : (this.state.photo && profUri != 1 ? this.state.photo : 0)}
-                        />
-                        <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
-                        {/*Divider between Top Image and Sidebar Option*/}
-                        <View
-                            style={{
-                                width: '100%',
-                                height: 1,
-                                backgroundColor: '#808080',
-                                marginTop: 15,
+            <View style={styles.sideMenuContainer}>
+                <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
+                    src={
+                        this.props.screenProps.status.some && this.props.screenProps.status.some != 1 ?
+                            this.props.screenProps.status.some : 0
+                    }
+                />
+                <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
+                {/*Divider between Top Image and Sidebar Option*/}
+                <View
+                    style={{
+                        width: '100%',
+                        height: 1,
+                        backgroundColor: '#808080',
+                        marginTop: 15,
+                    }}
+                />
+                {/*Setting up Navigation Options from option array using loop*/}
+                <View style={{ width: '100%' }}>
+                    {this.items.map((item, key) => (
+                        <TouchableHighlight
+                            onPress={() => {
+                                global.currentScreenIndex = key;
+                                if (item.navOptionName == "Home") {
+                                    this.props.navigation.navigate("Main");
+                                    this.props.navigation.navigate("Home");
+                                }
+                                else {
+                                    this.props.navigation.navigate(item.screenToNavigate);
+                                }
+                                this.props.navigation.dispatch(DrawerActions.closeDrawer());
                             }}
-                        />
-                        {/*Setting up Navigation Options from option array using loop*/}
-                        <View style={{ width: '100%' }}>
-                            {this.items.map((item, key) => (
-                                <TouchableHighlight
-                                    onPress={() => {
-                                        global.currentScreenIndex = key;
-                                        if (item.navOptionName == "Home") {
-                                            this.props.navigation.navigate("Main");
-                                            this.props.navigation.navigate("Home");
-                                        }
-                                        else {
-                                            this.props.navigation.navigate(item.screenToNavigate);
-                                        }
-                                        this.props.navigation.dispatch(DrawerActions.closeDrawer());
+                            key={item.key}
+                        >
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    paddingTop: 10,
+                                    paddingBottom: 10,
+                                    backgroundColor: global.currentScreenIndex === key ? '#ffffff' : '#ffffff',
+                                }
+                                }
+                                key={item.key}>
+                                <View style={{ marginRight: "5%", marginLeft: 10, width: "15%", }}>
+                                    <Icon name={item.navOptionThumb} size={25} color="#808080" style={{ textAlign: 'center' }} />
+                                </View>
+                                <Text
+                                    style={{
+                                        fontSize: 15,
+                                        color: global.currentScreenIndex === key ? 'black' : 'black',
                                     }}
-                                    key={item.key}
                                 >
-                                    <View
-                                        style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            paddingTop: 10,
-                                            paddingBottom: 10,
-                                            backgroundColor: global.currentScreenIndex === key ? '#ffffff' : '#ffffff',
-                                        }
-                                        }
-                                        key={item.key}>
-                                        <View style={{ marginRight: "5%", marginLeft: 10, width: "15%",  }}>
-                                            <Icon name={item.navOptionThumb} size={25} color="#808080" style={{textAlign: 'center'}}/>
-                                        </View>
-                                        <Text
-                                            style={{
-                                                fontSize: 15,
-                                                color: global.currentScreenIndex === key ? 'black' : 'black',
-                                            }}
-                                        >
-                                            {item.navOptionName}
-                                        </Text>
-                                    </View>
-                                </TouchableHighlight>
-                            ))}
-                        </View>
-                    </View>
-                }
-            </UserConsumer>
+                                    {item.navOptionName}
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
+                    ))}
+                </View>
+            </View>
         );
     }
 }
