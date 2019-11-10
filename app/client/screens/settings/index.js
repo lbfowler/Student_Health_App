@@ -7,125 +7,128 @@
 
 import React, { Component } from 'react';
 import {
-    Alert,
     View,
     Text,
     StyleSheet,
-    Image,
+    TouchableHighlight,
 } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import ImagePicker from 'react-native-image-picker';
 import { UserConsumer } from '../../ContextComponent';
-export class SettingsScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { photo: null, };
-        console.log("Something");
-    }
-    handleChoosePhoto = (func) => {
-        const options = { noData: true, };
-        console.log("Trying...");
-        ImagePicker.launchImageLibrary(options, response => {
-            console.log("Before response");
-            console.log(response);
-            console.log("After response");
-            if (response.uri) {
-                console.log("Updated state");
-                this.setState({ photo: response.uri })
-                func(response.uri);
-            }
+
+let f1 = function () {
+    alert("Pressed4")
+}
+let f2 = function (func) {
+    const options = { noData: true, };
+    ImagePicker.launchImageLibrary({ options }, response => {
+        if (response.uri) {
+            func(response.uri);
             const setData = async () => {
                 try {
                     await AsyncStorage.setItem('@ProfilePicture', response.uri);
-                    console.log("Stored image persistently as @ProfilePicture")
                 } catch (error) {
                     console.log(error);
                 }
             }
             setData();
-        })
+        }
+    })
+}
+let f3 = function (func) {
+    console.log("Removing profile picuture from settings f3 new");
+    func(null);
+    console.log("Starting async in f3");
+    async () => {
+        try {
+            await AsyncStorage.removeItem('@ProfilePicture')
+        } catch (e) {
+            console.log(e);
+        }
     }
+}
+
+export class SettingsScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.DATA = [
+            {
+                id: '1',
+                title: 'Change Profile Picture',
+                icon: 'photo',
+                onpress: f2,
+            },
+            {
+                id: '2',
+                title: 'Delete Picture',
+                icon: 'trash-o',
+                onpress: f3,
+            },
+            {
+                id: '3',
+                title: 'Third Item',
+                icon: 'close',
+                onpress: f1,
+            },
+        ];
+    }
+
     render() {
-        const { photo } = this.state;
         return (
             <UserConsumer>
                 {({ updateProfUri }) =>
                     <View style={styles.mainContainer}>
-                        <TouchableHighlight onPress={() => {
-                            console.log("Pressed top button, should call handler");
-                            this.handleChoosePhoto(updateProfUri);
-                        }
-                        } style={styles.button}>
-                            <Text style={styles.loginButtonText}>This is a sample page</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={
-                            async () => {
-                                try {
-                                    const value = await AsyncStorage.getItem('@ProfilePicture');
-                                    if (value !== null) {
-                                        console.log(value);
-                                        this.setState({ photo: value });
-                                        console.log("updateProfUri should be called...");
-                                        updateProfUri(value);
-                                    }
-                                } catch (error) {
-                                    console.log(error);
-                                }
-                            }
-                        } style={styles.button}>
-                            <Text style={styles.loginButtonText}>Check for photo</Text>
-                        </TouchableHighlight>
-                        {photo &&
-                            <Image source={{ uri: photo }} style={{ width: 100, height: 100 }} />
-                        }
-                        <TouchableHighlight onPress={
-                            async () => {
-                                try {
-                                    await AsyncStorage.removeItem('@ProfilePicture')
-                                } catch (e) {
-                                    console.log(e);
-                                }
-                                updateProfUri(null);
-                                this.setState({photo: null});
-                                console.log('Done. (Removed Picture)')
-                            }
-                        }
-                        style={styles.button}>
-                            <Text style={styles.loginButtonText}>Remove Pic</Text>
-                        </TouchableHighlight>
+                        <View style={{ width: '100%' }}>
+                            {this.DATA.map((item) => (
+                                <TouchableHighlight
+                                    onPress={() => { item.onpress(updateProfUri) }}
+                                    style={styles.item}
+                                    underlayColor="rgba(160,160,160,20)"
+                                    key={item.title}
+                                >
+                                    <View style={styles.item}>
+                                        <View style={{ marginRight: "1%", marginLeft: 3, width: "9%",  }}>
+                                            <Icon name={item.icon} size={25} color="#808080" style={{textAlign: 'center'}}/>
+                                        </View>
+                                        <Text style={styles.title}>{item.title}</Text>
+                                    </View>
+                                </TouchableHighlight>
+                            ))}
+                        </View>
+
                     </View>
                 }
             </UserConsumer>
         );
     }
-
 };
 export default SettingsScreen;
-
 
 const styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: 'rgb(244,244,244)',
+        marginTop: 3,
         height: '100%',
+        width: '100%',
         flexDirection: 'column',
-        padding: 20,
-        alignItems: 'center',
+        alignItems: "baseline",
     },
-    loginButtonText: {
-        color: 'black',
+    item: {
+        backgroundColor: 'rgba(230,230,230,20)',
+        padding: 0,
+        marginVertical: 2,
+        width: '100%',
+        height: 45,
+        flexDirection: "row",
+        alignItems: 'center',
+
+    },
+    title: {
         fontSize: 16,
-        fontWeight: 'bold'
-    },
-    button: {
-        backgroundColor: 'crimson',
+        textAlignVertical: "center",
         alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '60%',
-        height: 40,
-        borderRadius: 3,
-        marginTop: 30,
     },
 });

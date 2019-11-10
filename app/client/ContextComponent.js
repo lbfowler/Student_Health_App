@@ -7,6 +7,7 @@ const UserContext = createContext({
 
 export class UserProvider extends React.Component {
     updateProfUri = newUri => {
+        console.log("updateProfUri called in contextComponent");
         this.setState({ profUri: newUri });
         console.log("Updated URI");
     };

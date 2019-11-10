@@ -112,8 +112,8 @@ export default class CustomSidebarMenu extends Component {
                                         }
                                         }
                                         key={item.key}>
-                                        <View style={{ marginRight: 10, marginLeft: 20 }}>
-                                            <Icon name={item.navOptionThumb} size={25} color="#808080" />
+                                        <View style={{ marginRight: "5%", marginLeft: 10, width: "15%",  }}>
+                                            <Icon name={item.navOptionThumb} size={25} color="#808080" style={{textAlign: 'center'}}/>
                                         </View>
                                         <Text
                                             style={{
