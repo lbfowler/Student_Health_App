@@ -14,12 +14,13 @@ import LoginScreen from './screens/login/index'
 import MainNavigator from './mainComponents/DrawerNavigator'
 import Svg, { Path } from 'react-native-svg';
 import { UserProvider } from './ContextComponent';
+import StateDNV from './mainComponents/drawerNavState'
 
 global.AppAccessToken = null;
 
 const StackNav = createStackNavigator({
     Main: {
-        screen: MainNavigator,
+        screen: StateDNV,
         navigationOptions: (props) => ({
             headerBackground: (
                 <View style={{
