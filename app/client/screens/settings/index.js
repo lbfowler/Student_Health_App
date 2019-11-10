@@ -24,11 +24,11 @@ let f1 = function (transThis) {
 let f2 = function (func) {
     const options = { noData: true, };
     ImagePicker.launchImageLibrary({ options }, response => {
-        if (response.uri) {
-            func.updateParentState(response.uri);
+        if (response.path) {
+            func.updateParentState("file://" + response.path);
             const setData = async () => {
                 try {
-                    await AsyncStorage.setItem('@ProfilePicture', response.uri);
+                    await AsyncStorage.setItem('@ProfilePicture', "file://" + response.path);
 
                 } catch (error) {
                     console.log(error);
