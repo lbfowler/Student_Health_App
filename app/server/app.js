@@ -12,7 +12,7 @@ var currentDir = __dirname;
 global.userDataDB = new nedb({ filename: currentDir + "/userData.db", autoload: true });
 // userDataDB [{username: null, accessTokens: []}, answers: []}]
 // accessTokens [{accessToken: null, expireDate: Date, deviceId: null},]
-// answers [{questionId: null, choiceId: null}]
+// answers [{questionId: null, choiceId: null, time: null}]
 
 global.qualtricsDB = new nedb({ filename: currentDir + "/qualtrics.db", autoload: true });
 // qualtricsDB [{questionId: null, questionText: null, questionTag: null, choices: []}]

@@ -67,7 +67,7 @@ router.post('/register', function (req, res) {
         var newUserProfile = {username: username, hashedPassword: hashedPassword, email: email, name: name};
         global.userProfileDB.insert(newUserProfile, function (error, userProfile) {
             if (error)  return sendInternalServerErrorPacket(res, error);
-            var newUserData = {username: userProfile.username, accessTokens: []};
+            var newUserData = {username: userProfile.username, accessTokens: [], answers: []};
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 30);
             var token = {accessToken: uuidv1(), expireDate: expireDate, deviceId: null};

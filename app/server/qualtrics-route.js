@@ -48,6 +48,27 @@ router.post('/api/createSession', function (req, res) {
     
 });
 
+router.post('/api/createResponse', function (req, res) {
+    var accessToken = req.headers["x-access-token"];
+    userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
+        if (errorPacket) return res.end(JSON.stringify(errorPacket));
+        if (!req.body.qid || !req.body.choiceId) return res.end(JSON.stringify(basicPacket(false, 15, "QID or choiceId cannot be empty")));
+        var qid = req.body.qid.trim();
+        var choiceId = req.body.choiceId.trim();
+        global.userDataDB.find({username: username}, function (error, userData) {
+            if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
+            if (userData.answers == undefined) userData.answers = [];
+            userData.answers.push({qid: qid, choiceId: choiceId, time: Date.now()});
+            global.userDataDB.update({ username: username }, userData, {}, function (error, numReplaced) {
+                if (error)  return sendInternalServerErrorPacket(res, error);
+                var successPacket =  (true, null, "Succefully create response");
+                res.end(JSON.stringify(successPacket));
+            });
+        });
+    })
+    
+});
+
 function createResponseFromQuestion(question, choiceId) {
     var resp = {[question.questionId] : {
         [choiceId]: {
