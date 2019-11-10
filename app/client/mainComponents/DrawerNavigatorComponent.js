@@ -8,10 +8,27 @@ import UserAvatar from 'react-native-user-avatar'
 import AsyncStorage from '@react-native-community/async-storage';
 import { UserConsumer } from '../ContextComponent';
 import { UserContext }  from '../ContextComponent';
+import UserAPI from '../api/user.api'
 
 export default class CustomSidebarMenu extends Component {
     constructor() {
         super();
+        this.state = { photo: null, username: 'Bjarne Stroustrup' };
+        init = () => {
+            try{
+                UserAPI.getUserInfoAsync()
+                    .then((user) => {
+                        if (user) {
+                            this.setState({username: user.name})
+                        } else {
+                            this.setState({username: 'John Doe'});
+                        }
+                });        
+            }catch(error){
+                this.setState({username: 'John Doe'})
+            }
+        }
+        init();
         getPic = async () => {
             try {
                 const value = await AsyncStorage.getItem('@ProfilePicture');
@@ -23,7 +40,6 @@ export default class CustomSidebarMenu extends Component {
             }
         }
         getPic();
-        this.state = { photo: null }
         this.items = [
             {
                 navOptionThumb: 'home',
@@ -57,17 +73,16 @@ export default class CustomSidebarMenu extends Component {
             },
         ];
     }
+    
     render() {
-
         return (
             <UserConsumer>
-                {({ profUri, updateProfUri }) =>
+                {({ profUri }) =>
                     <View style={styles.sideMenuContainer}>
-                        <UserAvatar name="Ben Gerszewski" size={100} color="#a00003" radius={.33}
+                        <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
                             src={profUri && profUri != 1 ? profUri : (this.state.photo && profUri != 1 ? this.state.photo : 0)}
                         />
-                        <Text style={{ fontSize: 20 }}>Ben Gerszewski</Text>
-                        {/* <Icon name="user" size={100} color="#808080" /> */}
+                        <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
                         {/*Divider between Top Image and Sidebar Option*/}
                         <View
                             style={{

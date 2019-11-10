@@ -35,9 +35,8 @@ export class ProfileScreen extends Component {
             UserAPI.getUserInfoAsync()
                 .then((user) => this.setState({username: JSON.stringify(user.name)}));        
         }catch(error){
-            this.setState({username: 'Error loading user name'})
+            this.setState({username: 'John Doe'})
         }
-
     }
     render() {
         return (
