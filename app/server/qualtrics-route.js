@@ -12,7 +12,15 @@ const SurveyId = "SV_4G7Q5ay8Oh9RpWt";
 
 var currentDir = __dirname;
 
-
+createSession()
+    .then((responseJson) => {
+            console.log(responseJson)
+            autoAnswerQuestions(responseJson);
+    })
+    .catch((error) => console.log(error));
+getAllQuestions()
+    .then((responseJson) => processAllQuestions(responseJson))
+    .catch((error) => console.log(error));
 
 router.get('/api/getAllQuestions', function (req, res) {
     var accessToken = req.headers["x-access-token"];
@@ -25,10 +33,40 @@ router.get('/api/getAllQuestions', function (req, res) {
             res.end(JSON.stringify(successPacket));
         });
     })
+});
+router.post('/api/createSession', function (req, res) {
+    var accessToken = req.headers["x-access-token"];
+    userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
+        if (errorPacket) return res.end(JSON.stringify(errorPacket));
+        global.qualtricsDB.find({}, function (error, questions) {
+            if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
+            var successPacket =  (true, null, "Succefully get all questions");
+            successPacket.questions = questions;
+            res.end(JSON.stringify(successPacket));
+        });
+    })
     
 });
-getAllQuestions()
-        .then((responseJson) => processAllQuestions(responseJson));
+
+function createResponseFromQuestion(question, choiceId) {
+    var resp = {[question.questionId] : {
+        [choiceId]: {
+            "selected": true
+        }
+    }};
+    return resp;    
+}
+
+function autoAnswerQuestions(responseJson) {
+    updateSession(responseJson, createResponseFromQuestion(responseJson.result.questions[0], "1"))
+    .then((responseJson) => {
+        var isDone = responseJson.result.done;
+        if (isDone != false) closeSession(responseJson);
+        else autoAnswerQuestions(responseJson)
+    })
+    .catch((error) => console.log(error));
+}
+
 function processAllQuestions(response) {
     global.qualtricsDB.remove({}, { multi: true }, function (error) {
         if (error) return console.log(error);
@@ -36,6 +74,7 @@ function processAllQuestions(response) {
             var item = {questionId: question.QuestionID, questionText: question.QuestionDescription, questionTag: question.DataExportTag, choices: question.Choices};
             global.qualtricsDB.insert(item);
         });
+        console.log(response.result);
     });
 }
 function getAllQuestions() {
@@ -50,6 +89,115 @@ function getAllQuestions() {
         fetch(fullUrl, {method: 'GET', headers: headers})
             .then((response) => {
                 if (response.status != 200) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
+                response.json()
+                .then((responseJson) => resolve(responseJson))
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(basicPacket(false, 2, 'Network request failed'))
+            });
+    });
+}
+function createSession() {
+    var fullUrl = HTTPProtocol + '://' + ServerHostName
+    if (ServerPortNumber != null) fullUrl += (':' + ServerPortNumber);
+    fullUrl += "/API/v3/surveys/"+SurveyId+"/sessions";
+    return new Promise (function (resolve, reject) {
+        setTimeout(()=> reject(basicPacket(false, 1, 'Network request timeout')), DefaultPostRequestTimeout);
+        var headers = {
+            'X-API-TOKEN': APIToken,
+            'Content-Type': 'application/json',
+        };
+        var body = {
+            "language": "EN",
+            "embeddedData": {
+                   "username": "hfang"
+            } 
+        };
+        fetch(fullUrl, {method: 'POST', headers: headers, body: JSON.stringify(body)})
+            .then((response) => {
+                if (response.status != 200 && response.status != 201) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
+                response.json()
+                .then((responseJson) => resolve(responseJson))
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(basicPacket(false, 2, 'Network request failed'))
+            });
+    });
+}
+function updateSession(session, responses) {
+    var fullUrl = HTTPProtocol + '://' + ServerHostName
+    if (ServerPortNumber != null) fullUrl += (':' + ServerPortNumber);
+    fullUrl += "/API/v3/surveys/"+SurveyId+"/sessions/" + session.result.sessionId + "/#";
+    return new Promise (function (resolve, reject) {
+        
+        var headers = {
+            'X-API-TOKEN': APIToken,
+            'Content-Type': 'application/json',
+        };
+        var firstQuesiton = session.result.questions[0];
+        var body = {
+                        "advance": true,
+                        "embeddedData": {
+                            "username": "hfang"
+                        },
+                        "responses": responses
+                    };
+        //console.log(body);
+        setTimeout(()=> reject(basicPacket(false, 1, 'Network request timeout')), DefaultPostRequestTimeout);
+        fetch(fullUrl, {method: 'POST', headers: headers, body: JSON.stringify(body)})
+            .then((response) => {
+                if (response.status != 200 && response.status != 201) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
+                response.json()
+                .then((responseJson) => {
+                    console.log(responseJson)
+                    resolve(responseJson);
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(basicPacket(false, 2, 'Network request failed'))
+            });
+    });
+}
+function closeSession(session) {
+    var fullUrl = HTTPProtocol + '://' + ServerHostName
+    if (ServerPortNumber != null) fullUrl += (':' + ServerPortNumber);
+    fullUrl += "/API/v3/surveys/"+SurveyId+"/sessions/" + session.result.sessionId;
+    return new Promise (function (resolve, reject) {
+        setTimeout(()=> reject(basicPacket(false, 1, 'Network request timeout')), DefaultPostRequestTimeout);
+        var headers = {
+            'X-API-TOKEN': APIToken,
+            'Content-Type': 'application/json',
+        };
+        var body = {"close": true};
+        fetch(fullUrl, {method: 'POST', headers: headers, body: JSON.stringify(body)})
+            .then((response) => {
+                if (response.status != 200 && response.status != 201) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
+                response.json()
+                .then((responseJson) => resolve(responseJson))
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(basicPacket(false, 2, 'Network request failed'))
+            });
+    });
+}
+function createResponse() {
+    var fullUrl = HTTPProtocol + '://' + ServerHostName
+    if (ServerPortNumber != null) fullUrl += (':' + ServerPortNumber);
+    fullUrl += "/API/v3/surveys/"+SurveyId+"/sessions/responses";
+    return new Promise (function (resolve, reject) {
+        setTimeout(()=> reject(basicPacket(false, 1, 'Network request timeout')), DefaultPostRequestTimeout);
+        var headers = {
+            'X-API-TOKEN': APIToken,
+            'Content-Type': 'application/json',
+        };
+        var body = {"close": true};
+        fetch(fullUrl, {method: 'POST', headers: headers, body: JSON.stringify(body)})
+            .then((response) => {
+                if (response.status != 200 && response.status != 201) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
                 response.json()
                 .then((responseJson) => resolve(responseJson))
             })
