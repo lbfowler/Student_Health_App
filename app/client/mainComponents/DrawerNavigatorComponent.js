@@ -8,17 +8,31 @@ import UserAvatar from 'react-native-user-avatar'
 import AsyncStorage from '@react-native-community/async-storage';
 import { UserConsumer } from '../ContextComponent';
 import { UserContext }  from '../ContextComponent';
-
+import UserAPI from '../api/user.api'
 
 export default class CustomSidebarMenu extends Component {
     constructor() {
         super();
+        this.state = { photo: null, username: 'Bjarne Stroustrup' };
+        init = () => {
+            try{
+                UserAPI.getUserInfoAsync()
+                    .then((user) => {
+                        if (user) {
+                            this.setState({username: user.name})
+                        } else {
+                            this.setState({username: 'John Doe'});
+                        }
+                });        
+            }catch(error){
+                this.setState({username: 'John Doe'})
+            }
+        }
+        init();
         getPic = async () => {
             try {
-                console.log("Trying to set picture in customsidebar");
                 const value = await AsyncStorage.getItem('@ProfilePicture');
                 if (value !== null) {
-                    console.log(value);
                     this.setState({ photo: value })
                 }
             } catch (error) {
@@ -26,7 +40,6 @@ export default class CustomSidebarMenu extends Component {
             }
         }
         getPic();
-        this.state = { photo: null }
         this.items = [
             {
                 navOptionThumb: 'home',
@@ -60,21 +73,16 @@ export default class CustomSidebarMenu extends Component {
             },
         ];
     }
+    
     render() {
-
         return (
             <UserConsumer>
                 {({ profUri }) =>
                     <View style={styles.sideMenuContainer}>
-                        {console.log("ProfURI is...")}
-                        {console.log(profUri)}
-
-                        <UserAvatar name="Ben Gerszewski" size={100} color="#a00003" radius={.33}
-                            src={profUri ? profUri : (this.state.photo ? this.state.photo : 0)}
+                        <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
+                            src={profUri && profUri != 1 ? profUri : (this.state.photo && profUri != 1 ? this.state.photo : 0)}
                         />
- 
-                        <Text style={{ fontSize: 20 }}>Ben Gerszewski</Text>
-                        {/* <Icon name="user" size={100} color="#808080" /> */}
+                        <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
                         {/*Divider between Top Image and Sidebar Option*/}
                         <View
                             style={{
@@ -90,7 +98,6 @@ export default class CustomSidebarMenu extends Component {
                                 <TouchableHighlight
                                     onPress={() => {
                                         global.currentScreenIndex = key;
-                                        // alert(JSON.stringify(this.props.navigation.state))
                                         if (item.navOptionName == "Home") {
                                             this.props.navigation.navigate("Main");
                                             this.props.navigation.navigate("Home");
@@ -112,8 +119,8 @@ export default class CustomSidebarMenu extends Component {
                                         }
                                         }
                                         key={item.key}>
-                                        <View style={{ marginRight: 10, marginLeft: 20 }}>
-                                            <Icon name={item.navOptionThumb} size={25} color="#808080" />
+                                        <View style={{ marginRight: "5%", marginLeft: 10, width: "15%",  }}>
+                                            <Icon name={item.navOptionThumb} size={25} color="#808080" style={{textAlign: 'center'}}/>
                                         </View>
                                         <Text
                                             style={{

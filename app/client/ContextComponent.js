@@ -8,7 +8,6 @@ const UserContext = createContext({
 export class UserProvider extends React.Component {
     updateProfUri = newUri => {
         this.setState({ profUri: newUri });
-        console.log("Updated URI");
     };
 
     state = {
