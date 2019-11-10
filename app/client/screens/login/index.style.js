@@ -5,6 +5,9 @@ export default StyleSheet.create({
 		height: '100%',
 		flexDirection: 'column',
 		padding: 20,
+		alignContent: "center",
+		alignItems: "center",
+		flex: 1,
 	},
 	logo: {
 		alignSelf: 'center',
