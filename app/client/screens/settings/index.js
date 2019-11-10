@@ -39,16 +39,15 @@ let f2 = function (func) {
     })
 }
 let f3 = function (func) {
-    console.log("Removing profile picuture from settings f3 new");
-    func(null);
-    console.log("Starting async in f3");
-    async () => {
+    func(1);
+    let rem = async () => {
         try {
             await AsyncStorage.removeItem('@ProfilePicture')
         } catch (e) {
             console.log(e);
         }
     }
+    rem()
 }
 
 export class SettingsScreen extends Component {

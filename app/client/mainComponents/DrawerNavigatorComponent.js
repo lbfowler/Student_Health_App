@@ -9,16 +9,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { UserConsumer } from '../ContextComponent';
 import { UserContext }  from '../ContextComponent';
 
-
 export default class CustomSidebarMenu extends Component {
     constructor() {
         super();
         getPic = async () => {
             try {
-                console.log("Trying to set picture in customsidebar");
                 const value = await AsyncStorage.getItem('@ProfilePicture');
                 if (value !== null) {
-                    console.log(value);
                     this.setState({ photo: value })
                 }
             } catch (error) {
@@ -64,15 +61,11 @@ export default class CustomSidebarMenu extends Component {
 
         return (
             <UserConsumer>
-                {({ profUri }) =>
+                {({ profUri, updateProfUri }) =>
                     <View style={styles.sideMenuContainer}>
-                        {console.log("ProfURI is...")}
-                        {console.log(profUri)}
-
                         <UserAvatar name="Ben Gerszewski" size={100} color="#a00003" radius={.33}
-                            src={profUri ? profUri : (this.state.photo ? this.state.photo : 0)}
+                            src={profUri && profUri != 1 ? profUri : (this.state.photo && profUri != 1 ? this.state.photo : 0)}
                         />
- 
                         <Text style={{ fontSize: 20 }}>Ben Gerszewski</Text>
                         {/* <Icon name="user" size={100} color="#808080" /> */}
                         {/*Divider between Top Image and Sidebar Option*/}
@@ -90,7 +83,6 @@ export default class CustomSidebarMenu extends Component {
                                 <TouchableHighlight
                                     onPress={() => {
                                         global.currentScreenIndex = key;
-                                        // alert(JSON.stringify(this.props.navigation.state))
                                         if (item.navOptionName == "Home") {
                                             this.props.navigation.navigate("Main");
                                             this.props.navigation.navigate("Home");
