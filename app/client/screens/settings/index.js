@@ -11,15 +11,18 @@ import {
     Text,
     StyleSheet,
     TouchableHighlight,
+    Dimensions,
+    Image,
+    Button,
 } from 'react-native';
-
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import ImagePicker from 'react-native-image-picker';
+import Slider from '@react-native-community/slider';
 
-let f1 = function (transThis) {
-    transThis.updateParentState('temp message');
+
+let f1 = function () {
+    alert("pressed third button")
 }
 let f2 = function (func) {
     const options = { noData: true, };
@@ -50,9 +53,46 @@ let f3 = function (func) {
     rem()
 }
 
+function HSLToRGB(h) {
+    // Must be fractions of 1
+
+    s = 1;
+    l = 0.5;
+
+    let c = (1 - Math.abs(2 * l - 1)) * s,
+        x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+        m = l - c / 2,
+        r = 0,
+        g = 0,
+        b = 0;
+
+    if (0 <= h && h < 60) {
+        r = c; g = x; b = 0;
+    } else if (60 <= h && h < 120) {
+        r = x; g = c; b = 0;
+    } else if (120 <= h && h < 180) {
+        r = 0; g = c; b = x;
+    } else if (180 <= h && h < 240) {
+        r = 0; g = x; b = c;
+    } else if (240 <= h && h < 300) {
+        r = x; g = 0; b = c;
+    } else if (300 <= h && h < 360) {
+        r = c; g = 0; b = x;
+    }
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+
+    return "rgb(" + r + "," + g + "," + b + ")";
+}
 export class SettingsScreen extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            color: 0,
+            rgb: HSLToRGB(0),
+        }
+        
         this.DATA = [
             {
                 id: '1',
@@ -77,10 +117,14 @@ export class SettingsScreen extends Component {
     updateParentState(data) {
         this.props.screenProps.postMessage(data);
     }
+    updateColor = (color) => {
+        this.setState({color: color});
+        this.setState({rgb: HSLToRGB(color)});
+    }
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={{ width: '100%' }}>
+                <View style={{ width: '100%', flex: 1 }}>
                     {this.DATA.map((item) => (
                         <TouchableHighlight
                             onPress={() => { item.onpress(this) }}
@@ -96,8 +140,26 @@ export class SettingsScreen extends Component {
                             </View>
                         </TouchableHighlight>
                     ))}
+                    <View style={{ height: 80 ,width: '100%', marginBottom: "4%", flexDirection: 'row', justifyContent:'center', marginTop: '5%'}}>
+                        <Slider
+                        {...this.props}
+                            style={{ width: '75%', height: 40, alignSelf: 'center' }}
+                            minimumValue={0}
+                            maximumValue={359}
+                            minimumTrackTintColor="rgba(160,160,160,20)"
+                            maximumTrackTintColor="#000000"
+                            onValueChange={value => this.updateColor(value)}
+                            thumbTintColor={this.state.rgb}
+                        />
+                        <TouchableHighlight onPress={() => {alert(this.state.rgb)}} 
+                            style={{borderRadius: 1000, width: '100%', flex: .6, alignSelf: 'center', justifyContent: 'center'}}>
+                            <Image
+                                style={{width: '100%', aspectRatio: 1, borderRadius: 1000, alignSelf: 'center'}} 
+                                backgroundColor={this.state.rgb}
+                            />
+                        </TouchableHighlight>
+                    </View>
                 </View>
-
             </View>
         );
     }
