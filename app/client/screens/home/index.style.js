@@ -15,6 +15,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         resizeMode: 'contain',
-        padding: 4,
+        padding: '2.5%',
     },
 });
