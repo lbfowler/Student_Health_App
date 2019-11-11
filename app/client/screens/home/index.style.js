@@ -10,12 +10,11 @@ export default StyleSheet.create({
         marginTop: 0,
     },
     svgWrapper: {
-        width: "90%",
+        width: "100%",
         height: "100%",
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 20/20,
         resizeMode: 'contain',
-        marginBottom: "0%",
+        padding: 4,
     },
 });
