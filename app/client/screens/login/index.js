@@ -72,12 +72,12 @@ export class LoginScreen extends Component {
                     <TextInput style={styles.textBox}
                         placeholder="User Name"
                         onChangeText={(text) => this.setState({ username: text })}
-                        onSubmitEditing={() => { this.passwordTextInput.focus(); }} />
+                        onSubmitEditing={() => { this.passwordTextInput.focus(); }} >hfang</TextInput>
                     <TextInput style={styles.textBox}
                         placeholder="Password"
                         secureTextEntry={true}
                         onChangeText={(text) => this.setState({ password: text })}
-                        ref={(input) => { this.passwordTextInput = input; }} />
+                        ref={(input) => { this.passwordTextInput = input; }} >a123456</TextInput>
                     <TouchableOpacity
                         style={[styles.buttonContainer, styles.loginButton]}
                         onPress={() => this.loginAsync()}>

@@ -12,12 +12,12 @@ const SurveyId = "SV_4G7Q5ay8Oh9RpWt";
 
 var currentDir = __dirname;
 
-createSession()
-    .then((responseJson) => {
-            console.log(responseJson)
-            autoAnswerQuestions(responseJson);
-    })
-    .catch((error) => console.log(error));
+// createSession()
+//     .then((responseJson) => {
+//             console.log(responseJson)
+//             autoAnswerQuestions(responseJson);
+//     })
+//     .catch((error) => console.log(error));
 getAllQuestions()
     .then((responseJson) => processAllQuestions(responseJson))
     .catch((error) => console.log(error));
