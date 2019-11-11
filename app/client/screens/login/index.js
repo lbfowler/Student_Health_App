@@ -52,7 +52,7 @@ export class LoginScreen extends Component {
             .then((result) => {
                 console.log(global.AppAccessToken);
                 QualtricsAPI.getQuestionsFromBlockAsync("acad")
-                .then((result) => QualtricsAPI.createResponse(result.questions[0].questionId, 1))
+                .then((result) => QualtricsAPI.createResponseAsync(result.questions[0].questionId, 1))
                 .then((result) => console.log(result))
                 .catch((error) => console.log(error));
                 if (result.success) this.props.navigation.navigate('Home');

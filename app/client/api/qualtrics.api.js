@@ -24,7 +24,7 @@ const QualtricsAPI = {
             .catch((error) => reject(error));
         });
     },
-    createResponse(questionId, choiceId){
+    createResponseAsync(questionId, choiceId){
         return new Promise (function (resolve, reject) {
             Request.createPostRequest('/api/createResponse', JSON.stringify({
                 qid: questionId,
