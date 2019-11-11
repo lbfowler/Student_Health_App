@@ -11,14 +11,14 @@ import {
     Text,
     StyleSheet,
     TouchableHighlight,
-    Dimensions,
     Image,
-    Button,
+    SafeAreaView,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
 import Slider from '@react-native-community/slider';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 let f1 = function () {
@@ -54,8 +54,6 @@ let f3 = function (func) {
 }
 
 function HSLToRGB(h) {
-    // Must be fractions of 1
-
     s = 1;
     l = 0.5;
 
@@ -85,6 +83,10 @@ function HSLToRGB(h) {
 
     return "rgb(" + r + "," + g + "," + b + ")";
 }
+const range = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+const inc = 100 / range.length;
+const wid = inc.toString() + '%';
+console.log(wid)
 export class SettingsScreen extends Component {
     constructor(props) {
         super(props);
@@ -92,7 +94,6 @@ export class SettingsScreen extends Component {
             color: 0,
             rgb: HSLToRGB(0),
         }
-        
         this.DATA = [
             {
                 id: '1',
@@ -118,49 +119,55 @@ export class SettingsScreen extends Component {
         this.props.screenProps.postMessage(data);
     }
     updateColor = (color) => {
-        this.setState({color: color});
-        this.setState({rgb: HSLToRGB(color)});
+        this.setState({ color: color });
+        this.setState({ rgb: HSLToRGB(color) });
     }
     render() {
         return (
-            <View style={styles.mainContainer}>
-                <View style={{ width: '100%', flex: 1 }}>
-                    {this.DATA.map((item) => (
-                        <TouchableHighlight
-                            onPress={() => { item.onpress(this) }}
-                            style={styles.item}
-                            underlayColor="rgba(160,160,160,20)"
-                            key={item.title}
-                        >
-                            <View style={styles.item}>
-                                <View style={{ marginRight: "1%", marginLeft: 3, width: "9%", }}>
-                                    <Icon name={item.icon} size={25} color="#808080" style={{ textAlign: 'center' }} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={styles.mainContainer}>
+                    <ScrollView contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
+                        <View style={{ width: '100%', flex: 1 }}>
+                            {this.DATA.map((item) => (
+                                <TouchableHighlight
+                                    onPress={() => { item.onpress(this) }}
+                                    style={styles.item}
+                                    underlayColor="rgba(160,160,160,20)"
+                                    key={item.title}
+                                >
+                                    <View style={styles.item}>
+                                        <View style={{ marginRight: "1%", marginLeft: 3, width: "9%", }}>
+                                            <Icon name={item.icon} size={25} color="#808080" style={{ textAlign: 'center' }} />
+                                        </View>
+                                        <Text style={styles.title}>{item.title}</Text>
+                                    </View>
+                                </TouchableHighlight>
+                            ))}
+                            <View style={{ flexDirection: 'column', alignItems: 'baseline', width: '100%', height: '100%' }}>
+                                <View style={{ height: 80, width: '100%', marginBottom: "4%", flexDirection: 'row', justifyContent: 'center', marginTop: '5%', alignSelf: 'flex-start' }}>
+                                    <Slider
+                                        {...this.props}
+                                        style={{ width: '75%', height: 40, alignSelf: 'center' }}
+                                        minimumValue={0}
+                                        maximumValue={359}
+                                        minimumTrackTintColor="rgba(160,160,160,20)"
+                                        maximumTrackTintColor="#000000"
+                                        onValueChange={value => this.updateColor(value)}
+                                        thumbTintColor={this.state.rgb}
+                                    />
                                 </View>
-                                <Text style={styles.title}>{item.title}</Text>
+                                <View style={styles.circleContainer}>
+                                    {range.map((item) => (
+                                        <TouchableHighlight onPress={() => { alert(this.state.rgb) }} style={styles.circle} key={item}>
+                                            <Image style={styles.realCircle} backgroundColor={HSLToRGB((this.state.color + item) % 360)} />
+                                        </TouchableHighlight>
+                                    ))}
+                                </View>
                             </View>
-                        </TouchableHighlight>
-                    ))}
-                    <View style={{ height: 80 ,width: '100%', marginBottom: "4%", flexDirection: 'row', justifyContent:'center', marginTop: '5%'}}>
-                        <Slider
-                        {...this.props}
-                            style={{ width: '75%', height: 40, alignSelf: 'center' }}
-                            minimumValue={0}
-                            maximumValue={359}
-                            minimumTrackTintColor="rgba(160,160,160,20)"
-                            maximumTrackTintColor="#000000"
-                            onValueChange={value => this.updateColor(value)}
-                            thumbTintColor={this.state.rgb}
-                        />
-                        <TouchableHighlight onPress={() => {alert(this.state.rgb)}} 
-                            style={{borderRadius: 1000, width: '100%', flex: .6, alignSelf: 'center', justifyContent: 'center'}}>
-                            <Image
-                                style={{width: '100%', aspectRatio: 1, borderRadius: 1000, alignSelf: 'center'}} 
-                                backgroundColor={this.state.rgb}
-                            />
-                        </TouchableHighlight>
-                    </View>
+                        </View>
+                    </ScrollView>
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 };
@@ -190,4 +197,27 @@ const styles = StyleSheet.create({
         textAlignVertical: "center",
         alignSelf: 'center',
     },
+    circle: {
+        width: '15%',
+        aspectRatio: 1,
+        borderRadius: 1000,
+        alignSelf: 'center',
+        margin: 10
+    },
+    realCircle: {
+        width: '100%',
+        aspectRatio: 1,
+        borderRadius: 1000
+    },
+    circleContainer: {
+        height: 80,
+        width: '100%',
+        marginBottom: "4%",
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: '5%',
+        alignContent: 'center',
+        flexWrap: "wrap",
+        flex: .5
+    }
 });
