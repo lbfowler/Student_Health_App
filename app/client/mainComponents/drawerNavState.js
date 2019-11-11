@@ -3,8 +3,8 @@ import DNV from './DrawerNavigator'
 
 class StateDNV extends React.Component {
     static router = DNV.router;
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { uri: 0}
     }
     handleMessage(data) {

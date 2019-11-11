@@ -123,6 +123,7 @@ export class SettingsScreen extends Component {
         this.setState({ rgb: HSLToRGB(color) });
     }
     render() {
+        console.log(this.props.screenProps);
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.mainContainer}>

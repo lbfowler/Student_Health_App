@@ -19,8 +19,10 @@ import styles from './index.style'
 import UserAPI from '../../api/user.api'
 import QualtricsAPI from '../../api/qualtrics.api'
 import ALogo from './logo'
+import { NavigationActions } from 'react-navigation';
 
 export class LoginScreen extends Component {
+    static router = LoginScreen.router;
     constructor(props) {
         super(props);
         this.state = {};
@@ -63,9 +65,21 @@ export class LoginScreen extends Component {
     }
 
     render() {
+        
+        console.log("in login")
+        console.log(LoginScreen.router)
+        console.log(this.props)
+        LoginScreen.router = 'Main';
+        this.props.navigation.dispatch( () => NavigationActions.reset({
+            routeName: 'Login',
+            key: null,
+            actions: [NavitagationActions.navigate({routeName: 'Main'})]
+        }))
+        console.log(LoginScreen.router)
+        let { navigation } = this.props;
         if (!this.state.ready) return null;
         return (
-                <View style={styles.mainContainer}>
+                <View style={styles.mainContainer} navigation = {navigation}>
                     <View style={{ width: '35%', height: '35%', alignContent: 'center', flexDirection: 'column', alignSelf: 'center' }}>
                         <ALogo />
                     </View>
