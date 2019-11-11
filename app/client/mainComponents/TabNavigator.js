@@ -8,6 +8,9 @@ import JournalScreen from '../screens/journal/index'
 import AcademicScreen from '../screens/academic/index'
 import SurveyScreen from '../screens/survey/index'
 import { createStackNavigator } from 'react-navigation-stack';
+import {
+    createAppContainer,
+} from 'react-navigation';
 
 
 
@@ -20,12 +23,14 @@ const ProfileNavigator = createStackNavigator({
         navigationOptions: {
             headerVisible: false,
         },
+        initialRouteName: 'Profile'
 });
+const ProfileContainer = createAppContainer(ProfileNavigator);
 
 const AppNavigator = createBottomTabNavigator(
     {
         Profile: {
-            screen: ProfileNavigator,
+            screen: ProfileContainer,
             navigationOptions: {
                 tabBarLabel: ({ tintColor }) => (
                     <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
@@ -96,5 +101,5 @@ const AppNavigator = createBottomTabNavigator(
         backBehavior: "history",
     }
 );
-
-export default AppNavigator
+const TabContainer = createAppContainer(AppNavigator);
+export default TabContainer

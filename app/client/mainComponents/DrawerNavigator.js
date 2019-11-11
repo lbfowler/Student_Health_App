@@ -22,6 +22,9 @@ import AboutScreen from '../screens/about/index'
 import { Dimensions } from "react-native";
 import AppNavigator from './TabNavigator'
 import DrawerNavigatorComponent from './DrawerNavigatorComponent'
+import {
+    createAppContainer,
+} from 'react-navigation';
 
 const MainNavigator = createDrawerNavigator(
     {
@@ -43,5 +46,6 @@ const MainNavigator = createDrawerNavigator(
     }
 );
 
+const MainContainer = createAppContainer(MainNavigator);
 
-export default MainNavigator
+export default MainContainer

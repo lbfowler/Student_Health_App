@@ -21,8 +21,10 @@ import Slider from '@react-native-community/slider';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-let f1 = function () {
-    alert("pressed third button")
+let f1 = function (func) {
+    func.props.screenProps.updateDarkMode(
+        func.props.screenProps.darkMode == 'false' ? 'true' : 'false'
+    )
 }
 let f2 = function (func) {
     const options = { noData: true, };
@@ -123,6 +125,9 @@ export class SettingsScreen extends Component {
         this.setState({ rgb: HSLToRGB(color) });
     }
     render() {
+        console.log("In settings...")
+        console.log(this.props.screenProps);
+        console.log(this.props);
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.mainContainer}>

@@ -3,8 +3,8 @@ import DNV from './DrawerNavigator'
 
 class StateDNV extends React.Component {
     static router = DNV.router;
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { uri: 0}
     }
     handleMessage(data) {
@@ -13,7 +13,7 @@ class StateDNV extends React.Component {
     render() {
         let {navigation} = this.props;
         return (
-            <DNV screenProps={{status: this.state, postMessage: this.handleMessage.bind(this)}} 
+            <DNV screenProps={{ ...this.props.screenProps ,status: this.state, postMessage: this.handleMessage.bind(this)}} 
             navigation={navigation}/>
         )
     }

@@ -90,49 +90,47 @@ export default class CustomSidebarMenu extends Component {
                 />
                 {/*Setting up Navigation Options from option array using loop*/}
                 <ScrollView
-                    contentContainerStyle={{ width: Dimensions.get('window').width / 2.2}}
+                    contentContainerStyle={{ width: Dimensions.get('window').width / 2.2 }}
                 >
-                    {/* <View style={{ width: '100%' }}> */}
-                        {this.items.map((item, key) => (
-                            <TouchableHighlight
-                                onPress={() => {
-                                    global.currentScreenIndex = key;
-                                    if (item.navOptionName == "Home") {
-                                        this.props.navigation.navigate("Main");
-                                        this.props.navigation.navigate("Home");
-                                    }
-                                    else {
-                                        this.props.navigation.navigate(item.screenToNavigate);
-                                    }
-                                    this.props.navigation.dispatch(DrawerActions.closeDrawer());
-                                }}
-                                key={item.key}
-                            >
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        paddingTop: 10,
-                                        paddingBottom: 10,
-                                        backgroundColor: global.currentScreenIndex === key ? '#ffffff' : '#ffffff',
-                                    }
-                                    }
-                                    key={item.key}>
-                                    <View style={{ marginRight: "5%", marginLeft: 10, width: "15%", }}>
-                                        <Icon name={item.navOptionThumb} size={25} color="#808080" style={{ textAlign: 'center' }} />
-                                    </View>
-                                    <Text
-                                        style={{
-                                            fontSize: 15,
-                                            color: global.currentScreenIndex === key ? 'black' : 'black',
-                                        }}
-                                    >
-                                        {item.navOptionName}
-                                    </Text>
+                    {this.items.map((item, key) => (
+                        <TouchableHighlight
+                            onPress={() => {
+                                global.currentScreenIndex = key;
+                                if (item.navOptionName == "Home") {
+                                    this.props.navigation.navigate("Main");
+                                    this.props.navigation.navigate("Home");
+                                }
+                                else {
+                                    this.props.navigation.navigate(item.screenToNavigate);
+                                }
+                                this.props.navigation.dispatch(DrawerActions.closeDrawer());
+                            }}
+                            key={item.key}
+                        >
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    paddingTop: 10,
+                                    paddingBottom: 10,
+                                    backgroundColor: global.currentScreenIndex === key ? '#ffffff' : '#ffffff',
+                                }
+                                }
+                                key={item.key}>
+                                <View style={{ marginRight: "5%", marginLeft: 10, width: "15%", }}>
+                                    <Icon name={item.navOptionThumb} size={25} color="#808080" style={{ textAlign: 'center' }} />
                                 </View>
-                            </TouchableHighlight>
-                        ))}
-                    {/* </View> */}
+                                <Text
+                                    style={{
+                                        fontSize: 15,
+                                        color: global.currentScreenIndex === key ? 'black' : 'black',
+                                    }}
+                                >
+                                    {item.navOptionName}
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
+                    ))}
                 </ScrollView>
             </View>
         );
