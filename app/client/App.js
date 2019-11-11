@@ -48,10 +48,10 @@ const StackNav = createStackNavigator({
                     </View>
                 </View>
             ),
-            headerStyle: { borderBottomColor: 'black', height: 85 },
+            headerStyle: { borderBottomColor: 'black', height: 60 },
             headerRight: (
                 <TouchableOpacity
-                    style={{ width: 50, height: 50, alignSelf: 'center'}}
+                    style={{ resizeMode: 'contain',width: 50, height: 50, alignSelf: 'center', justifyContent: 'center'}}
                     onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
                 >
                     <Icon name="bars" size={45} color="#989898" style={{alignSelf: 'center'}}/>
