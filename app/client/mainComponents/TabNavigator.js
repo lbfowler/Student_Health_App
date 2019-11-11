@@ -89,9 +89,9 @@ const AppNavigator = createBottomTabNavigator(
         tabBarOptions: {
             activeTintColor: 'crimson',
             inactiveTintColor: 'gray',
-            // style: {
-            //     height: 60
-            // },
+            style: {
+                height: 50
+            },
         },
         backBehavior: "history",
     }

@@ -1,6 +1,6 @@
 //This is an example code for Navigation Drawer with Custom Side bar//
 import React, { Component, useContext } from 'react';
-import { View, StyleSheet, Image, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Image, Text, ScrollView, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { DrawerActions } from 'react-navigation-drawer';
@@ -75,22 +75,24 @@ export default class CustomSidebarMenu extends Component {
     render() {
         return (
             <View style={styles.sideMenuContainer}>
-                <ScrollView>
-                    <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
-                        src={this.props.screenProps.status.uri}
-                    />
-                    <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
-                    {/*Divider between Top Image and Sidebar Option*/}
-                    <View
-                        style={{
-                            width: '100%',
-                            height: 1,
-                            backgroundColor: '#808080',
-                            marginTop: 15,
-                        }}
-                    />
-                    {/*Setting up Navigation Options from option array using loop*/}
-                    <View style={{ width: '100%' }}>
+                <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
+                    src={this.props.screenProps.status.uri}
+                />
+                <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
+                {/*Divider between Top Image and Sidebar Option*/}
+                <View
+                    style={{
+                        width: '100%',
+                        height: 1,
+                        backgroundColor: '#808080',
+                        marginTop: 15,
+                    }}
+                />
+                {/*Setting up Navigation Options from option array using loop*/}
+                <ScrollView
+                    contentContainerStyle={{ width: Dimensions.get('window').width / 2.2}}
+                >
+                    {/* <View style={{ width: '100%' }}> */}
                         {this.items.map((item, key) => (
                             <TouchableHighlight
                                 onPress={() => {
@@ -130,7 +132,7 @@ export default class CustomSidebarMenu extends Component {
                                 </View>
                             </TouchableHighlight>
                         ))}
-                    </View>
+                    {/* </View> */}
                 </ScrollView>
             </View>
         );
