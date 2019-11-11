@@ -18,6 +18,7 @@ export class SampleScreen extends Component {
         this.state = {};
     }
     render() {
+        console.log("Academic rendered")
         return (
             <View style={styles.mainContainer}>
                 <Text style={styles.loginButtonText}>This is a sample page</Text>

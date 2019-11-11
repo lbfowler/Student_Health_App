@@ -111,8 +111,8 @@ export class SettingsScreen extends Component {
             },
             {
                 id: '3',
-                title: 'Third Item',
-                icon: 'close',
+                title: 'Toggle Dark Mode',
+                icon: 'adjust',
                 onpress: f1,
             },
         ];
@@ -125,9 +125,7 @@ export class SettingsScreen extends Component {
         this.setState({ rgb: HSLToRGB(color) });
     }
     render() {
-        console.log("In settings...")
-        console.log(this.props.screenProps);
-        console.log(this.props);
+        console.log("Settings rendered")
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.mainContainer}>
@@ -142,7 +140,7 @@ export class SettingsScreen extends Component {
                                 >
                                     <View style={styles.item}>
                                         <View style={{ marginRight: "1%", marginLeft: 3, width: "9%", }}>
-                                            <Icon name={item.icon} size={25} color="#808080" style={{ textAlign: 'center' }} />
+                                            <Icon name={item.icon} size={25} color="#808080" style={{ textAlign: 'center', }} />
                                         </View>
                                         <Text style={styles.title}>{item.title}</Text>
                                     </View>

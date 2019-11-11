@@ -56,6 +56,7 @@ class App extends React.Component {
         setData();
     }
     render() {
+        console.log("Top level component rendered")
         return (
             <AppContainer
                 screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this) }}

@@ -69,6 +69,7 @@ export class SampleScreen extends Component {
         this.state = {};
     }
     render() {
+        console.log("About rendered")
         return (
             <ScrollView>
                 <SafeAreaView style={{ flex: 1 }, styles.mainContainer}>

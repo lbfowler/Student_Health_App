@@ -26,11 +26,26 @@ const ProfileNavigator = createStackNavigator({
         initialRouteName: 'Profile'
 });
 const ProfileContainer = createAppContainer(ProfileNavigator);
-
+class ProfileContainerState extends React.Component {
+    static router = ProfileContainer.router;
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        let {navigation} = this.props;
+        console.log("ProfileContainerState rendered")
+        return (
+            <ProfileContainer 
+            screenProps={{...this.props.screenProps}} 
+            navigation={navigation}
+            />
+        )
+    }
+}
 const AppNavigator = createBottomTabNavigator(
     {
         Profile: {
-            screen: ProfileContainer,
+            screen: ProfileContainerState,
             navigationOptions: {
                 tabBarLabel: ({ tintColor }) => (
                     <Text style={{ fontSize: 13, color: tintColor, textAlign: 'center' }}>
@@ -98,8 +113,25 @@ const AppNavigator = createBottomTabNavigator(
                 height: 50
             },
         },
-        backBehavior: "history",
+        backBehavior: "initialRoute",
+        initialRouteName: 'Home'
     }
 );
 const TabContainer = createAppContainer(AppNavigator);
-export default TabContainer
+class TabContainerState extends React.Component {
+    static router = TabContainer.router;
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        let {navigation} = this.props;
+        console.log("TabContainerState rendered")
+        return (
+            <TabContainer 
+            screenProps={{...this.props.screenProps}} 
+            navigation={navigation}
+            />
+        )
+    }
+}
+export default TabContainerState

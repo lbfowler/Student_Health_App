@@ -12,6 +12,7 @@ class StateDNV extends React.Component {
     }
     render() {
         let {navigation} = this.props;
+        console.log("DrawerNavState rendered")
         return (
             <DNV screenProps={{ ...this.props.screenProps ,status: this.state, postMessage: this.handleMessage.bind(this)}} 
             navigation={navigation}/>
