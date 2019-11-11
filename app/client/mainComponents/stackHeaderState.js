@@ -69,21 +69,21 @@ const StackNav = createStackNavigator({
 
 const StateHeaderContainer = createAppContainer(StackNav);
 class StateHeader extends React.Component {
-    static router = StateDNV.router;
+    static router = StateHeaderContainer.router;
     constructor(props) {
         super(props);
-        this.state = { uri: 0 }
     }
     render() {
         let {navigation} = this.props;
         console.log("In stackHeaderState")
+        console.log(this.router)
         console.log(this.props)
         return (
-            <StackNav 
-            // screenProps={{status: this.state, postMessage: this.handleMessage.bind(this)}} 
+            <StateHeaderContainer 
+            screenProps={{...this.props.screenProps}} 
             navigation={navigation}
             />
         )
     }
 }
-export default StateHeaderContainer;
+export default StateHeader;
