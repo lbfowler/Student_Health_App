@@ -31,18 +31,15 @@ global.qualtricsDB = new nedb({ filename: currentDir + "/qualtrics.db", autoload
 
 global.userProfileDB = new nedb({ filename: currentDir + "/userProfile.db", autoload: true });
 
-// Start the web server
-// Add HTTPS support later, ask for domain as well
-const port = 8888;
-var app = express();
-app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 // Assign addresses to routers
 // Each router is a module
 // load one time only and keeps it's context within it's own scope
 // Databases are initialized within routers
 // There should be a better way to do this
+var app = express();
 app.use(express.json());
+app.set('trust proxy', 1);
 const userRouter = require("./user-route");
 const qualtricsRouter = require("./qualtrics-route");
 app.post('/login', userRouter.router);
@@ -51,3 +48,9 @@ app.get('/api/getUserInfo', userRouter.router);
 app.get('/api/getAllQuestions', qualtricsRouter);
 app.get('/api/getQuestionsFromBlock/:blockName', qualtricsRouter);
 app.post('/api/createResponse', qualtricsRouter);
+
+
+// Start the web server
+// Add HTTPS support later, ask for domain as well
+const port = 8888;
+http.createServer(app).listen(port, () => console.log(`Server listening on port ${port}!`));
