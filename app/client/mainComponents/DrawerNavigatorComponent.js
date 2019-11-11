@@ -1,6 +1,6 @@
 //This is an example code for Navigation Drawer with Custom Side bar//
 import React, { Component, useContext } from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image, Text, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { DrawerActions } from 'react-navigation-drawer';
@@ -75,61 +75,63 @@ export default class CustomSidebarMenu extends Component {
     render() {
         return (
             <View style={styles.sideMenuContainer}>
-                <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
-                    src={this.props.screenProps.status.uri}
-                />
-                <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
-                {/*Divider between Top Image and Sidebar Option*/}
-                <View
-                    style={{
-                        width: '100%',
-                        height: 1,
-                        backgroundColor: '#808080',
-                        marginTop: 15,
-                    }}
-                />
-                {/*Setting up Navigation Options from option array using loop*/}
-                <View style={{ width: '100%' }}>
-                    {this.items.map((item, key) => (
-                        <TouchableHighlight
-                            onPress={() => {
-                                global.currentScreenIndex = key;
-                                if (item.navOptionName == "Home") {
-                                    this.props.navigation.navigate("Main");
-                                    this.props.navigation.navigate("Home");
-                                }
-                                else {
-                                    this.props.navigation.navigate(item.screenToNavigate);
-                                }
-                                this.props.navigation.dispatch(DrawerActions.closeDrawer());
-                            }}
-                            key={item.key}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    paddingTop: 10,
-                                    paddingBottom: 10,
-                                    backgroundColor: global.currentScreenIndex === key ? '#ffffff' : '#ffffff',
-                                }
-                                }
-                                key={item.key}>
-                                <View style={{ marginRight: "5%", marginLeft: 10, width: "15%", }}>
-                                    <Icon name={item.navOptionThumb} size={25} color="#808080" style={{ textAlign: 'center' }} />
-                                </View>
-                                <Text
+                <ScrollView>
+                    <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
+                        src={this.props.screenProps.status.uri}
+                    />
+                    <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
+                    {/*Divider between Top Image and Sidebar Option*/}
+                    <View
+                        style={{
+                            width: '100%',
+                            height: 1,
+                            backgroundColor: '#808080',
+                            marginTop: 15,
+                        }}
+                    />
+                    {/*Setting up Navigation Options from option array using loop*/}
+                    <View style={{ width: '100%' }}>
+                        {this.items.map((item, key) => (
+                            <TouchableHighlight
+                                onPress={() => {
+                                    global.currentScreenIndex = key;
+                                    if (item.navOptionName == "Home") {
+                                        this.props.navigation.navigate("Main");
+                                        this.props.navigation.navigate("Home");
+                                    }
+                                    else {
+                                        this.props.navigation.navigate(item.screenToNavigate);
+                                    }
+                                    this.props.navigation.dispatch(DrawerActions.closeDrawer());
+                                }}
+                                key={item.key}
+                            >
+                                <View
                                     style={{
-                                        fontSize: 15,
-                                        color: global.currentScreenIndex === key ? 'black' : 'black',
-                                    }}
-                                >
-                                    {item.navOptionName}
-                                </Text>
-                            </View>
-                        </TouchableHighlight>
-                    ))}
-                </View>
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        paddingTop: 10,
+                                        paddingBottom: 10,
+                                        backgroundColor: global.currentScreenIndex === key ? '#ffffff' : '#ffffff',
+                                    }
+                                    }
+                                    key={item.key}>
+                                    <View style={{ marginRight: "5%", marginLeft: 10, width: "15%", }}>
+                                        <Icon name={item.navOptionThumb} size={25} color="#808080" style={{ textAlign: 'center' }} />
+                                    </View>
+                                    <Text
+                                        style={{
+                                            fontSize: 15,
+                                            color: global.currentScreenIndex === key ? 'black' : 'black',
+                                        }}
+                                    >
+                                        {item.navOptionName}
+                                    </Text>
+                                </View>
+                            </TouchableHighlight>
+                        ))}
+                    </View>
+                </ScrollView>
             </View>
         );
     }

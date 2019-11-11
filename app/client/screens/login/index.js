@@ -18,6 +18,7 @@ import {
 import styles from './index.style'
 import UserAPI from '../../api/user.api'
 import QualtricsAPI from '../../api/qualtrics.api'
+import ALogo from './logo'
 
 export class LoginScreen extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ export class LoginScreen extends Component {
         this.state.ready = false;
 
     }
-    componentDidMount(){
+    componentDidMount() {
         this.setState({ ready: true });
         // UserAPI.getAccessToken()
         //     .then((accessToken) => {
@@ -39,7 +40,7 @@ export class LoginScreen extends Component {
         //         // else {
         //         //     this.setState({ ready: true });
         //         // }
-                
+
         //     })
         //     .catch((error) => console.log(error));
     }
@@ -64,28 +65,30 @@ export class LoginScreen extends Component {
     render() {
         if (!this.state.ready) return null;
         return (
-            <View style={styles.mainContainer}>
-                <Image style={styles.logo} source={require('./ua-square-logo-100x100.png')} />
-                <TextInput style={styles.textBox} 
-                            placeholder="User Name" 
-                            onChangeText={(text) => this.setState({ username: text })} 
-                            onSubmitEditing={() => {this.passwordTextInput.focus();}}/>
-                <TextInput style={styles.textBox} 
-                            placeholder="Password" 
-                            secureTextEntry={true} 
-                            onChangeText={(text) => this.setState({ password: text })} 
-                            ref={(input) => {this.passwordTextInput = input;}}/>
-                <TouchableOpacity
-                    style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.loginAsync()}>
-                    <Text style={styles.loginButtonText}>Sign In</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.buttonContainer, styles.demoButton]}
-                    onPress={() => this.props.navigation.navigate('Home')}>
-                    <Text style={styles.loginButtonText}>Sign In</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={styles.mainContainer}>
+                    <View style={{ width: '35%', height: '35%', alignContent: 'center', flexDirection: 'column', alignSelf: 'center' }}>
+                        <ALogo />
+                    </View>
+                    <TextInput style={styles.textBox}
+                        placeholder="User Name"
+                        onChangeText={(text) => this.setState({ username: text })}
+                        onSubmitEditing={() => { this.passwordTextInput.focus(); }} />
+                    <TextInput style={styles.textBox}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        onChangeText={(text) => this.setState({ password: text })}
+                        ref={(input) => { this.passwordTextInput = input; }} />
+                    <TouchableOpacity
+                        style={[styles.buttonContainer, styles.loginButton]}
+                        onPress={() => this.loginAsync()}>
+                        <Text style={styles.loginButtonText}>Sign In</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonContainer, styles.demoButton]}
+                        onPress={() => this.props.navigation.navigate('Home')}>
+                        <Text style={styles.loginButtonText}>Sign In</Text>
+                    </TouchableOpacity>
+                </View>
         );
     }
 
