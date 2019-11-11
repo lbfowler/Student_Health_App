@@ -34,6 +34,20 @@ router.get('/api/getAllQuestions', function (req, res) {
         });
     })
 });
+router.get('/api/getQuestionsFromBlock', function (req, res) {
+    var accessToken = req.headers["x-access-token"];
+    userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
+        if (errorPacket) return res.end(JSON.stringify(errorPacket));
+        var blockName = req.body.blockName.trim();
+        var matchBlock = new RegExp("^" + blockName, "i");
+        global.qualtricsDB.find({questionTag: {$regex: matchBlock}}, function (error, questions) {
+            if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
+            var successPacket = basicPacket(true, null, "Succefully get all questions");
+            successPacket.questions = questions;
+            res.end(JSON.stringify(successPacket));
+        });
+    })
+});
 router.post('/api/createSession', function (req, res) {
     var accessToken = req.headers["x-access-token"];
     userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
