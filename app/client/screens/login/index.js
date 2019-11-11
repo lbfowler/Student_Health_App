@@ -25,10 +25,13 @@ export class LoginScreen extends Component {
         super(props);
         this.state = {};
         this.state.ready = false;
-
+        
     }
     componentDidMount() {
-        this.setState({ ready: true });
+        //this.setState({ ready: true });
+        
+        this.setState({ username: 'hfang' });
+        this.setState({ password: '123456' });
         // UserAPI.getAccessToken()
         //     .then((accessToken) => {
         //         // QualtricsAPI.getAllQuestionsAsync()
@@ -48,6 +51,10 @@ export class LoginScreen extends Component {
         UserAPI.loginAsync(this.state.username, this.state.password)
             .then((result) => {
                 console.log(global.AppAccessToken);
+                QualtricsAPI.getQuestionsFromBlockAsync("acad")
+                .then((result) => QualtricsAPI.createResponse(result.questions[0].questionId, 1))
+                .then((result) => console.log(result))
+                .catch((error) => console.log(error));
                 if (result.success) this.props.navigation.navigate('Home');
                 else Alert.alert('Faild To Login', result.message);
             })
@@ -63,7 +70,7 @@ export class LoginScreen extends Component {
     }
 
     render() {
-        if (!this.state.ready) return null;
+        //if (!this.state.ready) return null;
         return (
                 <View style={styles.mainContainer}>
                     <View style={{ width: '35%', height: '35%', alignContent: 'center', flexDirection: 'column', alignSelf: 'center' }}>
@@ -72,12 +79,13 @@ export class LoginScreen extends Component {
                     <TextInput style={styles.textBox}
                         placeholder="User Name"
                         onChangeText={(text) => this.setState({ username: text })}
-                        onSubmitEditing={() => { this.passwordTextInput.focus(); }} >hfang</TextInput>
+                        onSubmitEditing={() => { this.passwordTextInput.focus(); }} 
+                        ref={(input) => { this.usernameTextInput = input; }}>{this.state.username}</TextInput>
                     <TextInput style={styles.textBox}
                         placeholder="Password"
                         secureTextEntry={true}
                         onChangeText={(text) => this.setState({ password: text })}
-                        ref={(input) => { this.passwordTextInput = input; }} >a123456</TextInput>
+                        ref={(input) => { this.passwordTextInput = input; }} >{this.state.password}</TextInput>
                     <TouchableOpacity
                         style={[styles.buttonContainer, styles.loginButton]}
                         onPress={() => this.loginAsync()}>

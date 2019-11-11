@@ -34,11 +34,11 @@ router.get('/api/getAllQuestions', function (req, res) {
         });
     })
 });
-router.get('/api/getQuestionsFromBlock', function (req, res) {
+router.get('/api/getQuestionsFromBlock/:blockName', function (req, res) {
     var accessToken = req.headers["x-access-token"];
     userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
         if (errorPacket) return res.end(JSON.stringify(errorPacket));
-        var blockName = req.body.blockName.trim();
+        var blockName = req.params.blockName.trim();
         var matchBlock = new RegExp("^" + blockName, "i");
         global.qualtricsDB.find({questionTag: {$regex: matchBlock}}, function (error, questions) {
             if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
@@ -54,7 +54,7 @@ router.post('/api/createSession', function (req, res) {
         if (errorPacket) return res.end(JSON.stringify(errorPacket));
         global.qualtricsDB.find({}, function (error, questions) {
             if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
-            var successPacket =  (true, null, "Succefully get all questions");
+            var successPacket =  basicPacket(true, null, "Succefully get all questions");
             successPacket.questions = questions;
             res.end(JSON.stringify(successPacket));
         });
@@ -68,14 +68,14 @@ router.post('/api/createResponse', function (req, res) {
         if (errorPacket) return res.end(JSON.stringify(errorPacket));
         if (!req.body.qid || !req.body.choiceId) return res.end(JSON.stringify(basicPacket(false, 15, "QID or choiceId cannot be empty")));
         var qid = req.body.qid.trim();
-        var choiceId = req.body.choiceId.trim();
-        global.userDataDB.find({username: username}, function (error, userData) {
+        var choiceId = req.body.choiceId.toString().trim();
+        global.userDataDB.findOne({username: username}, function (error, userData) {
             if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
             if (userData.answers == undefined) userData.answers = [];
             userData.answers.push({qid: qid, choiceId: choiceId, time: Date.now()});
             global.userDataDB.update({ username: username }, userData, {}, function (error, numReplaced) {
                 if (error)  return sendInternalServerErrorPacket(res, error);
-                var successPacket =  (true, null, "Succefully create response");
+                var successPacket =  basicPacket(true, null, "Succefully create response");
                 res.end(JSON.stringify(successPacket));
             });
         });

@@ -49,3 +49,5 @@ app.post('/login', userRouter.router);
 app.post('/register', userRouter.router);
 app.get('/api/getUserInfo', userRouter.router);
 app.get('/api/getAllQuestions', qualtricsRouter);
+app.get('/api/getQuestionsFromBlock/:blockName', qualtricsRouter);
+app.post('/api/createResponse', qualtricsRouter);
