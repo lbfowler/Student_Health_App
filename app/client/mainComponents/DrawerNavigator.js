@@ -31,11 +31,11 @@ const MainNavigator = createDrawerNavigator(
         Main: {
             screen: AppNavigator
         },
-        Login: {screen: LoginScreen},
-        Sample: {screen: SampleScreen},
-        Home: {screen: HomeScreen},
-        Settings: {screen: SettingsScreen},
-        About: {screen: AboutScreen},
+        // Login: {screen: LoginScreen},
+        // Sample: {screen: SampleScreen},
+        // Home: {screen: HomeScreen},
+        // Settings: {screen: SettingsScreen},
+        // About: {screen: AboutScreen},
     },
     {
         initialRouteName: 'Main',
@@ -43,6 +43,7 @@ const MainNavigator = createDrawerNavigator(
         drawerPosition: "right",
         drawerWidth: Dimensions.get('window').width / 2.2,
         drawerType: 'slide',
+        
     }
 );
 

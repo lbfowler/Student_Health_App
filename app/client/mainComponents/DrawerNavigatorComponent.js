@@ -7,6 +7,10 @@ import { DrawerActions } from 'react-navigation-drawer';
 import UserAvatar from 'react-native-user-avatar'
 import AsyncStorage from '@react-native-community/async-storage';
 import UserAPI from '../api/user.api'
+<<<<<<< Updated upstream
+=======
+import { StackActions, NavigationActions, SwitchActions } from 'react-navigation'
+>>>>>>> Stashed changes
 
 export default class CustomSidebarMenu extends Component {
     constructor(props) {
@@ -27,17 +31,17 @@ export default class CustomSidebarMenu extends Component {
             }
         }
         init();
-        getPic = async () => {
-            try {
-                const value = await AsyncStorage.getItem('@ProfilePicture');
-                if (value !== null) {
-                    this.props.screenProps.postMessage(value);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getPic();
+        // getPic = async () => {
+        //     try {
+        //         const value = await AsyncStorage.getItem('@ProfilePicture');
+        //         if (value !== null) {
+        //             this.props.screenProps.postMessage(value);
+        //         }
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // }
+        // getPic();
         this.items = [
             {
                 navOptionThumb: 'home',
@@ -73,11 +77,12 @@ export default class CustomSidebarMenu extends Component {
     }
 
     render() {
+        console.log(this)
         return (
             <View style={styles.sideMenuContainer}>
-                <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
+                {/* <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
                     src={this.props.screenProps.status.uri}
-                />
+                /> */}
                 <Text style={{ fontSize: 20 }}>{this.state.username ? this.state.username : 'Fred Flinstone'}</Text>
                 {/*Divider between Top Image and Sidebar Option*/}
                 <View
@@ -100,6 +105,19 @@ export default class CustomSidebarMenu extends Component {
                                     this.props.navigation.navigate("Main");
                                     this.props.navigation.navigate("Home");
                                 }
+<<<<<<< Updated upstream
+=======
+                                else if (item.navOptionName == 'Log Out') {
+                                    const resetAction = StackActions.reset({
+                                        index: 0,
+                                        key: null,
+                                        actions: [NavigationActions.navigate({ routeName: 'Top' })],
+                                    });
+                                    //this.props.screenProps.rootNavigation.dispatch(resetAction);
+                                    // this.props.navigation.navigate('Login')
+                                    this.props.navigation.dispatch(SwitchActions.jumpTo({routeName: 'Login'}))
+                                }
+>>>>>>> Stashed changes
                                 else {
                                     this.props.navigation.navigate(item.screenToNavigate);
                                 }

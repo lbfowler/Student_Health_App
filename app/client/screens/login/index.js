@@ -48,7 +48,15 @@ export class LoginScreen extends Component {
         UserAPI.loginAsync(this.state.username, this.state.password)
             .then((result) => {
                 console.log(global.AppAccessToken);
+<<<<<<< Updated upstream
                 if (result.success) this.props.navigation.navigate('Home');
+=======
+                QualtricsAPI.getQuestionsFromBlockAsync("acad")
+                .then((result) => QualtricsAPI.createResponseAsync(result.questions[0].questionId, 1))
+                .then((result) => console.log(result))
+                .catch((error) => console.log(error));
+                if (result.success) this.props.navigation.navigate('App');
+>>>>>>> Stashed changes
                 else Alert.alert('Faild To Login', result.message);
             })
             .catch((error) => Alert.alert('Faild To Login', error.message));
@@ -56,14 +64,19 @@ export class LoginScreen extends Component {
     registerAsync() {
         UserAPI.registerAsync(this.state.username, this.state.password, this.state.name, this.state.email)
             .then((result) => {
-                if (result.success) this.props.navigation.navigate('Home');
+                if (result.success) this.props.navigation.navigate('App');
                 else Alert.alert('Faild to register', result.message);
             })
             .catch((error) => Alert.alert('Faild to register', error.message));
     }
 
     render() {
+<<<<<<< Updated upstream
         if (!this.state.ready) return null;
+=======
+        console.log(this)
+        //if (!this.state.ready) return null;
+>>>>>>> Stashed changes
         return (
                 <View style={styles.mainContainer}>
                     <View style={{ width: '35%', height: '35%', alignContent: 'center', flexDirection: 'column', alignSelf: 'center' }}>

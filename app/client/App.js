@@ -14,6 +14,7 @@ const InitialNavigator = createSwitchNavigator({
     App: StackNav,
 },
     {
+<<<<<<< Updated upstream
         initialRouteName: 'Login'
     }
 );
@@ -23,6 +24,19 @@ const AppContainer = createAppContainer(InitialNavigator);
 class App extends React.Component {
     constructor() {
         super();
+=======
+        initialRouteName: 'Login',
+        headerMode: 'none'
+    }
+);
+
+const Sigh = createAppContainer(InitialNavigator);
+
+class App extends React.Component {
+    static router = Sigh.router;
+    constructor(props) {
+        super(props);
+>>>>>>> Stashed changes
         this.state = {
             darkMode: 'false'
         }
@@ -56,9 +70,21 @@ class App extends React.Component {
         setData();
     }
     render() {
+        console.log(Sigh.router)
         return (
+<<<<<<< Updated upstream
             <AppContainer
                 screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this) }}
+=======
+            <Sigh
+                screenProps={{ 
+                    darkMode: this.state.darkMode, 
+                    updateDarkMode: this.updateDarkMode.bind(this),
+                     ...this.props,
+                     rootNavigation: this.props.navigation
+                     }}
+                     //navigation={this.props}
+>>>>>>> Stashed changes
             />
         );
     }

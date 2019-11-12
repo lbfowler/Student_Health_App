@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from 'react-navigation-drawer'
 import { createStackNavigator } from 'react-navigation-stack';
 import Svg, { Path } from 'react-native-svg';
-import StateDNV from './drawerNavState'
+import StateDNV from './DrawerNavigator'
 import {
     createSwitchNavigator,
     createAppContainer,
@@ -67,6 +67,7 @@ const StackNav = createStackNavigator({
 );
 
 
+<<<<<<< Updated upstream
 const StateHeaderContainer = createAppContainer(StackNav);
 class StateHeader extends React.Component {
     static router = StateHeaderContainer.router;
@@ -87,3 +88,22 @@ class StateHeader extends React.Component {
     }
 }
 export default StateHeader;
+=======
+export default createAppContainer(StackNav);
+// class StateHeader extends React.Component {
+//     static router = StateHeaderContainer.router;
+//     constructor(props) {
+//         super(props);
+//     }
+//     render() {
+//         let {navigation} = this.props;
+//         return (
+//             <StateHeaderContainer 
+//             screenProps={{...this.props.screenProps}} 
+//             navigation={navigation}
+//             />
+//         )
+//     }
+// }
+// export default StateHeader;
+>>>>>>> Stashed changes
