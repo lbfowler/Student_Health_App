@@ -75,8 +75,6 @@ class StateHeader extends React.Component {
     }
     render() {
         let {navigation} = this.props;
-        console.log("StackHeaderState rendered")
-        console.log(this)
         return (
             <StateHeaderContainer 
             screenProps={{...this.props.screenProps}} 

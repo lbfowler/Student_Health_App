@@ -79,7 +79,6 @@ export default class CustomSidebarMenu extends Component {
         ];
     }
     render() {
-        console.log(this)
         return (
             <View style={styles.sideMenuContainer}>
                 <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
@@ -104,7 +103,8 @@ export default class CustomSidebarMenu extends Component {
                             onPress={() => {
                                 global.currentScreenIndex = key;
                                 if (item.navOptionName == "Home") {
-                                    this.props.navigation.navigate("Main");
+                                    console.log(this.props)
+                                    this.props.navigation.navigate("TabNav");
                                     this.props.navigation.navigate("Home");
                                 }
                                 else if (item.navOptionName == 'Log Out') {
@@ -117,8 +117,6 @@ export default class CustomSidebarMenu extends Component {
                                 }
                                 else {
                                     this.props.navigation.navigate(item.screenToNavigate);
-                                    console.log("Getting parent")
-                                    console.log(this.props.navigation.dangerouslyGetParent().dangerouslyGetParent())
                                 }
                                 this.props.navigation.dispatch(DrawerActions.closeDrawer());
                             }}

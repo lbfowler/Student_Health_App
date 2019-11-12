@@ -39,7 +39,6 @@ export class ProfileScreen extends Component {
         }
     }
     render() {
-        console.log("Profile rendered")
         return (
             <View style={styles.mainContainer}>
                 <Text style={styles.name}>{this.state.username}</Text>
