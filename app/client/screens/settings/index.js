@@ -126,6 +126,7 @@ export class SettingsScreen extends Component {
     }
     render() {
         console.log("Settings rendered")
+        console.log(this)
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.mainContainer}>

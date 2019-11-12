@@ -7,6 +7,7 @@ import { DrawerActions } from 'react-navigation-drawer';
 import UserAvatar from 'react-native-user-avatar'
 import AsyncStorage from '@react-native-community/async-storage';
 import UserAPI from '../api/user.api'
+import { StackActions, NavigationActions } from 'react-navigation'
 
 export default class CustomSidebarMenu extends Component {
     constructor(props) {
@@ -69,10 +70,16 @@ export default class CustomSidebarMenu extends Component {
                 screenToNavigate: 'About',
                 key: 5
             },
+            {
+                navOptionThumb: 'sign-out',
+                navOptionName: 'Log Out',
+                screenToNavigate: 'Login',
+                key: 6
+            },
         ];
     }
-
     render() {
+        console.log(this)
         return (
             <View style={styles.sideMenuContainer}>
                 <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
@@ -100,8 +107,18 @@ export default class CustomSidebarMenu extends Component {
                                     this.props.navigation.navigate("Main");
                                     this.props.navigation.navigate("Home");
                                 }
+                                else if (item.navOptionName == 'Log Out') {
+                                    const resetAction = StackActions.reset({
+                                        index: 0,
+                                        key: null,
+                                        actions: [NavigationActions.navigate({ routeName: 'Top' })],
+                                    });
+                                    this.props.screenProps.rootNavigation.dispatch(resetAction);
+                                }
                                 else {
                                     this.props.navigation.navigate(item.screenToNavigate);
+                                    console.log("Getting parent")
+                                    console.log(this.props.navigation.dangerouslyGetParent().dangerouslyGetParent())
                                 }
                                 this.props.navigation.dispatch(DrawerActions.closeDrawer());
                             }}
