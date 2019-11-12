@@ -20,7 +20,7 @@ import SampleScreen from '../screens/sample/index'
 import SettingsScreen from '../screens/settings/index'
 import AboutScreen from '../screens/about/index'
 import { Dimensions } from "react-native";
-import AppNavigator from './TabNavigator'
+import TabNav from './TabNavigator'
 import DrawerNavigatorComponent from './DrawerNavigatorComponent'
 import {
     createAppContainer,
@@ -28,8 +28,8 @@ import {
 
 const MainNavigator = createDrawerNavigator(
     {
-        Main: {
-            screen: AppNavigator
+        TabNav: {
+            screen: TabNav
         },
         Login: {screen: LoginScreen},
         Sample: {screen: SampleScreen},
@@ -38,7 +38,7 @@ const MainNavigator = createDrawerNavigator(
         About: {screen: AboutScreen},
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'TabNav',
         contentComponent: DrawerNavigatorComponent,
         drawerPosition: "right",
         drawerWidth: Dimensions.get('window').width / 2.2,
