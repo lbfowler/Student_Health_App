@@ -30,7 +30,6 @@ export class HomeScreen extends Component {
         };
     }
     render() {
-        console.log("Home rendered")
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.svgWrapper}>

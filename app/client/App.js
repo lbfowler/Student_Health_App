@@ -7,7 +7,6 @@ import { createStackNavigator} from 'react-navigation-stack';
 import LoginScreen from './screens/login/index'
 import AsyncStorage from '@react-native-community/async-storage';
 import StackNav from './mainComponents/stackHeaderState'
-import NavigationService from './NavigationService';
 global.AppAccessToken = null;
 
 
@@ -28,10 +27,7 @@ class What extends React.Component {
         super(props)
     }
     render () {
-        console.log("InitialNav rendering")
         let {navigation} = this.props
-        console.log(this)
-        console.log(AppContainer.screenProps)
         return (
             <AppContainer 
               screenProps={{...this.props.screenProps, rootNavigation: this.props.navigation}}
@@ -89,14 +85,9 @@ class App extends React.Component {
         setData();
     }
     render() {
-
-        console.log("Top level component rendered")
-        console.log(this)
         return (
             <Wrapper
                 screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this), ...this.props }}
-                // navigation={{}}
-                
             />
         );
     }

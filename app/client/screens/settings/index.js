@@ -88,7 +88,6 @@ function HSLToRGB(h) {
 const range = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
 const inc = 100 / range.length;
 const wid = inc.toString() + '%';
-console.log(wid)
 export class SettingsScreen extends Component {
     constructor(props) {
         super(props);
@@ -125,8 +124,6 @@ export class SettingsScreen extends Component {
         this.setState({ rgb: HSLToRGB(color) });
     }
     render() {
-        console.log("Settings rendered")
-        console.log(this)
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.mainContainer}>

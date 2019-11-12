@@ -33,7 +33,6 @@ class ProfileContainerState extends React.Component {
     }
     render() {
         let {navigation} = this.props;
-        console.log("ProfileContainerState rendered")
         return (
             <ProfileContainer 
             screenProps={{...this.props.screenProps}} 
@@ -125,7 +124,6 @@ class TabContainerState extends React.Component {
     }
     render() {
         let {navigation} = this.props;
-        console.log("TabContainerState rendered")
         return (
             <TabContainer 
             screenProps={{...this.props.screenProps}} 
