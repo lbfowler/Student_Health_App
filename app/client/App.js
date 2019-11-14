@@ -3,56 +3,18 @@ import {
     createSwitchNavigator,
     createAppContainer,
 } from 'react-navigation';
-import { createStackNavigator} from 'react-navigation-stack';
+import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/login/index'
 import AsyncStorage from '@react-native-community/async-storage';
 import StackNav from './mainComponents/stackHeaderState'
 global.AppAccessToken = null;
 
-
-const InitialNavigator = createStackNavigator({
-    Login: LoginScreen,
-    App: StackNav,
-},
-{
-    initialRouteName: 'Login',
-    headerMode: 'none'
-}
-);
-
-const AppContainer = createAppContainer(InitialNavigator);
-class What extends React.Component {
-    static router = InitialNavigator.router
-    constructor(props) {
-        super(props)
-    }
-    render () {
-        let {navigation} = this.props
-        return (
-            <AppContainer 
-              screenProps={{...this.props.screenProps, rootNavigation: this.props.navigation}}
-              navigation={navigation}
-              />
-        );
-    }
-}
-const ProfileNavigator = createStackNavigator({
-    Top: { screen: What },
-},
-    {
-        headerMode: 'none',
-        navigationOptions: {
-            headerVisible: false,
-        },
-        initialRouteName: 'Top'
-});
-
-const Wrapper = createAppContainer(ProfileNavigator);
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            darkMode: 'false'
+            darkMode: 'false',
+            loggedIn: false
         }
     }
     componentDidMount() {
@@ -84,12 +46,32 @@ class App extends React.Component {
         }
         setData();
     }
+    logOut() {
+        this.setState({loggedIn: false})
+    }
     render() {
-        return (
-            <Wrapper
-                screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this), ...this.props.screenProps }}
+        if (this.state.loggedIn) {
+            return (
+                <StackNav
+                    screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this),
+                         ...this.props.screenProps,  
+                         onLogOutPress: this.logOut.bind(this)
+                        }
+                        }
+                />
+            )
+        } else {
+            return (
+            <LoginScreen
+                onLoginPress={() => this.setState({ loggedIn: true })}
             />
-        );
+        )
+        }
+        // return (
+        //     <Wrapper
+        //         screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this), ...this.props.screenProps }}
+        //     />
+        // );
     }
 }
 export default App;

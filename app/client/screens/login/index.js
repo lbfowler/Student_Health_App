@@ -55,7 +55,7 @@ export class LoginScreen extends Component {
                 .then((result) => QualtricsAPI.createResponseAsync(result.questions[0].questionId, 1))
                 .then((result) => console.log(result))
                 .catch((error) => console.log(error));
-                if (result.success) this.props.navigation.navigate('Home');
+                if (result.success) this.props.onLoginPress();
                 else Alert.alert('Faild To Login', result.message);
             })
             .catch((error) => Alert.alert('Faild To Login', error.message));
@@ -63,7 +63,7 @@ export class LoginScreen extends Component {
     registerAsync() {
         UserAPI.registerAsync(this.state.username, this.state.password, this.state.name, this.state.email)
             .then((result) => {
-                if (result.success) this.props.navigation.navigate('Home');
+                if (result.success) this.props.onLoginPress();
                 else Alert.alert('Faild to register', result.message);
             })
             .catch((error) => Alert.alert('Faild to register', error.message));
@@ -93,7 +93,7 @@ export class LoginScreen extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonContainer, styles.demoButton]}
-                        onPress={() => this.props.navigation.navigate('Home')}>
+                        onPress={() => this.props.onLoginPress()}>
                         <Text style={styles.loginButtonText}>Sign In</Text>
                     </TouchableOpacity>
                 </View>

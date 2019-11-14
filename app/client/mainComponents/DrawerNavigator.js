@@ -58,6 +58,7 @@ class StateDNV extends React.Component {
         this.setState({ uri: data});
     }
     render() {
+        console.log(this)
         let {navigation} = this.props;
         return (
             <DrawerContainer screenProps={{ ...this.props.screenProps ,status: this.state, postMessage: this.handleMessage.bind(this)}} 

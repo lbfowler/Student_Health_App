@@ -109,12 +109,7 @@ export default class CustomSidebarMenu extends Component {
                                     this.props.navigation.navigate("Home");
                                 }
                                 else if (item.navOptionName == 'Log Out') {
-                                    const resetAction = StackActions.reset({
-                                        index: 0,
-                                        key: null,
-                                        actions: [NavigationActions.navigate({ routeName: 'Top' })],
-                                    });
-                                    this.props.screenProps.rootNavigation.dispatch(resetAction);
+                                    this.props.screenProps.onLogOutPress()
                                 }
                                 else {
                                     this.props.navigation.navigate(item.screenToNavigate);
