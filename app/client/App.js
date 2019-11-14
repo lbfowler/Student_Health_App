@@ -87,7 +87,7 @@ class App extends React.Component {
     render() {
         return (
             <Wrapper
-                screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this), ...this.props }}
+                screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this), ...this.props.screenProps }}
             />
         );
     }

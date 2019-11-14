@@ -12,7 +12,7 @@
 
 // implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 // implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
-
+import React from 'react'
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import HomeScreen from '../screens/home/index'
 import LoginScreen from '../screens/login/index'
@@ -46,6 +46,24 @@ const MainNavigator = createDrawerNavigator(
     }
 );
 
-const MainContainer = createAppContainer(MainNavigator);
+const DrawerContainer = createAppContainer(MainNavigator)
 
-export default MainContainer
+class StateDNV extends React.Component {
+    static router = DrawerContainer.router;
+    constructor(props) {
+        super(props);
+        this.state = { uri: 0}
+    }
+    handleMessage(data) {
+        this.setState({ uri: data});
+    }
+    render() {
+        let {navigation} = this.props;
+        return (
+            <DrawerContainer screenProps={{ ...this.props.screenProps ,status: this.state, postMessage: this.handleMessage.bind(this)}} 
+            navigation={navigation}/>
+        )
+    }
+}
+
+export default StateDNV;

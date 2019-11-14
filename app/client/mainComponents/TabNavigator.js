@@ -25,22 +25,22 @@ const ProfileNavigator = createStackNavigator({
         },
         initialRouteName: 'Profile'
 });
-const ProfileContainer = createAppContainer(ProfileNavigator);
-class ProfileContainerState extends React.Component {
-    static router = ProfileContainer.router;
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        let {navigation} = this.props;
-        return (
-            <ProfileContainer 
-            screenProps={{...this.props.screenProps}} 
-            navigation={navigation}
-            />
-        )
-    }
-}
+const ProfileContainerState = createAppContainer(ProfileNavigator);
+// class ProfileContainerState extends React.Component {
+//     static router = ProfileContainer.router;
+//     constructor(props) {
+//         super(props);
+//     }
+//     render() {
+//         let {navigation} = this.props;
+//         return (
+//             <ProfileContainer 
+//             screenProps={{...this.props.screenProps}} 
+//             navigation={navigation}
+//             />
+//         )
+//     }
+// }
 const AppNavigator = createBottomTabNavigator(
     {
         Profile: {
@@ -116,20 +116,20 @@ const AppNavigator = createBottomTabNavigator(
         initialRouteName: 'Home'
     }
 );
-const TabContainer = createAppContainer(AppNavigator);
-class TabContainerState extends React.Component {
-    static router = TabContainer.router;
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        let {navigation} = this.props;
-        return (
-            <TabContainer 
-            screenProps={{...this.props.screenProps}} 
-            navigation={navigation}
-            />
-        )
-    }
-}
-export default TabContainerState
+export default createAppContainer(AppNavigator);
+// class TabContainerState extends React.Component {
+//     static router = TabContainer.router;
+//     constructor(props) {
+//         super(props);
+//     }
+//     render() {
+//         let {navigation} = this.props;
+//         return (
+//             <TabContainer 
+//             screenProps={{...this.props.screenProps}} 
+//             navigation={navigation}
+//             />
+//         )
+//     }
+// }
+// export default TabContainerState
