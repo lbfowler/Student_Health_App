@@ -47,25 +47,25 @@ class App extends React.Component {
         setData();
     }
     logOut() {
-        this.setState({loggedIn: false})
+        this.setState({ loggedIn: false })
     }
     render() {
         if (this.state.loggedIn) {
             return (
                 <StackNav
-                    screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this),
-                         ...this.props.screenProps,  
-                         onLogOutPress: this.logOut.bind(this)
-                        }
-                        }
+                    screenProps={{
+                        darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this),
+                        ...this.props.screenProps,
+                        onLogOutPress: this.logOut.bind(this)
+                    }}
                 />
             )
         } else {
             return (
-            <LoginScreen
-                onLoginPress={() => this.setState({ loggedIn: true })}
-            />
-        )
+                <LoginScreen
+                    onLoginPress={() => this.setState({ loggedIn: true })}
+                />
+            )
         }
         // return (
         //     <Wrapper
