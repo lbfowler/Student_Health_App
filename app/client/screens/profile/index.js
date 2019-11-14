@@ -45,7 +45,7 @@ export class ProfileScreen extends Component {
     componentDidMount(){
         try{
             UserAPI.getUserInfoAsync()
-                .then((user) => this.setState({username: JSON.stringify(user.name)}));        
+                .then((user) => this.setState({username: user.name}));        
         }catch(error){
             this.setState({username: 'John Doe'})
         }
