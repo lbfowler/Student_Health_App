@@ -79,6 +79,7 @@ export default class CustomSidebarMenu extends Component {
         ];
     }
     render() {
+        console.log(this)
         return (
             <View style={styles.sideMenuContainer}>
                 <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
