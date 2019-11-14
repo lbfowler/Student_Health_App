@@ -11,6 +11,13 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
     },
-    
+    questions: {
+
+    },
+    question: {
+
+    },
+    choices: {
+    },    
   });
   
