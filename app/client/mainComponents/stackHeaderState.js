@@ -2,15 +2,17 @@ import React, { createContext } from 'react';
 import {
     View,
     TouchableOpacity,
+    Button,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from 'react-navigation-drawer'
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, HeaderBackButton } from 'react-navigation-stack';
 import Svg, { Path } from 'react-native-svg';
 import StateDNV from './DrawerNavigator'
 import {
     createSwitchNavigator,
     createAppContainer,
+    NavigationActions,
 } from 'react-navigation';
 
 const StackNav = createStackNavigator({
@@ -51,6 +53,11 @@ const StackNav = createStackNavigator({
                 >
                     <Icon name="bars" size={45} color="#989898" style={{ alignSelf: 'center' }} />
                 </TouchableOpacity>
+            ),
+            headerLeft: () => (
+                <HeaderBackButton
+                    onPress={ () => {props.navigation.goBack(null); console.log(props)}}
+                />
             ),
             headerRightContainerStyle: {
                 marginRight: "2%",

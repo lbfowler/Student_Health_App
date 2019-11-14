@@ -35,6 +35,8 @@ export class SampleScreen extends Component {
     }
     render() {
         console.log("Academic rendered")
+        // console.log(this)
+        // console.log(this.props.navigation.dangerouslyGetParent())
         if(this.state.loading){
             return(
                 <View>

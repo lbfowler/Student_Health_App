@@ -55,7 +55,7 @@ export default class CustomSidebarMenu extends Component {
             {
                 navOptionThumb: 'user',
                 navOptionName: 'Profile',
-                screenToNavigate: 'Profile',
+                screenToNavigate: 'ProfileContainer',
                 key: 3
             },
             {
@@ -79,7 +79,7 @@ export default class CustomSidebarMenu extends Component {
         ];
     }
     render() {
-        console.log(this)
+        // console.log(this)
         return (
             <View style={styles.sideMenuContainer}>
                 <UserAvatar name={this.state.username ? this.state.username : 'Fred Flinstone'} size={100} color="#a00003" radius={.33}
@@ -104,7 +104,7 @@ export default class CustomSidebarMenu extends Component {
                             onPress={() => {
                                 global.currentScreenIndex = key;
                                 if (item.navOptionName == "Home") {
-                                    console.log(this.props)
+                                    // console.log(this.props)
                                     this.props.navigation.navigate("TabNav");
                                     this.props.navigation.navigate("Home");
                                 }

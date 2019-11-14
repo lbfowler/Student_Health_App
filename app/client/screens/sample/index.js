@@ -24,6 +24,7 @@ export class SampleScreen extends Component {
             .then((user) => Alert.alert('User Info', JSON.stringify(user)));
     }
     render() {
+        console.log(this)
         return (
             <View style={styles.mainContainer}>
                 <Text style={styles.loginButtonText}>This is a sample page</Text>

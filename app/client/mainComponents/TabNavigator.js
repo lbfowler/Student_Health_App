@@ -43,7 +43,7 @@ const ProfileContainerState = createAppContainer(ProfileNavigator);
 // }
 const AppNavigator = createBottomTabNavigator(
     {
-        Profile: {
+        ProfileContainer: {
             screen: ProfileContainerState,
             navigationOptions: {
                 tabBarLabel: ({ tintColor }) => (

@@ -51,6 +51,8 @@ export class ProfileScreen extends Component {
         }
     }
     render() {
+        // console.log(this)
+        // console.log(this.props.navigation.dangerouslyGetParent())
         return (
             <View style={styles.mainContainer}>
                 <Text style={styles.name}>{this.state.username}</Text>
