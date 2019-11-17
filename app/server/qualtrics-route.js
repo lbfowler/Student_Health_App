@@ -25,9 +25,9 @@ getAllQuestions()
 //     .then((responseJson) => console.log(responseJson))
 //     .catch((error) => console.log(error));
 
-// createResponse()
-//     .then((responseJson) => console.log(responseJson))
-//     .catch((error) => console.log(error));
+createResponse("1.1.1.1",{"QID130": 3})
+    .then((responseJson) => console.log(responseJson))
+    .catch((error) => console.log(error));
 router.get('/api/getAllQuestions', function (req, res) {
     var accessToken = req.headers["x-access-token"];
     userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
@@ -119,7 +119,13 @@ function processAllQuestions(response) {
     global.qualtricsDB.remove({}, { multi: true }, function (error) {
         if (error) return console.log(error);
         response.result.elements.forEach(question => {
-            var item = {questionId: question.QuestionID, questionText: question.QuestionDescription, questionTag: question.DataExportTag, choices: question.Choices};
+            var cleanQuestionText = question.QuestionText.replace(/<[^>]*>?/gm, '')
+                                                        .replace(/[\r\n]+/gm, ' ').trim();
+            var recodeChoices = {};
+            for (var key in question.Choices) {
+                recodeChoices[question.RecodeValues[key]] = question.Choices[key];
+            }
+            var item = {questionId: question.QuestionID, questionText: cleanQuestionText, questionTag: question.DataExportTag, choices: recodeChoices};
             global.qualtricsDB.insert(item);
         });
         console.log(response.result);
@@ -288,9 +294,9 @@ function createResponseHelper(ipAddress, idChoicePairs) {
     values.locationLatitude =  "33.0000000000";
     values.locationLongitude = "-87.0000000000";
     values.progress = 100;
-    idChoicePairs.forEach(element => {
-        values[element.id] = element.choice;
-    });
+    for (var key in idChoicePairs) {
+        values[key] = idChoicePairs[key];
+    }
     // values.QID192 = 3;
     // values.QID192_DO = ["4", "3", "2", "1", "0"];
     // values.QID204 = 3;

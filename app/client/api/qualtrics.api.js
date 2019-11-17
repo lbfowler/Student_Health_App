@@ -24,9 +24,8 @@ const QualtricsAPI = {
             .catch((error) => reject(error));
         });
     },
-    // example idChoicePairs: {"QID192": 4, "QID204": 3}
-    // example call, key(id) has to be string and value(choice) has to be number:
-    // QualtricsAPI.createResponseAsync({"QID192": 4, "QID204": 3})
+    // example idChoicePairs: {"QID192": "4", "QID204": "3"}
+    // QualtricsAPI.createResponseAsync({"QID192": "4", "QID204": "3"})
     //             .then((result) => console.log(result))
     //             .catch((error) => console.log(error));
     createResponseAsync(idChoicePairs){

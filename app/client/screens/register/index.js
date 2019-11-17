@@ -47,19 +47,6 @@ export class LoginScreen extends Component {
         //     })
         //     .catch((error) => console.log(error));
     }
-    loginAsync() {
-        UserAPI.loginAsync(this.state.username, this.state.password)
-            .then((result) => {
-                console.log(global.AppAccessToken);
-                QualtricsAPI.getQuestionsFromBlockAsync("acad")
-                .then((result) => QualtricsAPI.createResponseAsync(result.questions[0].questionId, 1))
-                .then((result) => console.log(result))
-                .catch((error) => console.log(error));
-                if (result.success) this.props.onLoginPress();
-                else Alert.alert('Faild To Login', result.message);
-            })
-            .catch((error) => Alert.alert('Faild To Login', error.message));
-    }
     registerAsync() {
         UserAPI.registerAsync(this.state.username, this.state.password, this.state.name, this.state.email)
             .then((result) => {
