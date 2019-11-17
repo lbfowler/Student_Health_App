@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import styles from './index.style'
 import QualtricsAPI from '../../api/qualtrics.api';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 export class SampleScreen extends Component {
     constructor(props) {
@@ -23,51 +25,104 @@ export class SampleScreen extends Component {
             category: navigation.getParam('category', ''),
             questions: null,
             loading: true,
+            number: 0,
         };
+        this.catMap = {
+            soc: 'socNum',
+            phys: 'physNum',
+            car: 'carNum',
+            fin: 'finNum',
+            acad: 'acadNum',
+            spir: 'spirNum',
+            psyc: 'psycNum'
+        } 
+        console.log(this.catMap[this.state.category])
+    }
+    incQNum() {
+        const setNum = async () => {
+            try {
+                await AsyncStorage.setItem(
+                    this.catMap[this.state.category.toLowerCase()], 
+                    ((this.state.number + 1) % this.state.questions.length).toString()
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        setNum();
+        this.setState({number: (this.state.number + 1) % this.state.questions.length})
     }
     componentDidMount() {
         try {
             QualtricsAPI.getQuestionsFromBlockAsync(this.state.category)
                 .then((quest) => {
                     this.setState({ questions: quest.questions, loading: false })
+                    console.log(quest)
                 });
         } catch (error) {
             Alert.alert("Error loading questions");
         }
-
+        getQNum = async () => {
+            try {
+                const value = await AsyncStorage.getItem(this.catMap[this.state.category.toLowerCase()]);
+                if (value === null) {
+                    this.setState({number: 0});
+                } else {
+                    console.log(value);
+                    this.setState({ number: parseInt(value, 10) })
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getQNum();
     }
     render() {
         console.log("Academic rendered")
-        if (this.state.loading) {
-            return (
-                <View>
-                    <Text>Loading</Text>
-                </View>
-            )
-        } else {
+        console.log(this.catMap[this.state.category.toLowerCase()])
+        console.log(this.state.category)
+        if (this.state.questions) {
+            console.log(this.state.questions)
             let choices = [];
-            for (let [key, value] of Object.entries(this.state.questions[0].choices)){
-                choices.push(value['Display'])
+            let qNum = this.state.number;
+            let qID = this.state.questions[qNum].questionId;
+            for (let [key, value] of Object.entries(this.state.questions[qNum].choices)){
+                choices.push({key: key , value: value['Display']})
             }
             const len = choices.length;
             const h = (70/len).toString() + '%';
-            console.log(h)
-            console.log(len)
+            console.log(choices)
             return (
                 <View style={styles.mainContainer}>
-                    <Text>Size: {this.state.questions.length}</Text>
-                    <Text style={styles.loginButtonText}>Question: {this.state.questions[0].questionText}</Text>
+                    {/* <Text>Size: {this.state.questions.length}</Text> */}
+                    <Text style={styles.loginButtonText}>{this.state.questions[qNum].questionText}</Text>
                     <View style={{flex: 1, justifyContent: "flex-start"}}>
-                        {choices.map((choice, index) => (
-                            <TouchableHighlight style={{height: '8.75%', margin: 10}} key={index} onPress={() => alert(choice)} underlayColor="white">
+                        {choices.map((choice) => (
+                            <TouchableHighlight style={{height: '8.75%', margin: 10}} 
+                                key={choice.key} 
+                                onPress={() => {
+                                    console.log(qID);
+                                    console.log({[qID]: parseInt(choice.key, 10)});
+                                    QualtricsAPI.createResponseAsync({[qID]: parseInt(choice.key, 10)});
+                                    this.incQNum();
+                                    // this.props.navigation.goBack(null);
+                                }} 
+                                underlayColor="white"
+                            >
                                 <View style={[styles.button, {height: '100%', justifyContent: "center"}]}>
-                                    <Text style={styles.buttonText}>{choice}</Text>
+                                    <Text style={styles.buttonText}>{choice.value}</Text>
                                 </View>
                             </TouchableHighlight>
                         ))}
                     </View>
                 </View>
             );
+        } else {
+            return (
+                <View>
+                    <Text>Loading</Text>
+                </View>
+            )
         }
     }
 };

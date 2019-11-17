@@ -10,8 +10,13 @@ export default StyleSheet.create({
     },
     loginButtonText: {
         color: 'black',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
+        height: '15%',
+        width: '85%',
+        justifyContent: "space-between",
+        textAlign: "center",
+        textAlignVertical: "center"
     },
     button: {
 		width: 260,
