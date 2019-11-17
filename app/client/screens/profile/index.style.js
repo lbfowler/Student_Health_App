@@ -33,18 +33,10 @@ export default StyleSheet.create({
         borderColor: 'black',
         width: '75%',
     },
-    buttonContainer: {
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignSelf: 'center',
-        alignItems: 'center',
-        height: '75%',
-        width: '22.5%',
-    },
     buttonCont: {
         borderRadius: 10,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         height: '7.5%',
@@ -55,5 +47,6 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+        justifyContent: "center"
     },
 });

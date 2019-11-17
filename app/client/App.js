@@ -33,6 +33,19 @@ class App extends React.Component {
             }
         }
         getMode();
+        getLogin = async () => {
+            try {
+                const value = await AsyncStorage.getItem('@LoggedIn');
+                if (value === null) {
+                    this.setState({loggedIn: false});
+                } else {
+                    this.setState({ loggedIn: value == 'true' ? true : false })
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getLogin();
     }
     updateDarkMode(val) {
         this.setState({ darkMode: val })
@@ -47,7 +60,26 @@ class App extends React.Component {
         setData();
     }
     logOut() {
-        this.setState({ loggedIn: false })
+        this.setState({ loggedIn: false });
+        const setLogin = async () => {
+            try {
+                await AsyncStorage.setItem('@LoggedIn', 'false');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        setLogin();
+    }
+    logIn() {
+        this.setState({ loggedIn: true });
+        const setLogin = async () => {
+            try {
+                await AsyncStorage.setItem('@LoggedIn', 'true');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        setLogin();
     }
     render() {
         if (this.state.loggedIn) {
@@ -63,7 +95,7 @@ class App extends React.Component {
         } else {
             return (
                 <LoginScreen
-                    onLoginPress={() => this.setState({ loggedIn: true })}
+                    onLoginPress={this.logIn.bind(this)}
                 />
             )
         }
