@@ -12,7 +12,11 @@ export default StyleSheet.create({
         color: 'black',
         fontSize: 16,
         fontWeight: 'bold',
-        height: '15%'
+        height: '15%',
+        width: '85%',
+        justifyContent: "space-between",
+        textAlign: "center",
+        textAlignVertical: "center"
     },
     button: {
 		width: 260,

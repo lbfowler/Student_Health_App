@@ -95,7 +95,7 @@ export class SampleScreen extends Component {
             return (
                 <View style={styles.mainContainer}>
                     {/* <Text>Size: {this.state.questions.length}</Text> */}
-                    <Text style={styles.loginButtonText}>Question: {this.state.questions[qNum].questionText}</Text>
+                    <Text style={styles.loginButtonText}>{this.state.questions[qNum].questionText}</Text>
                     <View style={{flex: 1, justifyContent: "flex-start"}}>
                         {choices.map((choice) => (
                             <TouchableHighlight style={{height: '8.75%', margin: 10}} 
