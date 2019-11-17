@@ -8,12 +8,13 @@ export default StyleSheet.create({
 		alignContent: "center",
 		alignItems: "center",
 		flex: 1,
+		justifyContent: 'center'
 	},
 	logo: {
 		alignSelf: 'center',
 		height: 100,
 		width: 100,
-		marginTop: '20%',
+		// marginTop: '20%',
 		marginBottom: '10%',
 	},
 	textBox: {

@@ -51,7 +51,7 @@ const StackNav = createStackNavigator({
                     style={{ resizeMode: 'contain', width: 50, height: 50, alignSelf: 'center', justifyContent: 'center' }}
                     onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
                 >
-                    <Icon name="bars" size={45} color="#989898" style={{ alignSelf: 'center' }} />
+                    <Icon name="bars" size={35} color="#000000" style={{ alignSelf: 'center' }} />
                 </TouchableOpacity>
             ),
             headerLeft: () => (
@@ -69,7 +69,7 @@ const StackNav = createStackNavigator({
     }
 },
     {
-        headerMode: "screen",
+        headerMode: "float",
     }
 );
 
