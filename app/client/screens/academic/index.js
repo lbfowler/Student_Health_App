@@ -44,7 +44,7 @@ export class SampleScreen extends Component {
                     <Text>Loading</Text>
                 </View>
             )
-        } else {
+        } else if (this.state.questions) {
             let choices = [];
             for (let [key, value] of Object.entries(this.state.questions[0].choices)){
                 choices.push(value['Display'])
@@ -68,6 +68,12 @@ export class SampleScreen extends Component {
                     </View>
                 </View>
             );
+        } else {
+            return (
+                <View>
+                    <Text>Loading</Text>
+                </View>
+            )
         }
     }
 };
