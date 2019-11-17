@@ -24,11 +24,15 @@ const QualtricsAPI = {
             .catch((error) => reject(error));
         });
     },
-    createResponseAsync(questionId, choiceId){
+    // example idChoicePairs: {"QID192": 4, "QID204": 3}
+    // example call, key(id) has to be string and value(choice) has to be number:
+    // QualtricsAPI.createResponseAsync({"QID192": 4, "QID204": 3})
+    //             .then((result) => console.log(result))
+    //             .catch((error) => console.log(error));
+    createResponseAsync(idChoicePairs){
         return new Promise (function (resolve, reject) {
             Request.createPostRequest('/api/createResponse', JSON.stringify({
-                qid: questionId,
-                choiceId: choiceId,
+                idChoicePairs: idChoicePairs,
             }))
             .then((response) => resolve(response))
             .catch((error) => reject(error));

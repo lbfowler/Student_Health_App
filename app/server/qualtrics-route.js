@@ -21,7 +21,13 @@ var currentDir = __dirname;
 getAllQuestions()
     .then((responseJson) => processAllQuestions(responseJson))
     .catch((error) => console.log(error));
+// retrieveResponse("R_w1TZGfr7NbNGSL7")
+//     .then((responseJson) => console.log(responseJson))
+//     .catch((error) => console.log(error));
 
+// createResponse()
+//     .then((responseJson) => console.log(responseJson))
+//     .catch((error) => console.log(error));
 router.get('/api/getAllQuestions', function (req, res) {
     var accessToken = req.headers["x-access-token"];
     userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
@@ -66,9 +72,15 @@ router.post('/api/createResponse', function (req, res) {
     var accessToken = req.headers["x-access-token"];
     userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
         if (errorPacket) return res.end(JSON.stringify(errorPacket));
-        if (!req.body.qid || !req.body.choiceId) return res.end(JSON.stringify(basicPacket(false, 15, "QID or choiceId cannot be empty")));
-        var qid = req.body.qid.trim();
-        var choiceId = req.body.choiceId.toString().trim();
+        if (!req.body.idChoicePairs) return res.end(JSON.stringify(basicPacket(false, 15, "idChoicePairs cannot be empty")));
+        var ipAddress = req.connection.remoteAddress.replace(/^.*:/, '');
+        var idChoicePairs = req.body.idChoicePairs;
+        return createResponse(ipAddress, idChoicePairs)
+                .then(() => {
+                    var successPacket =  basicPacket(true, null, "Succefully create response");
+                    res.end(JSON.stringify(successPacket));
+                })
+                .catch((error) => sendInternalServerErrorPacket(res, error));
         global.userDataDB.findOne({username: username}, function (error, userData) {
             if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
             if (userData.answers == undefined) userData.answers = [];
@@ -79,6 +91,7 @@ router.post('/api/createResponse', function (req, res) {
                 res.end(JSON.stringify(successPacket));
             });
         });
+
     })
     
 });
@@ -219,17 +232,18 @@ function closeSession(session) {
             });
     });
 }
-function createResponse() {
+function createResponse(ipAddress, idChoicePairs) {
     var fullUrl = HTTPProtocol + '://' + ServerHostName
     if (ServerPortNumber != null) fullUrl += (':' + ServerPortNumber);
-    fullUrl += "/API/v3/surveys/"+SurveyId+"/sessions/responses";
+    fullUrl += "/API/v3/surveys/"+SurveyId+"/responses";
     return new Promise (function (resolve, reject) {
         setTimeout(()=> reject(basicPacket(false, 1, 'Network request timeout')), DefaultPostRequestTimeout);
         var headers = {
             'X-API-TOKEN': APIToken,
             'Content-Type': 'application/json',
+            'accept': 'application/json',
         };
-        var body = {"close": true};
+        var body = {"values": createResponseHelper(ipAddress, idChoicePairs)};
         fetch(fullUrl, {method: 'POST', headers: headers, body: JSON.stringify(body)})
             .then((response) => {
                 if (response.status != 200 && response.status != 201) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
@@ -241,6 +255,51 @@ function createResponse() {
                 reject(basicPacket(false, 2, 'Network request failed'))
             });
     });
+}
+function retrieveResponse(responseId) {
+    var fullUrl = HTTPProtocol + '://' + ServerHostName
+    if (ServerPortNumber != null) fullUrl += (':' + ServerPortNumber);
+    fullUrl += "/API/v3/surveys/"+SurveyId+"/responses/" + responseId;
+    return new Promise (function (resolve, reject) {
+        setTimeout(()=> reject(basicPacket(false, 1, 'Network request timeout')), DefaultPostRequestTimeout);
+        var headers = {
+            'X-API-TOKEN': APIToken,
+            'accept': 'application/json',
+        };
+        fetch(fullUrl, {method: 'GET', headers: headers})
+            .then((response) => {
+                if (response.status != 200 && response.status != 201) return reject(basicPacket(false, 5, 'Network request failed, code: ' + response.status));
+                response.json()
+                .then((responseJson) => resolve(responseJson))
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(basicPacket(false, 2, 'Network request failed'))
+            });
+    });
+}
+function createResponseHelper(ipAddress, idChoicePairs) {
+    var values = {};
+    values.distributionChannel = "anonymous";
+    values.duration = 5;
+    values.endDate = new Date().toISOString();
+    values.finished = 1;
+    values.ipAddress = ipAddress;
+    values.locationLatitude =  "33.0000000000";
+    values.locationLongitude = "-87.0000000000";
+    values.progress = 100;
+    idChoicePairs.forEach(element => {
+        values[element.id] = element.choice;
+    });
+    // values.QID192 = 3;
+    // values.QID192_DO = ["4", "3", "2", "1", "0"];
+    // values.QID204 = 3;
+    // values.QID204_DO = ["4", "3", "2", "1", "0"];
+    values.recordedDate = new Date().toISOString();
+    values.startDate = new Date().toISOString();
+    values.status = 0;
+    values.userLanguage = "EN";
+    return values;
 }
 function basicPacket(success = null, errorCode = null, message = null) {
     return { 

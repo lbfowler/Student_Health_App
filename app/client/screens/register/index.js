@@ -51,10 +51,10 @@ export class LoginScreen extends Component {
         UserAPI.loginAsync(this.state.username, this.state.password)
             .then((result) => {
                 console.log(global.AppAccessToken);
-                // QualtricsAPI.getQuestionsFromBlockAsync("acad")
-                // .then((result) => QualtricsAPI.createResponseAsync({"QID192": 4, "QID204": 3}))
-                // .then((result) => console.log(result))
-                // .catch((error) => console.log(error));
+                QualtricsAPI.getQuestionsFromBlockAsync("acad")
+                .then((result) => QualtricsAPI.createResponseAsync(result.questions[0].questionId, 1))
+                .then((result) => console.log(result))
+                .catch((error) => console.log(error));
                 if (result.success) this.props.onLoginPress();
                 else Alert.alert('Faild To Login', result.message);
             })
