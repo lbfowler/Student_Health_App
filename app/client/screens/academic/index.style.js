@@ -10,8 +10,9 @@ export default StyleSheet.create({
     },
     loginButtonText: {
         color: 'black',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
+        height: '15%'
     },
     button: {
 		width: 260,
