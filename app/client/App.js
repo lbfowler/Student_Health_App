@@ -37,8 +37,7 @@ class App extends React.Component {
         getLogin = async () => {
             try {
                 const value = await AsyncStorage.getItem('@LoggedIn');
-                value = null;
-                if (value === null) {
+                if (true || value === null) {
                     this.setState({loggedIn: false});
                 } else {
                     this.setState({ loggedIn: value == 'true' ? true : false })
