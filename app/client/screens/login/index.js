@@ -96,6 +96,7 @@ export class LoginScreen extends Component {
                         onPress={() => this.props.onLoginPress()}>
                         <Text style={styles.loginButtonText}>Sign In</Text>
                     </TouchableOpacity>
+                    <Text style={styles.linkText}>New to SHWB? Register here</Text>
                 </View>
         );
     }

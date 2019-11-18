@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 const HTTPProtocol = 'https';
 const ServerHostName = 'universityofalabama.az1.qualtrics.com';
 const ServerPortNumber = null;
-const DefaultPostRequestTimeout = 5000;
+const DefaultPostRequestTimeout = 10000;
 const APIToken = "fcH9LuoEtElwIpFhB4nZFwHtnc5thWkjqhfCXYzP";
 const SurveyId = "SV_4G7Q5ay8Oh9RpWt";
 

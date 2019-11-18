@@ -33,17 +33,30 @@ router.post('/login', function (req, res) {
             // create an access token for the user, uuidv1 is time based
             // expireDate by default is 30 days, the date will be refreshed every time it's accessed
             // I will leave deviceId empty for a while as we dont need it right away 
-            var expireDate = new Date();
-            expireDate.setDate(expireDate.getDate() + 30);
-            var token = {accessToken: uuidv1(), expireDate: expireDate, deviceId: null};
-            userData.accessTokens.push(token);
-            console.log(token);
-            global.userDataDB.update({ username: userData.username }, userData, {}, function (error, numReplaced) {
-                if (error)  return sendInternalServerErrorPacket(res, error);
-                var successPacket = basicPacket(true, null, "Login success");
-                successPacket.accessToken = token.accessToken;
-                res.end(JSON.stringify(successPacket));
-            });
+            if (!userData){
+                userData= {username: userProfile.username, accessTokens: [], answers: []};
+                global.userDataDB.insert(userData, function (error, userData) {
+                    if (error) return sendInternalServerErrorPacket(res, error);
+                    updateAccessToken(userData);
+                })
+            }
+            else{
+                updateAccessToken(userData);
+            }
+            function updateAccessToken(userData) {
+                var expireDate = new Date();
+                expireDate.setDate(expireDate.getDate() + 30);
+                var token = {accessToken: uuidv1(), expireDate: expireDate, deviceId: null};
+                userData.accessTokens.push(token);
+                console.log(token);
+                global.userDataDB.update({ username: userData.username }, userData, {}, function (error, numReplaced) {
+                    if (error)  return sendInternalServerErrorPacket(res, error);
+                    var successPacket = basicPacket(true, null, "Login success");
+                    successPacket.accessToken = token.accessToken;
+                    res.end(JSON.stringify(successPacket));
+                });
+            }
+            
         });
     });
 })
@@ -115,7 +128,7 @@ function validatePassword(password) {
 exports.getUsernameByAccessToken =  function(accessToken, callback) {
     global.userDataDB.findOne({"accessTokens.accessToken": accessToken} ,function (error, user) {
         if (error) return callback(basicPacket(false, 500, "Internal Server Error"), null);
-        if (user == undefined) return callback(basicPacket(false, 55, "AccessToken not found"), null);
+        if (user == undefined) return callback(basicPacket(false, 55, "AccessToken expired or not found"), null);
         var token = user.accessTokens.find(function (element) {
             return element.accessToken == accessToken;
         });
@@ -124,8 +137,7 @@ exports.getUsernameByAccessToken =  function(accessToken, callback) {
         // or refresh the expireDate
         var today = new Date();
         if (today.getTime() >= token.expireDate.getTime()){
-            user.accessTokens.splice(user.accessTokens.indexOf(token), 1);
-            global.userDataDB.update({username: user.username}, {$set: {accessTokens: user.accessTokens}}, {}, function (error) {
+            global.userDataDB.update({username: user.username }, {$pull: {accessTokens: {accessToken: user.accessTokens}}}, {}, function (error) {
                 if (error) return callback(basicPacket(false, 500, "Internal Server Error"), null);
                 return callback(basicPacket(false, 15, "expiredToken"), null);
             });
@@ -135,7 +147,7 @@ exports.getUsernameByAccessToken =  function(accessToken, callback) {
             newExpireDate.setDate(newExpireDate.getDate() + 30);
             token.expireDate = newExpireDate;
             
-            global.userDataDB.update({username: user.username}, {$set: {accessTokens: user.accessTokens}}, {}, function (error) {
+            global.userDataDB.update({username: user.username, accessTokens: {accessToken: user.accessTokens}}, {$set: token}, {}, function (error) {
                 if (error) return callback(basicPacket(false, 500, "Internal Server Error"), null);
                 return callback(null, user.username);
             });
