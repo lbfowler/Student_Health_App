@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/login/index'
 import AsyncStorage from '@react-native-community/async-storage';
 import StackNav from './mainComponents/stackHeaderState'
+import SplashScreen from './screens/splash/index';
 global.AppAccessToken = null;
 
 class App extends React.Component {
@@ -14,7 +15,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             darkMode: 'false',
-            loggedIn: false
+            loggedIn: null
         }
     }
     componentDidMount() {
@@ -83,7 +84,7 @@ class App extends React.Component {
         setLogin();
     }
     render() {
-        if (this.state.loggedIn) {
+        if (this.state.loggedIn == true) {
             return (
                 <StackNav
                     screenProps={{
@@ -93,11 +94,15 @@ class App extends React.Component {
                     }}
                 />
             )
-        } else {
+        } else if (this.state.loggedIn == false){
             return (
                 <LoginScreen
                     onLoginPress={this.logIn.bind(this)}
                 />
+            )
+        } else {
+            return (
+                <SplashScreen />
             )
         }
         // return (
