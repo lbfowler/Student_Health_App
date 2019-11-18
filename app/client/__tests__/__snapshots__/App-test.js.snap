@@ -1,0 +1,376 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "rgb(244,244,244)",
+      "flexDirection": "column",
+      "height": "100%",
+      "justifyContent": "space-around",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "color": "black",
+        "fontSize": 18,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    User Name Here
+  </Text>
+  <View
+    style={
+      Object {
+        "alignContent": "center",
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignContent": "center",
+            "borderRadius": 10,
+            "flexDirection": "row",
+            "justifyContent": "space-around",
+            "margin": "2%",
+            "padding": "1%",
+            "width": "40%",
+          },
+          Object {
+            "backgroundColor": "#b5d334",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontSize": 18,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Your Score: 
+        5
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignContent": "center",
+            "borderRadius": 10,
+            "flexDirection": "row",
+            "justifyContent": "space-around",
+            "margin": "2%",
+            "padding": "1%",
+            "width": "40%",
+          },
+          Object {
+            "backgroundColor": "#8fd2c7",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontSize": 18,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        UA Average: 
+        4
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignSelf": "center",
+        "borderColor": "black",
+        "borderWidth": 0.5,
+        "width": "75%",
+      }
+    }
+  />
+  <View
+    accessible={true}
+    clickable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#8fd2c7",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": "7.5%",
+        "justifyContent": "space-around",
+        "margin": "2%",
+        "opacity": 1,
+        "width": "75%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      3.4 Academic
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    clickable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#b5d334",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": "7.5%",
+        "justifyContent": "space-around",
+        "margin": "2%",
+        "opacity": 1,
+        "width": "75%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      3.0 Career
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    clickable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#8fd2c7",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": "7.5%",
+        "justifyContent": "space-around",
+        "margin": "2%",
+        "opacity": 1,
+        "width": "75%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      3.7 Financial
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    clickable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#b5d334",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": "7.5%",
+        "justifyContent": "space-around",
+        "margin": "2%",
+        "opacity": 1,
+        "width": "75%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      2.9 Psychological
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    clickable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#8fd2c7",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": "7.5%",
+        "justifyContent": "space-around",
+        "margin": "2%",
+        "opacity": 1,
+        "width": "75%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      3.1 Physical
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    clickable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#b5d334",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": "7.5%",
+        "justifyContent": "space-around",
+        "margin": "2%",
+        "opacity": 1,
+        "width": "75%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      3.8 Social
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    clickable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#8fd2c7",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": "7.5%",
+        "justifyContent": "space-around",
+        "margin": "2%",
+        "opacity": 1,
+        "width": "75%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      1.9 Spiritual
+    </Text>
+  </View>
+</View>
+`;

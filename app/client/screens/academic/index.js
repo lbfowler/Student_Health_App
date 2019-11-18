@@ -20,14 +20,18 @@ export class SampleScreen extends Component {
     constructor(props) {
         super(props);
         this.getQuestions = this.getQuestions.bind(this);
+        this.sendResponse = this.sendResponse.bind(this);
         const {navigation} = this.props;
         this.state = {
             category: navigation.getParam('category',''),
             questions: [],
             loading: true,
             current: 0,
+            colorDiagonal: "#8fd2c7",
+            colorVertical: "#b5d334",  
         };
     }
+
     componentDidMount(){
         try{
             QualtricsAPI.getQuestionsFromBlockAsync(this.state.category)
@@ -36,26 +40,29 @@ export class SampleScreen extends Component {
             Alert.alert("Error loading questions");
         }
     }
-    getQuestions = () => (
-        <ScrollView>
-          {
-            this.state.questions.map(question => (
+
+    sendResponse(value,questionId){
+        
+    }
+
+    getQuestions(question){ 
+        return(
                 <View style={styles.questions} key={question.questionText}>
-                    <Text style={styles.question}>{question.questionText}</Text>
+                    <Text style={[styles.question,{backgroundColor: this.state.colorDiagonal}]}>{question.questionText}</Text>
                     {
                       Object.keys(question.choices).map(i => (                          
-                        <View style={styles.choices} key={i}> 
-                            <TouchableOpacity>
-                                <Text>{question.choices[i].Display}</Text>
+                        <View key={i}> 
+                            <TouchableOpacity 
+                                style={[styles.choices,{backgroundColor: this.state.colorVertical}]}
+                                onPress={() => this.sendResponse(i,question.questionId)}>
+                                <Text style={[{fontSize: 16},{fontWeight: 'normal'}]}>{question.choices[i].Display}</Text>
                             </TouchableOpacity>
                         </View>    
                       ))
                     }
-                </View>    
-            ))
-          }  
-        </ScrollView>
-    );
+                </View>
+        );
+    }
 
     render() {
         console.log("Academic rendered")
@@ -68,7 +75,14 @@ export class SampleScreen extends Component {
         }else{
             return (
                 <View style={styles.mainContainer}>
-                    {this.getQuestions()}
+                    {
+                        this.state.questions.map(question => {
+                            return this.getQuestions(question);
+                        })
+                    }
+                    <ScrollView>
+                        <Text>Resources go here!</Text>
+                    </ScrollView>
                 </View>
             );
         }
