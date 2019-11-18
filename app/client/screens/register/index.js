@@ -20,7 +20,7 @@ import UserAPI from '../../api/user.api'
 import QualtricsAPI from '../../api/qualtrics.api'
 import ALogo from './logo'
 
-export class LoginScreen extends Component {
+export class RegisterScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -88,4 +88,4 @@ export class LoginScreen extends Component {
     }
 
 };
-export default LoginScreen;
+export default RegisterScreen;
