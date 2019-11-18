@@ -21,13 +21,17 @@ var currentDir = __dirname;
 getAllQuestions()
     .then((responseJson) => processAllQuestions(responseJson))
     .catch((error) => console.log(error));
-// retrieveResponse("R_w1TZGfr7NbNGSL7")
+// retrieveResponse("R_ZI5RKJZCkRlZauJ")
+//     .then((responseJson) => console.log(responseJson))
+//     .catch((error) => console.log(error));
+// retrieveResponse("R_3NwZM0pNuiqnbsr")
+//     .then((responseJson) => console.log(responseJson))
+//     .catch((error) => console.log(error));
+    
+// createResponse("1.1.1.1",{"QID99": 1})
 //     .then((responseJson) => console.log(responseJson))
 //     .catch((error) => console.log(error));
 
-createResponse("1.1.1.1",{"QID130": 3})
-    .then((responseJson) => console.log(responseJson))
-    .catch((error) => console.log(error));
 router.get('/api/getAllQuestions', function (req, res) {
     var accessToken = req.headers["x-access-token"];
     userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
@@ -54,6 +58,7 @@ router.get('/api/getQuestionsFromBlock/:blockName', function (req, res) {
         });
     })
 });
+
 router.post('/api/createSession', function (req, res) {
     var accessToken = req.headers["x-access-token"];
     userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
@@ -68,34 +73,87 @@ router.post('/api/createSession', function (req, res) {
     
 });
 
-router.post('/api/createResponse', function (req, res) {
+router.post('/api/createResponse', async function (req, res) {
     var accessToken = req.headers["x-access-token"];
-    userRouter.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
+    userRouter.getUsernameByAccessToken(accessToken, async function (errorPacket, username) {
         if (errorPacket) return res.end(JSON.stringify(errorPacket));
         if (!req.body.idChoicePairs) return res.end(JSON.stringify(basicPacket(false, 15, "idChoicePairs cannot be empty")));
         var ipAddress = req.connection.remoteAddress.replace(/^.*:/, '');
         var idChoicePairs = req.body.idChoicePairs;
-        return createResponse(ipAddress, idChoicePairs)
-                .then(() => {
-                    var successPacket =  basicPacket(true, null, "Succefully create response");
-                    res.end(JSON.stringify(successPacket));
-                })
-                .catch((error) => sendInternalServerErrorPacket(res, error));
-        global.userDataDB.findOne({username: username}, function (error, userData) {
-            if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
-            if (userData.answers == undefined) userData.answers = [];
-            userData.answers.push({qid: qid, choiceId: choiceId, time: Date.now()});
-            global.userDataDB.update({ username: username }, userData, {}, function (error, numReplaced) {
-                if (error)  return sendInternalServerErrorPacket(res, error);
-                var successPacket =  basicPacket(true, null, "Succefully create response");
-                res.end(JSON.stringify(successPacket));
+        idChoicePairs = await idChoicePairsFix(idChoicePairs);
+        createResponse(ipAddress, idChoicePairs)
+        .then(() => {
+            var successPacket =  basicPacket(true, null, "Succefully create response");
+            res.end(JSON.stringify(successPacket));
+            global.userDataDB.findOne({username: username}, function (error, userData) {
+                if (error) return console.log(error);
+                if (userData.scores == undefined) userData.scores = initializeUserScores();
+                //userData.scores = updateUserScores(userData.scores);
+                for (var key in idChoicePairs) {
+                    userData.answers.push({qid: key, choiceId: idChoicePairs[key], time: Date.now()});
+                }
+                
+                global.userDataDB.update({ username: username }, userData, {}, function (error, numReplaced) {
+                    if (error)  return console.log(error);
+                });
             });
-        });
+        })
+        .catch((error) => sendInternalServerErrorPacket(res, error));
+        
 
     })
     
 });
-
+function idChoicePairsFix(idChoicePairs) {
+    return new Promise(function (resolve) {
+        var total = Object.keys(idChoicePairs).length;
+        var current = 0;
+        var newIdChoicePairs = {};
+        for (var key in idChoicePairs) {
+            global.qualtricsDB.findOne({questionId: key}, function (error, question) {
+                current ++;
+                var recodes = question.recodeValues;
+                newIdChoicePairs[key] = parseInt(recodes[idChoicePairs[key]]);
+                if (current == total) resolve(newIdChoicePairs);
+            });
+        }
+        
+    });
+}
+function initializeUserScores() {
+    var scores = [];
+    scores.push({"soc": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    scores.push({"phys": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    scores.push({"car": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    scores.push({"fin": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    scores.push({"acad": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    scores.push({"spir": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    scores.push({"psyc": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    return scores;
+}
+function updateUserScores(scores, idChoicePairs) {
+    for (var key in idChoicePairs) {
+        var result = getBlockNameAndHighestScore(key);
+        var choiceValue = parseInt(idChoicePairs[key]);
+        scores[result.blockName].numResponses ++;
+        scores[result.blockName].accumulatedScore += choiceValue/result.highestScore;
+    }
+    return scores;
+}
+function getBlockNameAndHighestScore(qid) {
+    return new Promise(function (resolve, reject) {
+        global.qualtricsDB.find({questionId: qid}, function (error, question) {
+            if (error) return reject(error);
+            var blockName = question.questionTag.replace(/[0-9]/g, "").toLowerCase();
+            var highestScore = -1;
+            for (var key in question.choices){
+                var choiceValue = parseInt(key);
+                if (highestScore < choiceValue) highestScore = choiceValue;
+            }
+            resolve({blockName: blockName, highestScore: highestScore});
+        });
+    })
+}
 function createResponseFromQuestion(question, choiceId) {
     var resp = {[question.questionId] : {
         [choiceId]: {
@@ -120,12 +178,14 @@ function processAllQuestions(response) {
         if (error) return console.log(error);
         response.result.elements.forEach(question => {
             var cleanQuestionText = question.QuestionText.replace(/<[^>]*>?/gm, '')
-                                                        .replace(/[\r\n]+/gm, ' ').trim();
-            var recodeChoices = {};
-            for (var key in question.Choices) {
-                recodeChoices[question.RecodeValues[key]] = question.Choices[key];
-            }
-            var item = {questionId: question.QuestionID, questionText: cleanQuestionText, questionTag: question.DataExportTag, choices: recodeChoices};
+                                                        .replace(/[\r\n]+/gm, ' ')
+                                                        .replace(/&nbsp;/gi,"").trim();
+            // var recodeChoices = {};
+            // for (var key in question.Choices) {
+            //     recodeChoices[question.RecodeValues[key]] = question.Choices[key];
+            // }
+
+            var item = {questionId: question.QuestionID, questionText: cleanQuestionText, questionTag: question.DataExportTag, choices: question.Choices, recodeValues: question.RecodeValues};
             global.qualtricsDB.insert(item);
         });
         console.log(response.result);
