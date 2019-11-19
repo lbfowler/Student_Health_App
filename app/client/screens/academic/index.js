@@ -114,6 +114,15 @@ export class SampleScreen extends Component {
                                 </View>
                             </TouchableHighlight>
                         ))}
+                        <TouchableHighlight style={{height: '8.75%', margin: 10}}
+                            onPress={() => {
+                                this.props.navigation.goBack()
+                            }}
+                        >
+                            <View style={[styles.button, {height: '100%', justifyContent: "center"},{backgroundColor: 'grey'}]}>
+                                <Text style={styles.buttonText}>Exit survey</Text>
+                            </View>
+                        </TouchableHighlight>
                     </View>
                 </View>
             );
