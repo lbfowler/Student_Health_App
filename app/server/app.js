@@ -54,3 +54,8 @@ app.post('/api/createResponse', qualtricsRouter);
 // Add HTTPS support later, ask for domain as well
 const port = 8888;
 http.createServer(app).listen(port, () => console.log(`Server listening on port ${port}!`));
+
+process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ', err);
+    console.log(err.stack);
+});
