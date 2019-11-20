@@ -5,10 +5,24 @@ import {
 } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/login/index'
+import RegisterScreen from './screens/register/index'
 import AsyncStorage from '@react-native-community/async-storage';
 import StackNav from './mainComponents/stackHeaderState'
 import SplashScreen from './screens/splash/index';
 global.AppAccessToken = null;
+
+const AuthStack = createAppContainer(createStackNavigator({
+    Login: { screen: LoginScreen },
+    Register: { screen: RegisterScreen },
+},
+    {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        },
+        initialRouteName: 'Login'
+}));
+// const ProfileContainerState = createAppContainer(ProfileNavigator);
 
 class App extends React.Component {
     constructor(props) {
@@ -95,8 +109,9 @@ class App extends React.Component {
             )
         } else if (this.state.loggedIn == false){
             return (
-                <LoginScreen
-                    onLoginPress={this.logIn.bind(this)}
+                <AuthStack
+                    screenProps={{onLoginPress: this.logIn.bind(this)}}
+                    // onLoginPress={this.logIn.bind(this)}
                 />
             )
         } else {
