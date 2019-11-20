@@ -62,7 +62,6 @@ export class RegisterScreen extends Component {
 
     render() {
         //if (!this.state.ready) return null;
-        console.log(this)
         return (
                 <View style={styles.mainContainer}>
                     <View style={{ width: '35%', height: '35%', alignContent: 'center', flexDirection: 'column', alignSelf: 'center' }}>
