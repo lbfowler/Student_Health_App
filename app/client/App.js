@@ -22,7 +22,6 @@ const AuthStack = createAppContainer(createStackNavigator({
         },
         initialRouteName: 'Login'
 }));
-// const ProfileContainerState = createAppContainer(ProfileNavigator);
 
 class App extends React.Component {
     constructor(props) {
@@ -111,7 +110,6 @@ class App extends React.Component {
             return (
                 <AuthStack
                     screenProps={{onLoginPress: this.logIn.bind(this)}}
-                    // onLoginPress={this.logIn.bind(this)}
                 />
             )
         } else {
@@ -119,11 +117,6 @@ class App extends React.Component {
                 <SplashScreen />
             )
         }
-        // return (
-        //     <Wrapper
-        //         screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this), ...this.props.screenProps }}
-        //     />
-        // );
     }
 }
 export default App;
