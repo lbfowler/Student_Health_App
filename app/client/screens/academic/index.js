@@ -11,6 +11,7 @@ import {
     Text,
     Alert,
     TouchableHighlight,
+    Dimensions,
 } from 'react-native';
 import styles from './index.style'
 import QualtricsAPI from '../../api/qualtrics.api';
@@ -36,7 +37,6 @@ export class SampleScreen extends Component {
             spir: 'spirNum',
             psyc: 'psycNum'
         } 
-        console.log(this.catMap[this.state.category])
     }
     incQNum() {
         const setNum = async () => {
@@ -79,8 +79,8 @@ export class SampleScreen extends Component {
     }
     render() {
         console.log("Academic rendered")
-        console.log(this.catMap[this.state.category.toLowerCase()])
-        console.log(this.state.category)
+        console.log(Dimensions.get('window').height)
+        console.log(Dimensions.get('screen').height)
         if (this.state.questions) {
             console.log(this.state.questions)
             let choices = [];
@@ -90,6 +90,8 @@ export class SampleScreen extends Component {
                 choices.push({key: key , value: value['Display']})
             }
             const len = choices.length;
+            let winH = Dimensions.get('screen').height;
+            winH -= (len + 1) * 10;
             const h = (70/len).toString() + '%';
             console.log(choices)
             return (

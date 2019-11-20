@@ -55,7 +55,7 @@ export class LoginScreen extends Component {
                 // .then((result) => QualtricsAPI.createResponseAsync({"QID192": 4, "QID204": 3}))
                 // .then((result) => console.log(result))
                 // .catch((error) => console.log(error));
-                if (result.success) this.props.onLoginPress();
+                if (result.success) this.props.screenProps.onLoginPress();
                 else Alert.alert('Faild To Login', result.message);
             })
             .catch((error) => Alert.alert('Faild To Login', error.message));
@@ -71,6 +71,7 @@ export class LoginScreen extends Component {
 
     render() {
         //if (!this.state.ready) return null;
+        console.log(this)
         return (
                 <View style={styles.mainContainer}>
                     <View style={{ width: '35%', height: '35%', alignContent: 'center', flexDirection: 'column', alignSelf: 'center' }}>
@@ -96,7 +97,7 @@ export class LoginScreen extends Component {
                         onPress={() => this.props.onLoginPress()}>
                         <Text style={styles.loginButtonText}>Sign In</Text>
                     </TouchableOpacity>
-                    <Text style={styles.linkText}>New to SHWB? Register here</Text>
+                    <Text onPress={() => this.props.navigation.navigate('Register')} style={styles.linkText}>New to SHWB? Register here</Text>
                 </View>
         );
     }
