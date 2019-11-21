@@ -106,7 +106,11 @@ router.get('/api/getUserInfo', function (req, res) {
             successPacket.username = user.username;
             successPacket.name = user.name;
             successPacket.email = user.email;
-            res.end(JSON.stringify(successPacket));
+            global.userDataDB.findOne({username: username}, function (error, userData) {
+                if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
+                successPacket.scores = userData.scores;
+                res.end(JSON.stringify(successPacket));
+            });
         });
     })
 });
