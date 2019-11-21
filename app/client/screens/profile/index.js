@@ -43,12 +43,12 @@ export class ProfileScreen extends Component {
     // Psychological "Psyc"
 
     componentDidMount(){
-        try{
             UserAPI.getUserInfoAsync()
-                .then((user) => this.setState({username: user.name}));        
-        }catch(error){
-            this.setState({username: 'John Doe'})
-        }
+                .then((user) => {
+                        console.log(user);
+                        this.setState({username: user.name});
+                    })
+                .catch((error) =>  this.setState({username: 'John Doe'}));
     }
     render() {
         // console.log(this)
