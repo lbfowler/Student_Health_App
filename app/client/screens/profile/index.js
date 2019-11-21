@@ -49,6 +49,7 @@ export class ProfileScreen extends Component {
                         this.setState({username: user.name});
                     })
                 .catch((error) =>  this.setState({username: 'John Doe'}));
+            
     }
     render() {
         // console.log(this)

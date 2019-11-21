@@ -46,6 +46,7 @@ export class LoginScreen extends Component {
 
         //     })
         //     .catch((error) => console.log(error));
+        
     }
     loginAsync() {
         UserAPI.loginAsync(this.state.username, this.state.password)
