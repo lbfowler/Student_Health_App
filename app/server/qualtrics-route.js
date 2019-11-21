@@ -88,7 +88,7 @@ router.post('/api/createResponse', async function (req, res) {
             global.userDataDB.findOne({username: username}, function (error, userData) {
                 if (error) return console.log(error);
                 if (userData.scores == undefined) userData.scores = initializeUserScores();
-                //userData.scores = updateUserScores(userData.scores);
+                userData.scores = updateUserScores(userData.scores);
                 for (var key in idChoicePairs) {
                     userData.answers.push({qid: key, choiceId: idChoicePairs[key], time: Date.now()});
                 }
