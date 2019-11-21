@@ -114,6 +114,35 @@ router.get('/api/getUserInfo', function (req, res) {
         });
     })
 });
+router.get('/api/resetUserScores', function (req, res) {
+    var accessToken = req.headers["x-access-token"];
+    exports.getUsernameByAccessToken(accessToken, function (errorPacket, username) {
+        if (errorPacket) return res.end(JSON.stringify(errorPacket));
+        global.userDataDB.findOne({username: username}, function (error, userData) {
+            if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
+            userData.scores = initializeUserScores();
+            global.userDataDB.update({ username: username }, userData, {}, function (error, numReplaced) {
+                if (error) return res.end(JSON.stringify(basicPacket(false, 16, "failed to read database")));
+                var successPacket = basicPacket(true, null, "Succefully reset user scores");
+                res.end(JSON.stringify(successPacket));
+            });
+            
+        });
+    })
+});
+function initializeUserScores() {
+    var scores = {};
+    scores["soc"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["phys"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["car"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["fin"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["acad"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["spir"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["psyc"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+
+  
+    return scores;
+}
 // username should between 5 to 32 characters long
 // username may only contain alphanumeric characters
 // username must start with a letter? May or may not emmm
