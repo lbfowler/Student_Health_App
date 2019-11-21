@@ -85,10 +85,10 @@ router.post('/api/createResponse', async function (req, res) {
         .then(() => {
             var successPacket =  basicPacket(true, null, "Succefully create response");
             res.end(JSON.stringify(successPacket));
-            global.userDataDB.findOne({username: username}, function (error, userData) {
+            global.userDataDB.findOne({username: username}, async function (error, userData) {
                 if (error) return console.log(error);
-                if (userData.scores == undefined) userData.scores = initializeUserScores();
-                userData.scores = updateUserScores(userData.scores);
+                if (userData.scores == undefined || userData.scores["soc"] == undefined) userData.scores = initializeUserScores();
+                userData.scores = await updateUserScores(userData.scores, idChoicePairs);
                 for (var key in idChoicePairs) {
                     userData.answers.push({qid: key, choiceId: idChoicePairs[key], time: Date.now()});
                 }
@@ -121,28 +121,33 @@ function idChoicePairsFix(idChoicePairs) {
     });
 }
 function initializeUserScores() {
-    var scores = [];
-    scores.push({"soc": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
-    scores.push({"phys": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
-    scores.push({"car": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
-    scores.push({"fin": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
-    scores.push({"acad": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
-    scores.push({"spir": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
-    scores.push({"psyc": { numResponses: 0, accumulatedScore: 0, averageScore: 0}});
+    var scores = {};
+    scores["soc"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["phys"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["car"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["fin"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["acad"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["spir"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+    scores["psyc"] = { numResponses: 0, accumulatedScore: 0, averageScore: 0};
+
+  
     return scores;
 }
-function updateUserScores(scores, idChoicePairs) {
-    for (var key in idChoicePairs) {
-        var result = getBlockNameAndHighestScore(key);
-        var choiceValue = parseInt(idChoicePairs[key]);
-        scores[result.blockName].numResponses ++;
-        scores[result.blockName].accumulatedScore += choiceValue/result.highestScore;
-    }
-    return scores;
+async function updateUserScores(scores, idChoicePairs) {
+    return new Promise(async (resolve, reject) => {
+        for (var key in idChoicePairs) {
+            var result = await getBlockNameAndHighestScore(key);
+            var choiceValue = parseInt(idChoicePairs[key]);
+            scores[result.blockName].numResponses ++;
+            scores[result.blockName].accumulatedScore += choiceValue/result.highestScore;
+            scores[result.blockName].averageScore = scores[result.blockName].accumulatedScore / scores[result.blockName].numResponses;
+        }
+        resolve(scores);
+    });
 }
 function getBlockNameAndHighestScore(qid) {
     return new Promise(function (resolve, reject) {
-        global.qualtricsDB.find({questionId: qid}, function (error, question) {
+        global.qualtricsDB.findOne({questionId: qid}, function (error, question) {
             if (error) return reject(error);
             var blockName = question.questionTag.replace(/[0-9]/g, "").toLowerCase();
             var highestScore = -1;
