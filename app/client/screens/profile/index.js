@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import {
+    Alert,
     View,
     Text,
     TouchableOpacity,
@@ -19,13 +20,13 @@ export class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            academic: '3.4 Academic',
-            career: '3.0 Career',
-            financial: '3.7 Financial',
-            psychological: '2.9 Psychological',
-            physical: '3.1 Physical',
-            social: '3.8 Social',
-            spiritual: '1.9 Spiritual',
+            academic: -1,
+            career: -1,
+            financial: -1,
+            psychological: -1,
+            physical: -1,
+            social: -1,
+            spiritual: -1,
             username: 'User Name Here',
             yourScore: '5',
             UAScore: '4',
@@ -45,11 +46,16 @@ export class ProfileScreen extends Component {
     componentDidMount(){
             UserAPI.getUserInfoAsync()
                 .then((user) => {
-                        console.log(user);
                         this.setState({username: user.name});
+                        this.setState({academic: user.scores.acad.averageScore});
+                        this.setState({career: user.scores.acad.averageScore});
+                        this.setState({financial: user.scores.acad.averageScore});
+                        this.setState({psychological: user.scores.acad.averageScore});
+                        this.setState({physical: user.scores.acad.averageScore});
+                        this.setState({social: user.scores.acad.averageScore});
+                        this.setState({spiritual: user.scores.acad.averageScore});
                     })
                 .catch((error) =>  this.setState({username: 'John Doe'}));
-            
     }
     render() {
         // console.log(this)
@@ -69,37 +75,37 @@ export class ProfileScreen extends Component {
                 <TouchableOpacity
                     style={[styles.buttonCont,{backgroundColor: this.state.colorDiagonal}]}
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Acad'})}>
-                    <Text style={styles.buttonText}>{this.state.academic}</Text>    
+                    <Text style={styles.buttonText}>{this.state.academic} Academic</Text>    
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.buttonCont,{backgroundColor: this.state.colorVertical}]}
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Car'})}>
-                    <Text style={styles.buttonText}>{this.state.career}</Text>    
+                    <Text style={styles.buttonText}>{this.state.career} Career</Text>    
                 </TouchableOpacity> 
                 <TouchableOpacity
                     style={[styles.buttonCont,{backgroundColor: this.state.colorDiagonal}]}
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Fin'})}>
-                    <Text style={styles.buttonText}>{this.state.financial}</Text>    
+                    <Text style={styles.buttonText}>{this.state.financial} Financial</Text>    
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.buttonCont,{backgroundColor: this.state.colorVertical}]}
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Psyc'})}>
-                    <Text style={styles.buttonText}>{this.state.psychological}</Text>    
+                    <Text style={styles.buttonText}>{this.state.psychological} Psychological</Text>    
                 </TouchableOpacity> 
                 <TouchableOpacity
                     style={[styles.buttonCont,{backgroundColor: this.state.colorDiagonal}]}
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Phys'})}>
-                    <Text style={styles.buttonText}>{this.state.physical}</Text>    
+                    <Text style={styles.buttonText}>{this.state.physical} Physical</Text>    
                 </TouchableOpacity> 
                 <TouchableOpacity
                     style={[styles.buttonCont,{backgroundColor: this.state.colorVertical}]}
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Soc'})}>
-                    <Text style={styles.buttonText}>{this.state.social}</Text>    
+                    <Text style={styles.buttonText}>{this.state.social} Social</Text>    
                 </TouchableOpacity> 
                 <TouchableOpacity
                     style={[styles.buttonCont,{backgroundColor: this.state.colorDiagonal}]}
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Spir'})}>
-                    <Text style={styles.buttonText}>{this.state.spiritual}</Text>    
+                    <Text style={styles.buttonText}>{this.state.spiritual} Spiritual</Text>    
                 </TouchableOpacity>
             </View>
         );
