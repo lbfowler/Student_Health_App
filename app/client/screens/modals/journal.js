@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
     StyleSheet,
     Modal,
@@ -18,9 +19,37 @@ class JournalEntry extends Component {
     setVisibility(curState) {
         this.setState({ modalVisible: curState });
     }
+
+    getDate(){
+        var month = new Date().getMonth();
+        var year = new Date().getFullYear();
+        var day = new Date().getDate();
+        var months = ["January","February","March","April","May","June","July","August","Septmeber","October","November","December"];
+        return months[month] + ' ' + day + ', ' + year;
+    }
+
     sendJournal() {
-        this.setVisibility(!this.state.modalVisible);
-        Alert.alert(this.state.journalText);
+        try{
+            if(this.state.journalText === ""){
+                Alert.alert("Please enter text to save a journal entry");
+            }else{
+                const curJournal = {
+                    date: this.getDate(),
+                    text: this.state.journalText,
+                }
+                AsyncStorage.getItem('Journal')
+                    .then((oldJournal) => {
+                        //Alert.alert(oldJournal);
+                        const check = oldJournal ? JSON.parse(oldJournal) : [];
+                        check.push(curJournal);
+                        AsyncStorage.setItem('Journal',JSON.stringify(check));     
+                    });
+                this.setState({journalText: ""});        
+                this.setVisibility(!this.state.modalVisible);
+            }                
+        }catch(error){
+            Alert.alert('Failed to save Journal');
+        }       
     }
 
     render() {
