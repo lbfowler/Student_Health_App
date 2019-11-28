@@ -22,6 +22,7 @@ export class SampleScreen extends Component {
     constructor(props) {
         super(props);
         const { navigation } = this.props;
+        this._ismounted = false;
         this.state = {
             category: navigation.getParam('category', ''),
             questions: null,
@@ -46,18 +47,19 @@ export class SampleScreen extends Component {
                     ((this.state.number + 1) % this.state.questions.length).toString()
                 );
             } catch (error) {
-                console.log(error);
+                //console.log(error);
             }
         }
         setNum();
-        this.setState({number: (this.state.number + 1) % this.state.questions.length})
+        this._ismounted && this.setState({number: (this.state.number + 1) % this.state.questions.length})
     }
     componentDidMount() {
+        this._ismounted = true;
         try {
             QualtricsAPI.getQuestionsFromBlockAsync(this.state.category)
                 .then((quest) => {
-                    this.setState({ questions: quest.questions, loading: false })
-                    console.log(quest)
+                    this._ismounted && this.setState({ questions: quest.questions, loading: false })
+                    //console.log(quest)
                 });
         } catch (error) {
             Alert.alert("Error loading questions");
@@ -66,17 +68,22 @@ export class SampleScreen extends Component {
             try {
                 const value = await AsyncStorage.getItem(this.catMap[this.state.category.toLowerCase()]);
                 if (value === null) {
-                    this.setState({number: 0});
+                    this._ismounted && this.setState({number: 0});
                 } else {
-                    console.log(value);
-                    this.setState({ number: parseInt(value, 10) })
+                    //console.log(value);
+                    this._ismounted && this.setState({ number: parseInt(value, 10) })
                 }
             } catch (error) {
-                console.log(error);
+                //console.log(error);
             }
         }
         getQNum();
     }
+
+    componentWillUnmount(){
+        this._ismounted = false;
+    }
+    
     render() {
         console.log("Academic rendered")
         console.log(Dimensions.get('window').height)

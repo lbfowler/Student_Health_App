@@ -14,6 +14,7 @@ import {
 class JournalEntry extends Component {
     constructor(props){
         super(props);
+        this._ismounted = false;
         this.state = {
             modalVisible: false,
             journalText: '',
@@ -22,11 +23,16 @@ class JournalEntry extends Component {
     }
 
     componentDidMount(){
-        this.setState({JID: this.props.JID});
+        this._ismounted = true;
+        this._ismounted && this.setState({JID: this.props.JID});
+    }
+
+    componentWillUnmount(){
+        this._ismounted = false;
     }
 
     setVisibility(curState) {
-        this.setState({ modalVisible: curState });
+        this._ismounted && this.setState({ modalVisible: curState });
     }
 
     getDate(){
@@ -46,15 +52,17 @@ class JournalEntry extends Component {
                     date: this.getDate(),
                     text: this.state.journalText,
                 }
-                AsyncStorage.getItem(this.state.JID)
-                    .then((oldJournal) => {
-                        //Alert.alert(oldJournal);
-                        const check = oldJournal ? JSON.parse(oldJournal) : [];
-                        check.unshift(curJournal);
-                        AsyncStorage.setItem(this.state.JID,JSON.stringify(check));     
-                    });
-                this.setState({journalText: ""});        
-                this.setVisibility(!this.state.modalVisible);
+                if(this._ismounted){
+                    AsyncStorage.getItem(this.state.JID)
+                        .then((oldJournal) => {
+                            //Alert.alert(oldJournal);
+                            const check = oldJournal ? JSON.parse(oldJournal) : [];
+                            check.unshift(curJournal);
+                            AsyncStorage.setItem(this.state.JID,JSON.stringify(check));     
+                        });
+                    this.setState({journalText: ""});        
+                    this.setVisibility(!this.state.modalVisible);
+                }
             }                
         }catch(error){
             Alert.alert('Failed to save Journal');
@@ -78,7 +86,7 @@ class JournalEntry extends Component {
                             multiline
                             style={styles.textBox}
                             numberOfLines={5}
-                            onChangeText={(text) => this.setState({journalText: text})}>
+                            onChangeText={(text) => this._ismounted && this.setState({journalText: text})}>
                         </TextInput>
                         
                             <TouchableOpacity style={styles.showMod} onPress={() => {this.sendJournal();}}>
