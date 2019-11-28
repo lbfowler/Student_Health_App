@@ -41,7 +41,7 @@ class JournalEntry extends Component {
                     .then((oldJournal) => {
                         //Alert.alert(oldJournal);
                         const check = oldJournal ? JSON.parse(oldJournal) : [];
-                        check.push(curJournal);
+                        check.unshift(curJournal);
                         AsyncStorage.setItem('Journal',JSON.stringify(check));     
                     });
                 this.setState({journalText: ""});        

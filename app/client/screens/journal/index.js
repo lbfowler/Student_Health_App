@@ -54,8 +54,8 @@ export class JournalScreen extends Component {
                     <JournalEntry/>
                     <ScrollView>
                         {
-                            JSON.parse(this.state.Journal).map((item) => (
-                                <View key={item.text} style={styles.eachJournal}>
+                            JSON.parse(this.state.Journal).map((item,index) => (
+                                <View key={index} style={styles.eachJournal}>
                                     <Text style={styles.dateText}>{item.date}</Text>
                                     <Text style={styles.textText}>{item.text}</Text>
                                 </View>

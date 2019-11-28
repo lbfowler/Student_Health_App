@@ -7,8 +7,10 @@
 
 import React, { Component } from 'react';
 import {
+    Dimensions,
     Alert,
     View,
+    ScrollView,
     Text,
     TouchableOpacity,
 } from 'react-native';
@@ -28,7 +30,7 @@ export class ProfileScreen extends Component {
             social: -1,
             spiritual: -1,
             username: 'User Name Here',
-            yourScore: '5',
+            yourScore: -1,
             UAScore: '4',
             colorDiagonal: "#8fd2c7",
             colorVertical: "#b5d334",            
@@ -46,21 +48,39 @@ export class ProfileScreen extends Component {
     componentDidMount(){
             UserAPI.getUserInfoAsync()
                 .then((user) => {
+                        const acad = user.scores.acad.averageScore;
+                        const car = user.scores.car.averageScore;
+                        const fin = user.scores.fin.averageScore;
+                        const psy = user.scores.psyc.averageScore;
+                        const phy = user.scores.phys.averageScore;
+                        const soc = user.scores.soc.averageScore;
+                        const spir = user.scores.spir.averageScore;
+                        const scor = acad + car + fin + psy + phy + soc + spir;
                         this.setState({username: user.name});
-                        this.setState({academic: user.scores.acad.averageScore});
-                        this.setState({career: user.scores.acad.averageScore});
-                        this.setState({financial: user.scores.acad.averageScore});
-                        this.setState({psychological: user.scores.acad.averageScore});
-                        this.setState({physical: user.scores.acad.averageScore});
-                        this.setState({social: user.scores.acad.averageScore});
-                        this.setState({spiritual: user.scores.acad.averageScore});
+                        this.setState({academic: (acad * 4).toFixed(1)});
+                        this.setState({career: (car * 4).toFixed(1)});
+                        this.setState({financial: (fin * 4).toFixed(1)});
+                        this.setState({psychological: (psy * 4).toFixed(1)});
+                        this.setState({physical: (phy * 4).toFixed(1)});
+                        this.setState({social: (soc * 4).toFixed(1)});
+                        this.setState({spiritual: (spir * 4).toFixed(1)});
+                        this.setState({yourScore: ((scor * 4) / 7 ).toFixed(1)});
                     })
                 .catch((error) =>  this.setState({username: 'John Doe'}));
     }
     render() {
         // console.log(this)
         // console.log(this.props.navigation.dangerouslyGetParent())
+    if(this.state.academic < 0){
+            return(
+                <View>
+                    <Text>Loading data</Text>
+                </View>
+            )
+    }else{
         return (
+            <ScrollView
+                contentContainerStyle={{flexGrow:1}}>
             <View style={styles.mainContainer}>
                 <Text style={styles.name}>{this.state.username}</Text>
                 <View style={styles.scores}>
@@ -107,8 +127,10 @@ export class ProfileScreen extends Component {
                     onPress={() => this.props.navigation.navigate('Academic',{category: 'Spir'})}>
                     <Text style={styles.buttonText}>{this.state.spiritual} Spiritual</Text>    
                 </TouchableOpacity>
-            </View>
+            </View>    
+            </ScrollView>
         );
+        }
     }
 };
 export default ProfileScreen;
