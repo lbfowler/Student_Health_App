@@ -65,50 +65,67 @@ class JournalEntry extends Component {
                     }}>
                     <View style={styles.textContainer}>
                         <TextInput
-                            maxLength={160}
+                            maxLength={196}
                             multiline
                             style={styles.textBox}
                             numberOfLines={5}
-                            onChangeText={(text) => this.setState({ journalText: text })}>
+                            onChangeText={(text) => this.setState({journalText: text})}>
                         </TextInput>
-                        <TouchableOpacity style={styles.showMod} onPress={() => { this.sendJournal(); }}>
-                            <Text style={{ fontSize: 16 }}>Enter Journal</Text>
-                        </TouchableOpacity>
+                        
+                            <TouchableOpacity style={styles.showMod} onPress={() => {this.sendJournal();}}>
+                                <Text style={{fontSize: 16,color: 'white'}}>Enter Journal</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.showMod} onPress={() => {this.setVisibility(false);}}>
+                                <Text style={{fontSize: 16,color: 'white'}}>Exit</Text>
+                            </TouchableOpacity>
+                            
                     </View>
                 </Modal>
-                <TouchableOpacity style={styles.showMod} onPress={() => { this.setVisibility(true) }}>
-                    <Text style={{ fontSize: 16 }}>New Journal Entry</Text>
-                </TouchableOpacity>
+                <View style={styles.button}> 
+                    <TouchableOpacity style={styles.showMod} onPress={() => {this.setVisibility(true)}}>
+                        <Text style={{fontSize: 16,color: 'white' }}>New Journal Entry</Text>
+                    </TouchableOpacity>
+                </View>    
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
     textBox: {
+        alignSelf: 'center',
         width: '85%',
         borderWidth: 1,
         borderColor: 'black'
     },
     textContainer: {
+        justifyContent: 'space-around',
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 10,
-        alignItems: 'center',
         alignSelf: 'center',
         flexDirection: 'column',
         backgroundColor: 'white',
-        height: '40%',
+        height: '60%',
         width: '75%',
     },
     showMod: {
+        padding: '2%',
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '50%',
         borderRadius: 10,
         alignSelf: 'center',
-        backgroundColor: 'grey',
+        backgroundColor: "#8fd2c7",
     },
     modalView: {
     },
+    buttons: {
+        flexDirection: 'column',
+        alignContent: 'space-around',
+    },
+    button: {
+        paddingTop: '3.5%',
+        paddingBottom: '3.5%'
+    }
 });
 export default JournalEntry;

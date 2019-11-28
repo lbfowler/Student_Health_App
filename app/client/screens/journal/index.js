@@ -52,7 +52,8 @@ export class JournalScreen extends Component {
             return (
                 <View style={styles.mainContainer}>
                     <JournalEntry/>
-                    <ScrollView>
+                    <ScrollView
+                        contentContainerStyle={{flexGrow: 1}}>
                         {
                             JSON.parse(this.state.Journal).map((item,index) => (
                                 <View key={index} style={styles.eachJournal}>
