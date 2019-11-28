@@ -13,6 +13,7 @@ import {
     Text,
     Alert,
 } from 'react-native';
+import UserAPI from '../../api/user.api';
 import styles from './index.style'
 import JournalEntry from '../modals/journal';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,38 +21,68 @@ import AsyncStorage from '@react-native-community/async-storage';
 export class JournalScreen extends Component {
     constructor(props) {
         super(props);
+        this._ismounted = false;
+        this._JIDSet = false;
         this.state = {
             Journal: null,
+            JournalID: null,
         };
     }
 
     componentDidMount(){
-        this.getJournal();
+        this._ismounted = true;
+        this._ismounted && this.getJournalID();
+        this._JIDSet && this.getJournal();
+    }
+
+    componentWillUnmount(){
+        this._ismounted = false;
+        this._JIDSet = false;
     }
 
     getJournal(){
         try{
-            AsyncStorage.getItem('Journal')
+            AsyncStorage.getItem(this.state.JournalID)
                 .then((journal) => {
-                    this.setState({Journal: journal});
+                    this._ismounted && this.setState({Journal: journal});
                 });
+        }catch(error){
+            Alert.alert(error);
+        }
+    }
+
+    getJournalID(){
+        try{
+            UserAPI.getUserInfoAsync()
+            .then((user) => {
+                const name = user.name;
+                this._ismounted && this.setState({JournalID: 'Journal' + name});
+                this._JIDSet = true;
+            });
         }catch(error){
             Alert.alert(error);
         }
     }
     
     render() {
+        if(this.state.JournalID === null){
+            return(
+                <View>
+                    <Text>Loading data</Text>
+                </View>
+            )
+        }
         {this.getJournal()}
         if(this.state.Journal === null){
             return (
                 <View style={styles.mainContainer}>
-                    <JournalEntry/>  
+                    <JournalEntry JID={this.state.JournalID}/>  
                 </View>
             )
         }else{
             return (
                 <View style={styles.mainContainer}>
-                    <JournalEntry/>
+                    <JournalEntry JID={this.state.JournalID}/>
                     <ScrollView
                         contentContainerStyle={{flexGrow: 1}}>
                         {

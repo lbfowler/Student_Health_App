@@ -7,7 +7,6 @@
 
 import React, { Component } from 'react';
 import {
-    Dimensions,
     Alert,
     View,
     ScrollView,
@@ -46,28 +45,29 @@ export class ProfileScreen extends Component {
     // Psychological "Psyc"
 
     componentDidMount(){
-            UserAPI.getUserInfoAsync()
-                .then((user) => {
-                        const acad = user.scores.acad.averageScore;
-                        const car = user.scores.car.averageScore;
-                        const fin = user.scores.fin.averageScore;
-                        const psy = user.scores.psyc.averageScore;
-                        const phy = user.scores.phys.averageScore;
-                        const soc = user.scores.soc.averageScore;
-                        const spir = user.scores.spir.averageScore;
-                        const scor = acad + car + fin + psy + phy + soc + spir;
-                        this.setState({username: user.name});
-                        this.setState({academic: (acad * 4).toFixed(1)});
-                        this.setState({career: (car * 4).toFixed(1)});
-                        this.setState({financial: (fin * 4).toFixed(1)});
-                        this.setState({psychological: (psy * 4).toFixed(1)});
-                        this.setState({physical: (phy * 4).toFixed(1)});
-                        this.setState({social: (soc * 4).toFixed(1)});
-                        this.setState({spiritual: (spir * 4).toFixed(1)});
-                        this.setState({yourScore: ((scor * 4) / 7 ).toFixed(1)});
-                    })
-                .catch((error) =>  this.setState({username: 'John Doe'}));
+        UserAPI.getUserInfoAsync()
+            .then((user) => {
+                const acad = user.scores.acad.averageScore;
+                const car = user.scores.car.averageScore;
+                const fin = user.scores.fin.averageScore;
+                const psy = user.scores.psyc.averageScore;
+                const phy = user.scores.phys.averageScore;
+                const soc = user.scores.soc.averageScore;
+                const spir = user.scores.spir.averageScore;
+                const scor = acad + car + fin + psy + phy + soc + spir;
+                this.setState({username: user.name});
+                this.setState({academic: (acad * 4).toFixed(1)});
+                this.setState({career: (car * 4).toFixed(1)});
+                this.setState({financial: (fin * 4).toFixed(1)});
+                this.setState({psychological: (psy * 4).toFixed(1)});
+                this.setState({physical: (phy * 4).toFixed(1)});
+                this.setState({social: (soc * 4).toFixed(1)});
+                this.setState({spiritual: (spir * 4).toFixed(1)});
+                this.setState({yourScore: ((scor * 4) / 7 ).toFixed(1)});
+            })
+        .catch((error) =>  this.setState({username: 'John Doe'}));
     }
+
     render() {
         // console.log(this)
         // console.log(this.props.navigation.dangerouslyGetParent())

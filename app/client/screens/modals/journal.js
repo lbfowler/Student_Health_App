@@ -12,10 +12,19 @@ import {
 } from 'react-native';
 
 class JournalEntry extends Component {
-    state = {
-        modalVisible: false,
-        journalText: '',
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            modalVisible: false,
+            journalText: '',
+            JID: '',
+        };
+    }
+
+    componentDidMount(){
+        this.setState({JID: this.props.JID});
+    }
+
     setVisibility(curState) {
         this.setState({ modalVisible: curState });
     }
@@ -37,12 +46,12 @@ class JournalEntry extends Component {
                     date: this.getDate(),
                     text: this.state.journalText,
                 }
-                AsyncStorage.getItem('Journal')
+                AsyncStorage.getItem(this.state.JID)
                     .then((oldJournal) => {
                         //Alert.alert(oldJournal);
                         const check = oldJournal ? JSON.parse(oldJournal) : [];
                         check.unshift(curJournal);
-                        AsyncStorage.setItem('Journal',JSON.stringify(check));     
+                        AsyncStorage.setItem(this.state.JID,JSON.stringify(check));     
                     });
                 this.setState({journalText: ""});        
                 this.setVisibility(!this.state.modalVisible);
