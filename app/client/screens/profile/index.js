@@ -44,9 +44,7 @@ export class ProfileScreen extends Component {
     // Academic "Acad"
     // Spiritual "Spir"
     // Psychological "Psyc"
-
-    componentDidMount(){
-        this._ismounted = true;
+    onFocusFunction = () => {
         UserAPI.getUserInfoAsync()
             .then((user) => {
                 if(this._ismounted){
@@ -72,11 +70,19 @@ export class ProfileScreen extends Component {
         .catch((error) =>  this.setState({username: 'John Doe'}));
     }
 
+    async componentDidMount(){
+        this._ismounted = true;
+        this.focusListener = this.props.navigation.addListener('didFocus', () => { 
+            this.onFocusFunction()
+        })
+    }
+
     componentWillUnmount(){
+        this.focusListener.remove();
         this._ismounted = false;
     }
 
-    render() {
+    render() {   
         // console.log(this)
         // console.log(this.props.navigation.dangerouslyGetParent())
     if(this.state.academic < 0){
