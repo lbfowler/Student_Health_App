@@ -47,18 +47,6 @@ export default class CustomSidebarMenu extends Component {
                 key: 1
             },
             {
-                navOptionThumb: 'pencil',
-                navOptionName: 'Journal',
-                screenToNavigate: 'Journal',
-                key: 2
-            },
-            {
-                navOptionThumb: 'user',
-                navOptionName: 'Profile',
-                screenToNavigate: 'ProfileContainer',
-                key: 3
-            },
-            {
                 navOptionThumb: 'gears',
                 navOptionName: 'Settings',
                 screenToNavigate: 'Settings',
