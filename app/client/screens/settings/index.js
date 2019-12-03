@@ -108,12 +108,6 @@ export class SettingsScreen extends Component {
                 icon: 'trash-o',
                 onpress: f3,
             },
-            {
-                id: '3',
-                title: 'Toggle Dark Mode',
-                icon: 'adjust',
-                onpress: f1,
-            },
         ];
     }
     updateParentState(data) {
@@ -144,27 +138,7 @@ export class SettingsScreen extends Component {
                                     </View>
                                 </TouchableHighlight>
                             ))}
-                            <View style={{ flexDirection: 'column', alignItems: 'baseline', width: '100%', height: '100%' }}>
-                                <View style={{ height: 80, width: '100%', marginBottom: "4%", flexDirection: 'row', justifyContent: 'center', marginTop: '5%', alignSelf: 'flex-start' }}>
-                                    <Slider
-                                        {...this.props}
-                                        style={{ width: '75%', height: 40, alignSelf: 'center' }}
-                                        minimumValue={0}
-                                        maximumValue={359}
-                                        minimumTrackTintColor="rgba(160,160,160,20)"
-                                        maximumTrackTintColor="#000000"
-                                        onValueChange={value => this.updateColor(value)}
-                                        thumbTintColor={this.state.rgb}
-                                    />
-                                </View>
-                                <View style={styles.circleContainer}>
-                                    {range.map((item) => (
-                                        <TouchableHighlight onPress={() => { alert(this.state.rgb) }} style={styles.circle} key={item}>
-                                            <Image style={styles.realCircle} backgroundColor={HSLToRGB((this.state.color + item) % 360)} />
-                                        </TouchableHighlight>
-                                    ))}
-                                </View>
-                            </View>
+                            
                         </View>
                     </ScrollView>
                 </View>
