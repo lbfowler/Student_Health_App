@@ -43,9 +43,18 @@ export class ResourceScreen extends Component {
 
     componentDidMount(){
         this._ismounted = true;
+        const didBlurSubscription = this.props.navigation.addListener(
+            'willBlur',
+            payload => {
+                this._ismounted && this.setState({
+                    url: 'https://sa.ua.edu/programs/student-health-and-wellbeing/the-alabama-model/' + '?t=' + Date.now()
+                })
+            }
+        );
     }
 
     componentWillUnmount(){
+        didBlurSubscription.remove();
         this._ismounted = false;
     }
 
@@ -66,17 +75,28 @@ export class ResourceScreen extends Component {
                 <View style={styles.web}>
                     <WebView
                         source={{uri: this.state.url}}
-                        ref={this.state.web_view}    
+                        ref={this.state.web_view}
+                        onShouldStartLoadWithRequest={this.handleRequest.bind(this)}   
                     />
                 </View>    
             </View>
         );
+    }
+
+    handleRequest = request =>{
+        /*if(request.url.endsWith('.ua.edu/')){
+            return true;
+        }*/
+        if(request.url.indexOf('.ua.edu/') !== -1){
+            return true;
+        }
     }
 };
 
 const styles = StyleSheet.create({
     navBar:{
         flex:1,
+        alignItems:'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         backgroundColor: 'transparent',
