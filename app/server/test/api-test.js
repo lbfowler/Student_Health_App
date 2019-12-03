@@ -23,11 +23,13 @@ it('Register Test', function (done) {
 })
 
 it('Unauthorized Test', function (done) {
-    request('http://localhost:8888/api/getAllQuestions', {method: 'GET'}, function (error, response, body) {
-        expect(body).to.not.equal(undefined);
-        var jsonObj = JSON.parse(body);
-        expect(jsonObj.success).to.not.equal(undefined);
-        expect(jsonObj.success).to.equal(false);
-        done();
-    })
+    request('http://localhost:8888/api/getAllQuestions', {method: 'GET'}, 
+        function (error, response, body) {
+            expect(body).to.not.equal(undefined);
+            var jsonObj = JSON.parse(body);
+            expect(jsonObj.success).to.not.equal(undefined);
+            expect(jsonObj.success).to.equal(false);
+            done();
+        }
+    )
 })

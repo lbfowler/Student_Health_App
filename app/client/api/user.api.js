@@ -55,6 +55,13 @@ const UserAPI = {
             .catch((error) => reject(error));
         });
     },
+    resetUserScoresAsync(){
+        return new Promise (function (resolve, reject) {
+            Request.createPostRequest('/api/resetUserScores')
+            .then((response) => resolve(response))
+            .catch((error) => reject(error));
+        });
+    },
     getAccessToken() {
         return new Promise(function (resolve, reject) {
             AsyncStorage.getItem('AppAccessToken')
