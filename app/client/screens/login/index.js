@@ -29,20 +29,17 @@ export class LoginScreen extends Component {
         
         this.setState({ username: 'hfang' });
         this.setState({ password: '123456' });
-        // UserAPI.getAccessToken()
-        //     .then((accessToken) => {
-        //         // QualtricsAPI.getAllQuestionsAsync()
-        //         // .then((questions) => console.log(questions));
-        //         // if (accessToken) {
-        //         //     UserAPI.setAccessToken("");
-        //         //     this.props.navigation.navigate('Sample');
-        //         // }
-        //         // else {
-        //         //     this.setState({ ready: true });
-        //         // }
+        UserAPI.getAccessToken()
+            .then((accessToken) => {
+                if (accessToken) {
+                    this.props.screenProps.onLoginPress();
+                }
+                else {
+                    this.setState({ ready: true });
+                }
 
-        //     })
-        //     .catch((error) => console.log(error));
+            })
+            .catch((error) => this.setState({ ready: true }));
         
     }
     loginAsync() {
@@ -64,7 +61,7 @@ export class LoginScreen extends Component {
     }
 
     render() {
-        //if (!this.state.ready) return null;
+        if (!this.state.ready) return null;
         return (
                 <View style={styles.mainContainer}>
                     <View style={{ width: '35%', height: '35%', alignContent: 'center', flexDirection: 'column', alignSelf: 'center' }}>
