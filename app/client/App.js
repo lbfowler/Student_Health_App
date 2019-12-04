@@ -135,11 +135,6 @@ class App extends Component {
                 );
             }
         }
-        // return (
-        //     <Wrapper
-        //         screenProps={{ darkMode: this.state.darkMode, updateDarkMode: this.updateDarkMode.bind(this), ...this.props.screenProps }}
-        //     />
-        // );
     }
 }
 export default App;
