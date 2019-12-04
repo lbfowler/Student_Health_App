@@ -27,8 +27,8 @@ export class LoginScreen extends Component {
     componentDidMount() {
         //this.setState({ ready: true });
         
-        this.setState({ username: 'hfang' });
-        this.setState({ password: '123456' });
+        this.setState({ username: '' });
+        this.setState({ password: '' });
         UserAPI.getAccessToken()
             .then((accessToken) => {
                 if (accessToken) {
@@ -82,11 +82,7 @@ export class LoginScreen extends Component {
                         onPress={() => this.loginAsync()}>
                         <Text style={styles.loginButtonText}>Sign In</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.buttonContainer, styles.demoButton]}
-                        onPress={() => this.props.screenProps.onLoginPress()}>
-                        <Text style={styles.loginButtonText}>Sign In</Text>
-                    </TouchableOpacity>
+                    
                     <Text onPress={() => this.props.navigation.navigate('Register')} hf  style={styles.linkText}>New to SHWB? Register here</Text>
                 </View>
         );

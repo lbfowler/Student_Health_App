@@ -23,6 +23,10 @@ export class SampleScreen extends Component {
         super(props);
         const { navigation } = this.props;
         this._ismounted = false;
+        if (navigation.getParam('category', 'nil') == 'nil') {
+            navigation.setParams({category: 'spir'});
+            console.log(navigation.getParam('category', 'stillNil'));
+        }
         this.state = {
             category: navigation.getParam('category', 'spir'),
             questions: null,
@@ -101,6 +105,7 @@ export class SampleScreen extends Component {
 
     render() {
         console.log("Academic rendered")
+        console.log(this.props.navigation.getParam('category', 'nil'))
         if (this.state.questions) {
             // console.log(this.state.questions)
             let choices = [];

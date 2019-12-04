@@ -30,8 +30,8 @@ export class RegisterScreen extends Component {
     componentDidMount() {
         //this.setState({ ready: true });
         
-        this.setState({ username: 'hfang' });
-        this.setState({ password: '123456' });
+        this.setState({ username: '' });
+        this.setState({ password: '' });
         // UserAPI.getAccessToken()
         //     .then((accessToken) => {
         //         // QualtricsAPI.getAllQuestionsAsync()
@@ -92,11 +92,7 @@ export class RegisterScreen extends Component {
                         onPress={() => this.registerAsync()}>
                         <Text style={styles.loginButtonText}>Register</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.buttonContainer, styles.demoButton]}
-                        onPress={() => this.props.screenProps.onLoginPress()}>
-                        <Text style={styles.loginButtonText}>Sign In</Text>
-                    </TouchableOpacity>
+                    
                 </View>
         );
     }
