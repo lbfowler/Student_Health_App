@@ -40,18 +40,14 @@ export class SampleScreen extends Component {
         }
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.navigation.state.params['category'] !== prevState.category) {
-            console.log("GDSFP: Category change from " + prevState.category + " to " + nextProps.navigation.state.params['category'])
-            // alert("Category change from " + prevState.category + " to " + nextProps.navigation.state.params['category']);
-            return { category: nextProps.navigation.state.params['category'], questions: null }
+        if (nextProps.navigation.getParam('category', '') !== prevState.category) {
+            return { category: nextProps.navigation.getParam('category', 'spir'), questions: null }
         }
         return null;
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevState.category !== this.state.category) {
-            console.log("CDU: Category change from " + prevState.category + " to " + this.state.category)
             this.componentDidMount()
-            // alert("CDU: Category change from " + prevState.category + " to " + this.state.category);
         }
     }
     incQNum() {
