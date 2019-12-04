@@ -24,7 +24,7 @@ export class SampleScreen extends Component {
         const { navigation } = this.props;
         this._ismounted = false;
         this.state = {
-            category: navigation.getParam('category', ''),
+            category: navigation.getParam('category', 'spir'),
             questions: null,
             loading: true,
             number: 0,
@@ -37,13 +37,28 @@ export class SampleScreen extends Component {
             acad: 'acadNum',
             spir: 'spirNum',
             psyc: 'psycNum'
-        } 
+        }
+    }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.navigation.state.params['category'] !== prevState.category) {
+            console.log("GDSFP: Category change from " + prevState.category + " to " + nextProps.navigation.state.params['category'])
+            // alert("Category change from " + prevState.category + " to " + nextProps.navigation.state.params['category']);
+            return { category: nextProps.navigation.state.params['category'], questions: null }
+        }
+        return null;
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.category !== this.state.category) {
+            console.log("CDU: Category change from " + prevState.category + " to " + this.state.category)
+            this.componentDidMount()
+            // alert("CDU: Category change from " + prevState.category + " to " + this.state.category);
+        }
     }
     incQNum() {
         const setNum = async () => {
             try {
                 await AsyncStorage.setItem(
-                    this.catMap[this.state.category.toLowerCase()], 
+                    this.catMap[this.state.category.toLowerCase()],
                     ((this.state.number + 1) % this.state.questions.length).toString()
                 );
             } catch (error) {
@@ -51,9 +66,13 @@ export class SampleScreen extends Component {
             }
         }
         setNum();
-        this._ismounted && this.setState({number: (this.state.number + 1) % this.state.questions.length})
+        this._ismounted && this.setState({ number: (this.state.number + 1) % this.state.questions.length })
+        if (this.state.number == this.state.questions.length - 1) {
+            this.props.navigation.goBack();
+        }
     }
     componentDidMount() {
+        console.log("componentDidMount() called with category: " + this.state.category)
         this._ismounted = true;
         try {
             QualtricsAPI.getQuestionsFromBlockAsync(this.state.category)
@@ -68,7 +87,7 @@ export class SampleScreen extends Component {
             try {
                 const value = await AsyncStorage.getItem(this.catMap[this.state.category.toLowerCase()]);
                 if (value === null) {
-                    this._ismounted && this.setState({number: 0});
+                    this._ismounted && this.setState({ number: 0 });
                 } else {
                     //console.log(value);
                     this._ismounted && this.setState({ number: parseInt(value, 10) })
@@ -80,58 +99,85 @@ export class SampleScreen extends Component {
         getQNum();
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this._ismounted = false;
     }
-    
+
     render() {
         console.log("Academic rendered")
-        console.log(Dimensions.get('window').height)
-        console.log(Dimensions.get('screen').height)
         if (this.state.questions) {
-            console.log(this.state.questions)
+            // console.log(this.state.questions)
             let choices = [];
             let qNum = this.state.number;
-            let qID = this.state.questions[qNum].questionId;
-            for (let [key, value] of Object.entries(this.state.questions[qNum].choices)){
-                choices.push({key: key , value: value['Display']})
+            let qID = 0;
+            try {
+                qID = this.state.questions[qNum].questionId;
+            } catch (error) {
+                console.log("~~~~~academic index.js line 111 error~~~~~~~~")
+                console.log(error)
             }
-            const len = choices.length;
-            let winH = Dimensions.get('screen').height;
-            winH -= (len + 1) * 10;
-            const h = (70/len).toString() + '%';
-            console.log(choices)
+            try {
+                for (let [key, value] of Object.entries(this.state.questions[qNum].choices)) {
+                    choices.push({ key: key, value: value['Display'] })
+                }
+            } catch (error) {
+                console.log("~~~~~academic index.js line 117 error~~~~~~~~")
+                console.log(error)
+            }
+            // const len = choices.length;
+            // let winH = Dimensions.get('screen').height;
+            // winH -= (len + 1) * 10;
+            // const h = (70 / len).toString() + '%';
+            // console.log(choices)
             return (
                 <View style={styles.mainContainer}>
                     {/* <Text>Size: {this.state.questions.length}</Text> */}
                     <Text style={styles.loginButtonText}>{this.state.questions[qNum].questionText}</Text>
-                    <View style={{flex: 1, justifyContent: "flex-start"}}>
+                    <View style={{ flex: 1, justifyContent: "flex-start" }}>
                         {choices.map((choice) => (
-                            <TouchableHighlight style={{height: '8.75%', margin: 10}} 
-                                key={choice.key} 
+                            <TouchableHighlight style={{ height: '8.75%', margin: '1%' }}
+                                key={choice.key}
                                 onPress={() => {
                                     console.log(qID);
-                                    console.log({[qID]: parseInt(choice.key, 10)});
-                                    QualtricsAPI.createResponseAsync({[qID]: parseInt(choice.key, 10)});
+                                    console.log({ [qID]: parseInt(choice.key, 10) });
+                                    QualtricsAPI.createResponseAsync({ [qID]: parseInt(choice.key, 10) });
                                     this.incQNum();
                                     // this.props.navigation.goBack(null);
-                                }} 
+                                }}
                                 underlayColor="white"
                             >
-                                <View style={[styles.button, {height: '100%', justifyContent: "center"}]}>
+                                <View style={[styles.button, { height: '100%', justifyContent: "center" }]}>
                                     <Text style={styles.buttonText}>{choice.value}</Text>
                                 </View>
                             </TouchableHighlight>
                         ))}
-                        <TouchableHighlight style={{height: '8.75%', margin: 10}}
+                        <TouchableHighlight style={{ height: '8.75%', margin: '1%' }}
                             onPress={() => {
                                 this.props.navigation.goBack()
                             }}
                         >
-                            <View style={[styles.button, {height: '100%', justifyContent: "center"},{backgroundColor: 'grey'}]}>
+                            <View style={[styles.button, { height: '100%', justifyContent: "center" }, { backgroundColor: 'grey' }]}>
                                 <Text style={styles.buttonText}>Exit survey</Text>
                             </View>
                         </TouchableHighlight>
+                    </View>
+                    <View style={{
+                        height: 4,
+                        width: '100%',
+                        backgroundColor: 'white',
+                        // borderColor: '#000',
+                        // borderWidth: 2,
+                        // borderRadius: 5
+                    }} >
+                        <View style={{
+                            position: 'absolute',
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            backgroundColor: "#9E1B32", 
+                            width: (100 * (this.state.number + 1) / this.state.questions.length).toString() + '%'
+                        }} />
                     </View>
                 </View>
             );
