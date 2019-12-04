@@ -97,6 +97,7 @@ export default class CustomSidebarMenu extends Component {
                                     this.props.navigation.navigate("Home");
                                 }
                                 else if (item.navOptionName == 'Log Out') {
+                                    UserAPI.setAccessToken("");
                                     this.props.screenProps.onLogOutPress()
                                 }
                                 else {

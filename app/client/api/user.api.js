@@ -78,7 +78,7 @@ const UserAPI = {
     }
     ,  setAccessToken(accessToken) {
         return new Promise(function (resolve, reject) {
-            if (!accessToken) return reject(Request.basicPacket(false, 9, 'Token is undefined'));
+            //if (!accessToken) return reject(Request.basicPacket(false, 9, 'Token is undefined'));
             AsyncStorage.setItem('AppAccessToken', accessToken)
                 .then(() =>{
                     global.AppAccessToken = accessToken;
