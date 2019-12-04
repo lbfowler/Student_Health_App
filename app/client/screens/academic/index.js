@@ -43,7 +43,7 @@ export class SampleScreen extends Component {
         if (nextProps.navigation.getParam('category', '') !== prevState.category) {
             console.log("GDSFP: Category change from " + prevState.category + " to " + nextProps.navigation.state.params['category'])
             // alert("Category change from " + prevState.category + " to " + nextProps.navigation.state.params['category']);
-            return { category: nextProps.navigation.state.params['category'], questions: null }
+            return { category: nextProps.navigation.getParam('category', 'spir'), questions: null }
         }
         return null;
     }
